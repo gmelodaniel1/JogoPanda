@@ -6,23 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        lana: {
-          dark: '#0f172a',
-          board: '#1e293b',
-          accent: '#ec4899', // Amor Doce pink
-          gold: '#eab308',
-          teal: '#0ea5e9',
-          ufpe: '#1d4ed8',
-          glass: 'rgba(15, 23, 42, 0.88)',
-        },
-        lom: {
-          negative: '#3b82f6', // icy blue
-          neutral: '#94a3b8',  // gray/slate
-          positive: '#ec4899', // vibrant pink
-          love: '#ef4444',     // red heart
-        }
-      },
       keyframes: {
         'slide-up-fade': {
           '0%': { opacity: '0', transform: 'translateY(40px) scale(0.96)' },

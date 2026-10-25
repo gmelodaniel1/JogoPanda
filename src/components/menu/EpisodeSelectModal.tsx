@@ -38,12 +38,12 @@ export const EpisodeSelectModal: React.FC<EpisodeSelectModalProps> = ({
             Escolha seu Episódio
           </h2>
           <p className="text-sm text-slate-400 mt-1">
-            Selecione qualquer um dos três episódios disponíveis para jogar imediatamente
+            Selecione o capítulo da história para jogar
           </p>
         </div>
 
         {/* Lista de Episódios */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 overflow-y-auto pr-1 pb-2">
+        <div className={`grid ${EPISODES_METADATA.length === 1 ? 'grid-cols-1 max-w-md mx-auto w-full' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'} gap-4 overflow-y-auto pr-1 pb-2`}>
           {EPISODES_METADATA.map((ep: EpisodeMetadata) => {
             const isCurrent = ep.number === currentEpisodeNum;
             const isCompleted = completedEpisodes.includes(ep.number);

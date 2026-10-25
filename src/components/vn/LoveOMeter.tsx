@@ -10,7 +10,7 @@ interface LoveOMeterProps {
 }
 
 /**
- * Medidor de afinidade exibido no HUD (no Lana Doce: "Love'o'Meter").
+ * Medidor de afinidade / status exibido no HUD.
  * O nome exibido é configurável em GAME_CONFIG.affinity.
  */
 export const LoveOMeter: React.FC<LoveOMeterProps> = ({
