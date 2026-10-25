@@ -6,9 +6,15 @@ import { CharacterAvatarSvg } from '../placeholders/CharacterAvatarSvg';
 
 interface CharacterSpriteProps {
   config?: CharacterSpriteConfig;
+  isActiveSpeaker?: boolean;
+  isDimmed?: boolean;
 }
 
-export const CharacterSprite: React.FC<CharacterSpriteProps> = ({ config }) => {
+export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
+  config,
+  isActiveSpeaker = false,
+  isDimmed = false,
+}) => {
   const [imageError, setImageError] = useState(() => {
     if (!config) return false;
     const candidates = getSpriteCandidates(config.characterId, config.expression);
@@ -103,10 +109,16 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({ config }) => {
     config.scale ? `scale(${config.scale})` : '',
   ].filter(Boolean);
 
+  const focusClasses = isDimmed
+    ? 'brightness-[0.70] contrast-[0.92] scale-[0.96] opacity-90 z-10'
+    : isActiveSpeaker
+    ? 'brightness-100 contrast-100 scale-100 opacity-100 z-20 drop-shadow-[0_10px_25px_rgba(236,72,153,0.2)]'
+    : 'brightness-100 contrast-100 scale-100 opacity-100 z-10';
+
   return (
     <div
       key={config.characterId}
-      className={`absolute bottom-0 z-10 pointer-events-none flex items-end h-[70%] sm:h-[80%] md:h-[82%] max-h-[780px] transition-all duration-500 ease-out ${positionClasses}`}
+      className={`absolute bottom-0 pointer-events-none flex items-end h-[70%] sm:h-[80%] md:h-[82%] max-h-[780px] transition-all duration-300 ease-out ${focusClasses} ${positionClasses}`}
     >
       {/* Camada de animação de entrada ou reação (shake, bob) */}
       <div

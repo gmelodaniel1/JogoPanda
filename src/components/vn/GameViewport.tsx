@@ -93,6 +93,40 @@ export const GameViewport: React.FC<GameViewportProps> = ({
     }
   };
 
+  const speakerId = currentNode.speaker;
+  const primaryConfig = currentNode.sprite;
+  const secondaryConfig = currentNode.secondarySprite;
+  const hasMultipleCharacters = Boolean(primaryConfig && secondaryConfig);
+
+  // Se ambos estiverem em cena sem posições explícitas, distribui inteligentemente (esquerda / direita)
+  const resolvedPrimaryConfig = primaryConfig
+    ? {
+        ...primaryConfig,
+        position:
+          primaryConfig.position ||
+          (hasMultipleCharacters && !secondaryConfig?.position ? 'left' : 'center'),
+      }
+    : undefined;
+
+  const resolvedSecondaryConfig = secondaryConfig
+    ? {
+        ...secondaryConfig,
+        position:
+          secondaryConfig.position ||
+          (hasMultipleCharacters && !primaryConfig?.position ? 'right' : 'right'),
+      }
+    : undefined;
+
+  const isPrimaryActive = Boolean(
+    resolvedPrimaryConfig && speakerId === resolvedPrimaryConfig.characterId
+  );
+  const isSecondaryActive = Boolean(
+    resolvedSecondaryConfig && speakerId === resolvedSecondaryConfig.characterId
+  );
+
+  const isPrimaryDimmed = hasMultipleCharacters && isSecondaryActive;
+  const isSecondaryDimmed = hasMultipleCharacters && isPrimaryActive;
+
   return (
     <div className="relative w-full h-full h-[100dvh] min-h-[100dvh] overflow-hidden bg-black flex items-center justify-center">
       {/* Container 16:9 responsivo da Visual Novel */}
@@ -145,13 +179,21 @@ export const GameViewport: React.FC<GameViewportProps> = ({
         {/* Camada 2: Notificações Flutuantes de Afinidade (+5 / -10) */}
         <AffinityNotification toast={activeToast} />
 
-        {/* Camada 3: Sprites dos Personagens (Ancorados ao fundo do viewport, atrás do diálogo) */}
+        {/* Camada 3: Sprites dos Personagens (Ancorados ao fundo do viewport, com foco e dimming dinâmico) */}
         <div className="absolute inset-x-0 bottom-0 top-12 sm:top-16 flex items-end justify-center pointer-events-none z-10 overflow-hidden">
-          {currentNode.secondarySprite && (
-            <CharacterSprite config={currentNode.secondarySprite} />
+          {resolvedSecondaryConfig && (
+            <CharacterSprite
+              config={resolvedSecondaryConfig}
+              isActiveSpeaker={isSecondaryActive}
+              isDimmed={isSecondaryDimmed}
+            />
           )}
-          {currentNode.sprite && (
-            <CharacterSprite config={currentNode.sprite} />
+          {resolvedPrimaryConfig && (
+            <CharacterSprite
+              config={resolvedPrimaryConfig}
+              isActiveSpeaker={isPrimaryActive}
+              isDimmed={isPrimaryDimmed}
+            />
           )}
         </div>
 
