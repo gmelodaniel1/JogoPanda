@@ -13,6 +13,7 @@ import { soundEngine } from '../utils/soundEngine';
 import { saveManager } from '../utils/saveManager';
 import { GameSaveSlot } from '../types/save';
 import { DEFAULT_BACKGROUND } from '../constants/backgrounds';
+import { assetPreloader } from '../utils/assetPreloader';
 
 const INITIAL_AFFINITIES: Record<CharacterId, number> = Object.keys(CHARACTERS_METADATA).reduce(
   (acc, key) => {
@@ -102,6 +103,13 @@ export function useGameEngine(script: DialogueScript, episodeNumProp?: number): 
       soundEngine.playBgm(currentNode.bgm);
     }
   }, [script.id, currentNode.id, currentNode.sfx, currentNode.bgm]);
+
+  // Pré-carregamento preditivo dos assets dos próximos nós (sprites e cenários)
+  useEffect(() => {
+    if (!script || !currentNode.id || currentNode.id === 'missing-node') return;
+    assetPreloader.preloadNodeAssets(currentNode);
+    assetPreloader.preloadUpcomingNodes(script, currentNode.id, 2);
+  }, [script, currentNode.id]);
 
   // Limpa toast de afinidade após 2.8s
   useEffect(() => {

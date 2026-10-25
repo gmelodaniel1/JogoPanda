@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getBackgroundPath, getBackgroundFallbackPath } from '../../utils/assetHelper';
+import { assetPreloader } from '../../utils/assetPreloader';
 import { BackgroundSvg } from '../placeholders/BackgroundSvg';
 
 interface BackgroundViewProps {
@@ -18,44 +19,66 @@ export const BackgroundView: React.FC<BackgroundViewProps> = ({ backgroundId }) 
   }));
   const [prevLayer, setPrevLayer] = useState<BackgroundLayer | null>(null);
   const [isCrossFading, setIsCrossFading] = useState<boolean>(false);
-  const [imageError, setImageError] = useState<boolean>(false);
+  const [imageError, setImageError] = useState<boolean>(() => {
+    const primary = getBackgroundPath(backgroundId);
+    const fallback = getBackgroundFallbackPath(backgroundId);
+    return assetPreloader.isFailed(primary) && (!fallback || assetPreloader.isFailed(fallback));
+  });
 
   useEffect(() => {
     let cancelled = false;
     const primaryUrl = getBackgroundPath(backgroundId);
     const fallbackUrl = getBackgroundFallbackPath(backgroundId);
 
+    // Se já sabemos que ambos falharam, ativa fallback SVG imediatamente
+    if (assetPreloader.isFailed(primaryUrl) && (!fallbackUrl || assetPreloader.isFailed(fallbackUrl))) {
+      setImageError(true);
+      return;
+    }
+
+    const applyLayerChange = (url: string) => {
+      setImageError(false);
+      if (url !== currentLayer.url) {
+        setPrevLayer(currentLayer);
+        setCurrentLayer({ url, id: backgroundId });
+        setIsCrossFading(true);
+
+        const timer = setTimeout(() => {
+          if (!cancelled) {
+            setPrevLayer(null);
+            setIsCrossFading(false);
+          }
+        }, 800);
+
+        return () => clearTimeout(timer);
+      }
+    };
+
     const tryLoad = (url: string, nextFallback: string | null) => {
-      const img = new Image();
-      img.src = url;
-      img.onload = () => {
-        if (cancelled) return;
-        setImageError(false);
+      if (assetPreloader.isLoaded(url)) {
+        applyLayerChange(url);
+        return;
+      }
 
-        // Se o cenário mudou, engatilha transição de cross-fade suave
-        if (url !== currentLayer.url) {
-          setPrevLayer(currentLayer);
-          setCurrentLayer({ url, id: backgroundId });
-          setIsCrossFading(true);
-
-          const timer = setTimeout(() => {
-            if (!cancelled) {
-              setPrevLayer(null);
-              setIsCrossFading(false);
-            }
-          }, 800);
-
-          return () => clearTimeout(timer);
-        }
-      };
-      img.onerror = () => {
-        if (cancelled) return;
+      if (assetPreloader.isFailed(url)) {
         if (nextFallback) {
           tryLoad(nextFallback, null);
         } else {
           setImageError(true);
         }
-      };
+        return;
+      }
+
+      assetPreloader.preloadImage(url).then((success) => {
+        if (cancelled) return;
+        if (success) {
+          applyLayerChange(url);
+        } else if (nextFallback) {
+          tryLoad(nextFallback, null);
+        } else {
+          setImageError(true);
+        }
+      });
     };
 
     tryLoad(primaryUrl, fallbackUrl);

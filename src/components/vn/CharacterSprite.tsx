@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CharacterSpriteConfig } from '../../types/character';
 import { getSpritePath, getFallbackSpritePath } from '../../utils/assetHelper';
+import { assetPreloader } from '../../utils/assetPreloader';
 import { CharacterAvatarSvg } from '../placeholders/CharacterAvatarSvg';
 
 interface CharacterSpriteProps {
@@ -8,36 +9,73 @@ interface CharacterSpriteProps {
 }
 
 export const CharacterSprite: React.FC<CharacterSpriteProps> = ({ config }) => {
-  const [imageError, setImageError] = useState(false);
-  const [loadedUrl, setLoadedUrl] = useState<string | null>(() =>
-    config ? getSpritePath(config.characterId, config.expression) : null
-  );
+  const [imageError, setImageError] = useState(() => {
+    if (!config) return false;
+    const primary = getSpritePath(config.characterId, config.expression);
+    const fallback = getFallbackSpritePath(config.characterId, config.expression);
+    return assetPreloader.isFailed(primary) && (!fallback || assetPreloader.isFailed(fallback));
+  });
+
+  const [loadedUrl, setLoadedUrl] = useState<string | null>(() => {
+    if (!config) return null;
+    const primary = getSpritePath(config.characterId, config.expression);
+    if (assetPreloader.isLoaded(primary)) return primary;
+    const fallback = getFallbackSpritePath(config.characterId, config.expression);
+    if (fallback && assetPreloader.isLoaded(fallback)) return fallback;
+    return null;
+  });
 
   useEffect(() => {
     if (!config) return;
 
     let cancelled = false;
-    setImageError(false);
     const spriteUrl = getSpritePath(config.characterId, config.expression);
     const fallbackUrl = getFallbackSpritePath(config.characterId, config.expression);
 
+    // Se já está carregado pelo assetPreloader, exibe imediatamente (0ms)
+    if (assetPreloader.isLoaded(spriteUrl)) {
+      setLoadedUrl(spriteUrl);
+      setImageError(false);
+      return;
+    }
+    if (fallbackUrl && assetPreloader.isLoaded(fallbackUrl)) {
+      setLoadedUrl(fallbackUrl);
+      setImageError(false);
+      return;
+    }
+
+    // Se já sabemos que ambos falharam, ativa fallback SVG imediatamente sem aguardar timeout
+    if (assetPreloader.isFailed(spriteUrl) && (!fallbackUrl || assetPreloader.isFailed(fallbackUrl))) {
+      setImageError(true);
+      setLoadedUrl(null);
+      return;
+    }
+
+    setImageError(false);
+
     const tryLoad = (url: string, nextFallback: string | null) => {
-      const img = new Image();
-      img.src = url;
-      img.onload = () => {
-        if (cancelled) return;
-        setLoadedUrl(url);
-        setImageError(false);
-      };
-      img.onerror = () => {
-        if (cancelled) return;
+      if (assetPreloader.isFailed(url)) {
         if (nextFallback) {
           tryLoad(nextFallback, null);
         } else {
           setImageError(true);
           setLoadedUrl(null);
         }
-      };
+        return;
+      }
+
+      assetPreloader.preloadImage(url).then((success) => {
+        if (cancelled) return;
+        if (success) {
+          setLoadedUrl(url);
+          setImageError(false);
+        } else if (nextFallback) {
+          tryLoad(nextFallback, null);
+        } else {
+          setImageError(true);
+          setLoadedUrl(null);
+        }
+      });
     };
 
     tryLoad(spriteUrl, fallbackUrl);

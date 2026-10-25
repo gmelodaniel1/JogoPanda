@@ -65,3 +65,4 @@ const totalPct = totalDeclared > 0 ? Math.round((totalFound / totalDeclared) * 1
 console.log('\n-------------------------------------------------------------');
 console.log(`TOTAL GERAL: ${totalFound} de ${totalDeclared} sprites inseridos (${totalPct}% concluído)`);
 console.log('-------------------------------------------------------------\n');
+
