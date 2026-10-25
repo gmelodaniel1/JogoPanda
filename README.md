@@ -176,4 +176,27 @@ Para especificações detalhadas de resolução, corte e proporção, consulte o
 - **Histórico Completo (Backlog/Log):** Histórico de todas as falas da sessão com indicação das escolhas feitas pelo jogador.
 - **Auto-Play & Auto-Save:** Modo leitura automática e salvamento contínuo em LocalStorage, além de 4 slots de salvamento manual com preview de cena e texto.
 - **Estúdio de Sprites Embutido:** Galeria visual acessível pelo menu e pelo HUD para inspecionar poses, testar transparência e pré-visualizar animações (`fade`, `shake`, `bob`).
-- **Design 100% Responsivo:** Roda em computadores e telas móveis/tablets com layout widescreen adaptável.
+- **Design 100% Responsivo & Mobile-First:** Roda perfeitamente em computadores e em qualquer celular (tanto em modo paisagem quanto retrato), com suporte nativo a entalhes/câmeras (safe-area), altura dinâmica (`100dvh`) e prevenção de quebras por barras de navegação do browser.
+
+---
+
+## 🌐 Como Subir para o GitHub Pages
+
+O projeto já inclui uma automação completa do GitHub Actions em `.github/workflows/deploy.yml`.
+
+Para publicar o seu jogo online:
+
+1. **Crie um repositório no seu GitHub** (por exemplo, `jogo-do-panda`).
+2. **Conecte e envie o código:**
+   ```bash
+   git remote add origin https://github.com/SEU_USUARIO/SEU_REPOSITORIO.git
+   git branch -M master
+   git push -u origin master
+   ```
+3. **Ative o GitHub Pages:**
+   - Acesse o repositório no GitHub.
+   - Vá em **Settings** > **Pages**.
+   - Em **Build and deployment** > **Source**, escolha **GitHub Actions**.
+4. Pronto! O GitHub irá compilar automaticamente os scripts, rodar os testes de integridade e publicar seu jogo no endereço:
+   `https://SEU_USUARIO.github.io/SEU_REPOSITORIO/`
+
