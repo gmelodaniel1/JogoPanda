@@ -1,0 +1,18 @@
+{
+  "name": "Jogo do Panda - Visual Novel",
+  "short_name": "Jogo do Panda",
+  "description": "Visual Novel interativa com escolhas ramificadas, sistema de afinidade e salvamento.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#020617",
+  "theme_color": "#ec4899",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

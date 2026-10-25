@@ -1,0 +1,81 @@
+{
+  "episode": 1,
+  "title": "Episódio de Exemplo",
+  "startingNodeId": "ep1_01",
+  "nodes": {
+    "ep1_01": {
+      "id": "ep1_01",
+      "speaker": "Narrador",
+      "characterId": null,
+      "expression": null,
+      "background": "cenario_exemplo",
+      "text": "Este é um episódio de exemplo. Substitua este arquivo pelo seu roteiro (veja o README para o formato completo).",
+      "next": "ep1_02"
+    },
+    "ep1_02": {
+      "id": "ep1_02",
+      "speaker": "Personagem A",
+      "characterId": "personagem_a",
+      "expression": "happy",
+      "background": "cenario_exemplo",
+      "text": "Oi! Eu sou a Personagem A. Enquanto não houver sprite em public/assets/sprites/personagem_a/happy.png, apareço como um placeholder.",
+      "next": "ep1_03"
+    },
+    "ep1_03": {
+      "id": "ep1_03",
+      "speaker": "Você",
+      "characterId": "protagonist",
+      "expression": null,
+      "background": "cenario_exemplo",
+      "text": "(Como devo responder?)",
+      "choices": [
+        {
+          "text": "Prazer em te conhecer!",
+          "lomChange": { "personagem_a": 5 },
+          "next": "ep1_a"
+        },
+        {
+          "text": "Hm. Tanto faz.",
+          "lomChange": { "personagem_a": -5, "personagem_b": 3 },
+          "next": "ep1_b"
+        }
+      ]
+    },
+    "ep1_a": {
+      "id": "ep1_a",
+      "speaker": "Personagem A",
+      "characterId": "personagem_a",
+      "expression": "happy",
+      "background": "cenario_exemplo",
+      "text": "Que fofo! Vem, quero te apresentar alguém.",
+      "next": "ep1_04"
+    },
+    "ep1_b": {
+      "id": "ep1_b",
+      "speaker": "Personagem A",
+      "characterId": "personagem_a",
+      "expression": "sad",
+      "background": "cenario_exemplo",
+      "text": "Ah... tudo bem. Vem, mesmo assim quero te apresentar alguém.",
+      "animation": "sprite-shake",
+      "next": "ep1_04"
+    },
+    "ep1_04": {
+      "id": "ep1_04",
+      "speaker": "Narrador",
+      "characterId": null,
+      "expression": null,
+      "background": "cenario_exemplo_2",
+      "text": "Vocês atravessam a porta e chegam a outro lugar.",
+      "next": "ep1_05"
+    },
+    "ep1_05": {
+      "id": "ep1_05",
+      "speaker": "Personagem B",
+      "characterId": "personagem_b",
+      "expression": "neutral",
+      "background": "cenario_exemplo_2",
+      "text": "Então você é o novato. Seja bem-vindo. Fim do episódio de exemplo!"
+    }
+  }
+}
