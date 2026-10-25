@@ -89,8 +89,8 @@ export const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-fade-in pointer-events-auto">
-      <div className="relative w-full max-w-4xl bg-slate-900/95 border border-slate-700/80 rounded-3xl p-6 sm:p-8 shadow-2xl text-slate-100 max-h-[92vh] flex flex-col justify-between overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-fade-in pointer-events-auto">
+      <div className="relative w-full max-w-4xl bg-slate-900/95 border border-slate-700/80 rounded-3xl p-4 sm:p-8 shadow-2xl text-slate-100 max-h-[92dvh] flex flex-col justify-between overflow-hidden">
         {/* Glow decorativo de fundo */}
         <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-pink-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-sky-500/10 blur-3xl pointer-events-none" />
@@ -98,14 +98,14 @@ export const SaveLoadModal: React.FC<SaveLoadModalProps> = ({
         {/* Botão Fechar */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors z-20"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors z-20"
           title="Fechar"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Cabeçalho e Seleção de Abas */}
-        <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
+        <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mb-4 pb-3 sm:mb-6 sm:pb-4 border-b border-slate-800">
           <div>
             <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
               {activeTab === 'save' ? (

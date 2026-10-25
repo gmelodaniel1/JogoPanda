@@ -77,7 +77,7 @@ export const SpriteGallery: React.FC<SpriteGalleryProps> = ({ onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-slate-950/95 backdrop-blur-xl text-slate-100 font-sans select-none overflow-hidden animate-fade-in">
       {/* Barra de Topo */}
-      <header className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-900/80">
+      <header className="flex flex-wrap items-center justify-between gap-3 px-3 sm:px-6 py-2.5 sm:py-4 border-b border-slate-800 bg-slate-900/80">
         <div className="flex items-center gap-3">
           <div className="p-2 rounded-xl bg-pink-500/20 text-pink-400 border border-pink-500/30">
             <Sparkles className="w-5 h-5" />

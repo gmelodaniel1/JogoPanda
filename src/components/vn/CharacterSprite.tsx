@@ -50,9 +50,9 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({ config }) => {
   if (!config) return null;
 
   const positionClasses = {
-    left: 'left-12 lg:left-24 justify-start',
+    left: 'left-2 sm:left-12 lg:left-24 justify-start',
     center: 'left-1/2 -translate-x-1/2 justify-center',
-    right: 'right-12 lg:right-24 justify-end',
+    right: 'right-2 sm:right-12 lg:right-24 justify-end',
   }[config.position || 'center'];
 
   const animationClass = {
@@ -71,7 +71,7 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({ config }) => {
   return (
     <div
       key={config.characterId}
-      className={`absolute bottom-0 z-10 pointer-events-none flex items-end h-[82%] max-h-[780px] transition-all duration-500 ease-out ${positionClasses}`}
+      className={`absolute bottom-0 z-10 pointer-events-none flex items-end h-[70%] sm:h-[80%] md:h-[82%] max-h-[780px] transition-all duration-500 ease-out ${positionClasses}`}
     >
       {/* Camada de animação de entrada ou reação (shake, bob) */}
       <div

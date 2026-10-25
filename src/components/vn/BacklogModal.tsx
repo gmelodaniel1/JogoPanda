@@ -17,13 +17,13 @@ export const BacklogModal: React.FC<BacklogModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center p-4 sm:p-8 bg-slate-950/80 backdrop-blur-md animate-fade-in">
-      <div className="w-full max-w-3xl h-[80vh] flex flex-col rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl overflow-hidden">
+    <div className="absolute inset-0 z-50 flex items-center justify-center p-2.5 sm:p-8 bg-slate-950/80 backdrop-blur-md animate-fade-in pointer-events-auto">
+      <div className="w-full max-w-3xl h-[88dvh] max-h-[88dvh] flex flex-col rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl overflow-hidden">
         {/* Cabeçalho */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-950/50">
-          <div className="flex items-center gap-2.5">
-            <History className="w-5 h-5 text-pink-400" />
-            <h2 className="font-bold text-lg text-slate-100">Histórico de Diálogos (Backlog)</h2>
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-800 bg-slate-950/50">
+          <div className="flex items-center gap-2">
+            <History className="w-4 h-4 sm:w-5 sm:h-5 text-pink-400" />
+            <h2 className="font-bold text-base sm:text-lg text-slate-100">Histórico de Diálogos</h2>
           </div>
           <button
             onClick={onClose}
@@ -34,7 +34,7 @@ export const BacklogModal: React.FC<BacklogModalProps> = ({
         </div>
 
         {/* Lista de Falas Anteriores */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+        <div className="flex-1 overflow-y-auto p-3.5 sm:p-6 space-y-3 sm:space-y-4">
           {history.length === 0 ? (
             <div className="text-center text-slate-500 py-12">
               Nenhuma linha de diálogo registrada ainda.

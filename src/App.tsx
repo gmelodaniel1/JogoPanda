@@ -81,7 +81,7 @@ export function App() {
   };
 
   return (
-    <main className="w-screen h-screen overflow-hidden bg-slate-950 font-sans">
+    <main className="w-full h-full h-[100dvh] min-h-[100dvh] overflow-hidden bg-slate-950 font-sans">
       {/* Tela do Menu Principal */}
       {currentScreen === 'menu' && (
         <MainMenu

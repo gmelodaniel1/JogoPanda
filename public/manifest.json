@@ -1,12 +1,12 @@
 {
-  "name": "Jogo do Panda - Visual Novel",
-  "short_name": "Jogo do Panda",
-  "description": "Visual Novel interativa com escolhas ramificadas, sistema de afinidade e salvamento.",
+  "name": "Panda de Ferro: O Mistério do Engenho Jussaral",
+  "short_name": "Panda de Ferro",
+  "description": "Visual Novel de mistério e comédia do Panda de Ferro",
   "start_url": "./",
   "display": "standalone",
-  "orientation": "landscape",
+  "orientation": "any",
   "background_color": "#020617",
-  "theme_color": "#ec4899",
+  "theme_color": "#ef4444",
   "icons": [
     {
       "src": "./favicon.svg",

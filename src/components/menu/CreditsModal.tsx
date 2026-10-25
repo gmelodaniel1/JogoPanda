@@ -11,12 +11,12 @@ export const CreditsModal: React.FC<CreditsModalProps> = ({ onClose }) => {
   const { credits } = GAME_CONFIG;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-2xl bg-slate-900/95 border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-2xl text-slate-200 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in">
+      <div className="relative w-full max-w-2xl bg-slate-900/95 border border-slate-700/80 rounded-2xl p-4 sm:p-8 shadow-2xl text-slate-200 max-h-[90dvh] overflow-y-auto">
         {/* Botão Fechar */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition-colors z-20"
           title="Fechar"
         >
           <X className="w-5 h-5" />

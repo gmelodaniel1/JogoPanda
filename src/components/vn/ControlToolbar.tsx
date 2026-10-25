@@ -58,12 +58,12 @@ export const ControlToolbar: React.FC<ControlToolbarProps> = ({
   };
 
   return (
-    <div className="relative z-30 flex items-center gap-1.5 p-1 rounded-full bg-slate-900/85 backdrop-blur-md border border-slate-700 shadow-lg text-slate-300">
+    <div className="relative z-30 flex items-center gap-1 sm:gap-1.5 p-1 rounded-full bg-slate-900/85 backdrop-blur-md border border-slate-700 shadow-lg text-slate-300 max-w-full">
       {/* Botão Menu Principal */}
       {onReturnToMenu && (
         <button
           onClick={onReturnToMenu}
-          className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold hover:bg-slate-800 text-slate-300 hover:text-white transition-colors"
+          className="flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-full text-xs font-bold hover:bg-slate-800 text-slate-300 hover:text-white transition-colors"
           title="Voltar ao Menu Principal"
         >
           <Home className="w-3.5 h-3.5 text-pink-400" />
@@ -74,7 +74,7 @@ export const ControlToolbar: React.FC<ControlToolbarProps> = ({
       {/* Botão Auto Play */}
       <button
         onClick={onToggleAutoPlay}
-        className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-200 ${
+        className={`flex items-center gap-1 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-bold transition-all duration-200 ${
           autoPlay
             ? 'bg-pink-600 text-white shadow-[0_0_12px_rgba(236,72,153,0.5)]'
             : 'hover:bg-slate-800 text-slate-300'
@@ -88,7 +88,7 @@ export const ControlToolbar: React.FC<ControlToolbarProps> = ({
       {/* Botão de Histórico (Backlog) */}
       <button
         onClick={onToggleBacklog}
-        className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-slate-800 transition-colors"
+        className="flex items-center gap-1 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs font-semibold hover:bg-slate-800 transition-colors"
         title="Histórico de Diálogos"
       >
         <History className="w-3.5 h-3.5" />
@@ -102,7 +102,7 @@ export const ControlToolbar: React.FC<ControlToolbarProps> = ({
             soundEngine.playClick();
             onOpenSaveLoad('save');
           }}
-          className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-slate-800 transition-colors text-pink-300 hover:text-white"
+          className="flex items-center gap-1 px-2 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs font-semibold hover:bg-slate-800 transition-colors text-pink-300 hover:text-white"
           title="Salvar ou Carregar Progresso"
         >
           <Save className="w-3.5 h-3.5" />
@@ -110,11 +110,11 @@ export const ControlToolbar: React.FC<ControlToolbarProps> = ({
         </button>
       )}
 
-      {/* Botão Estúdio de Sprites */}
+      {/* Botão Estúdio de Sprites (oculto em telas pequenas para economizar espaço de jogo) */}
       {onToggleGallery && (
         <button
           onClick={onToggleGallery}
-          className="flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-bold bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 border border-pink-500/40 transition-all shadow-sm"
+          className="hidden md:flex items-center gap-1 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs font-bold bg-pink-500/20 hover:bg-pink-500/30 text-pink-300 border border-pink-500/40 transition-all shadow-sm"
           title="Abrir Estúdio de Sprites e Auditoria"
         >
           <Sparkles className="w-3.5 h-3.5 text-pink-400" />
@@ -122,9 +122,9 @@ export const ControlToolbar: React.FC<ControlToolbarProps> = ({
         </button>
       )}
 
-      {/* Seletor Rápido de Episódios */}
+      {/* Seletor Rápido de Episódios (visível apenas em telas amplas desktop) */}
       {onSelectEpisode && currentEpisodeNum && (
-        <div className="flex items-center gap-1 bg-slate-800/90 rounded-full px-2 py-1 border border-slate-700/60 text-xs">
+        <div className="hidden lg:flex items-center gap-1 bg-slate-800/90 rounded-full px-2 py-1 border border-slate-700/60 text-xs">
           <BookOpen className="w-3.5 h-3.5 text-pink-400" />
           <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider mr-0.5">Ep</span>
           {EPISODE_NUMBERS.map((num) => (
@@ -147,7 +147,7 @@ export const ControlToolbar: React.FC<ControlToolbarProps> = ({
       {/* Velocidade do Texto */}
       <button
         onClick={cycleTextSpeed}
-        className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-semibold hover:bg-slate-800 transition-colors"
+        className="flex items-center gap-1 px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-full text-xs font-semibold hover:bg-slate-800 transition-colors"
         title="Velocidade da Digitação"
       >
         <Gauge className="w-3.5 h-3.5 text-pink-400" />
@@ -157,19 +157,19 @@ export const ControlToolbar: React.FC<ControlToolbarProps> = ({
       {/* Mute Som */}
       <button
         onClick={handleToggleMute}
-        className="p-1.5 rounded-full hover:bg-slate-800 transition-colors text-slate-400 hover:text-white"
+        className="p-1 sm:p-1.5 rounded-full hover:bg-slate-800 transition-colors text-slate-400 hover:text-white"
         title={isMuted ? 'Ativar Efeitos Sonoros' : 'Mutar Áudio'}
       >
-        {isMuted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4" />}
+        {isMuted ? <VolumeX className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-rose-400" /> : <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />}
       </button>
 
       {/* Reiniciar */}
       <button
         onClick={onReset}
-        className="p-1.5 rounded-full hover:bg-slate-800 transition-colors text-slate-400 hover:text-amber-400"
+        className="p-1 sm:p-1.5 rounded-full hover:bg-slate-800 transition-colors text-slate-400 hover:text-amber-400"
         title="Reiniciar Cena"
       >
-        <RotateCcw className="w-3.5 h-3.5" />
+        <RotateCcw className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
       </button>
     </div>
   );

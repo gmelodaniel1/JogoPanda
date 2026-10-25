@@ -94,14 +94,14 @@ export const GameViewport: React.FC<GameViewportProps> = ({
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-black flex items-center justify-center">
+    <div className="relative w-full h-full h-[100dvh] min-h-[100dvh] overflow-hidden bg-black flex items-center justify-center">
       {/* Container 16:9 responsivo da Visual Novel */}
       <div className="relative w-full h-full max-w-[1920px] max-h-[1080px] flex flex-col justify-between overflow-hidden shadow-2xl">
         {/* Camada 1: Cenário de Fundo */}
         <BackgroundView backgroundId={currentNode.background} />
 
         {/* Barra Superior de HUD */}
-        <header className="relative z-30 flex items-center justify-between p-4 sm:p-6 pointer-events-auto">
+        <header className="relative z-30 flex items-center justify-between gap-2 px-2 sm:px-4 md:px-6 py-2 sm:py-3.5 pt-[max(0.5rem,env(safe-area-inset-top))] pl-[max(0.5rem,env(safe-area-inset-left))] pr-[max(0.5rem,env(safe-area-inset-right))] pointer-events-auto">
           {/* Medidor de Afinidade (Opcional, desativado no Panda de Ferro) */}
           {GAME_CONFIG.hasAffinityMeter ? (
             <LoveOMeter
@@ -109,9 +109,9 @@ export const GameViewport: React.FC<GameViewportProps> = ({
               affinities={affinities}
             />
           ) : (
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md border border-slate-700/80 text-xs font-bold text-slate-200">
-              <span className="text-red-500 font-extrabold">🐼</span>
-              <span>{GAME_CONFIG.hudTitlePrefix}</span>
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md border border-slate-700/80 text-xs font-bold text-slate-200 shrink-0">
+              <span className="text-red-500 font-extrabold text-xs sm:text-sm">🐼</span>
+              <span className="hidden sm:inline">{GAME_CONFIG.hudTitlePrefix}</span>
             </div>
           )}
 
@@ -146,7 +146,7 @@ export const GameViewport: React.FC<GameViewportProps> = ({
         <AffinityNotification toast={activeToast} />
 
         {/* Camada 3: Sprites dos Personagens (Ancorados ao fundo do viewport, atrás do diálogo) */}
-        <div className="absolute inset-x-0 bottom-0 top-16 flex items-end justify-center pointer-events-none z-10 overflow-hidden">
+        <div className="absolute inset-x-0 bottom-0 top-12 sm:top-16 flex items-end justify-center pointer-events-none z-10 overflow-hidden">
           {currentNode.secondarySprite && (
             <CharacterSprite config={currentNode.secondarySprite} />
           )}

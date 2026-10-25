@@ -51,8 +51,8 @@ export const EpisodeCompletionModal: React.FC<EpisodeCompletionModalProps> = ({
   }, [netLomDelta, completion.tiers]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-fade-in pointer-events-auto">
-      <div className="relative w-full max-w-3xl bg-slate-900/95 border border-pink-500/40 rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(236,72,153,0.25)] text-slate-100 max-h-[92vh] flex flex-col justify-between overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-fade-in pointer-events-auto">
+      <div className="relative w-full max-w-3xl bg-slate-900/95 border border-pink-500/40 rounded-3xl p-4 sm:p-8 shadow-[0_0_50px_rgba(236,72,153,0.25)] text-slate-100 max-h-[92dvh] flex flex-col justify-between overflow-hidden">
         {/* Glow decorativo de fundo */}
         <div className="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-pink-500/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
