@@ -4,132 +4,94 @@ import type { BgmTrack, SfxType } from '../types/dialogue';
 
 /**
  * ============================================================================
- *  CONFIGURAÇÃO CENTRAL DO JOGO
- * ============================================================================
- * Este é o principal arquivo para "trocar a identidade" do jogo.
- * Textos de menu, créditos, avaliação de fim de episódio, nome do medidor de
- * afinidade e palavras-chave de áudio ficam todos aqui.
- *
- * Personagens  -> src/constants/characters.ts
- * Cenários     -> src/constants/backgrounds.ts
- * Episódios    -> src/data/episodes/ (JSON) + src/data/episodes/index.ts
+ *  CONFIGURAÇÃO CENTRAL DO JOGO: PANDA DE FERRO
  * ============================================================================
  */
 
-export interface CompletionFeedbackTier {
-  /** Saldo mínimo de afinidade no episódio para cair nesta faixa. */
-  minNetDelta: number;
-  badge: string;
-  /** Classes Tailwind do badge. */
-  badgeColor: string;
-  quote: string;
-  /** Expressão do avaliador exibida nesta faixa. */
-  expression: string;
-}
-
 export const GAME_CONFIG = {
-  /** Título principal (logo do menu, créditos, aba do navegador). */
-  title: 'Jogo do Panda',
-  /** Subtítulo/descrição curta exibida abaixo do logo. */
-  tagline: 'Uma visual novel interativa. Substitua este texto em src/config/game.config.ts.',
-  /** Selo pequeno exibido acima do logo no menu principal. */
-  badge: 'Visual Novel',
-  /** Prefixo do título exibido no HUD durante o jogo. Ex.: "Jogo do Panda • Ep. 1: ..." */
-  hudTitlePrefix: 'Jogo do Panda',
+  /** Título principal */
+  title: 'Panda de Ferro: O Mistério do Engenho Jussaral',
+  /** Subtítulo / Descrição */
+  tagline: 'Uma Visual Novel de Mistério, Comédia & Sobrevivência na Zona da Mata de Pernambuco',
+  /** Selo pequeno acima do logo */
+  badge: 'Panda de Ferro • Visual Novel',
+  /** Prefixo do título no HUD */
+  hudTitlePrefix: 'Panda de Ferro',
 
-  /**
-   * Prefixo das chaves no localStorage. Mantenha único por jogo para que os saves
-   * não colidam com outros jogos hospedados no mesmo domínio.
-   */
-  storagePrefix: 'jogo_do_panda_',
+  /** Chave única de persistência no localStorage */
+  storagePrefix: 'panda_de_ferro_',
 
-  /** Cenário de fundo do menu principal. */
-  menuBackground: 'cenario_exemplo' as BackgroundId,
+  /** Cenário de fundo do menu principal */
+  menuBackground: 'estrada_canavial_pe' as BackgroundId,
 
-  /** Sprites decorativos nas laterais do menu principal (null para ocultar). */
+  /** Sprites decorativos nas laterais do menu principal */
   menuSprites: {
-    left: { characterId: 'personagem_a', expression: 'neutral' },
-    right: { characterId: 'personagem_b', expression: 'neutral' },
+    left: { characterId: 'cipriano', expression: 'cipriano_limpando_celular' },
+    right: { characterId: 'luis', expression: 'luis_julgando' },
   } as Record<'left' | 'right', { characterId: CharacterId; expression: string } | null>,
 
-  /** Personagem exibido no medidor quando o narrador/protagonista está falando. */
-  defaultMeterCharacterId: 'personagem_a' as CharacterId,
+  /**
+   * Conforme a Bíblia do Jogo (Linha 4):
+   * "Mecânica Principal: Escolhas Diretas com Bad Ends Imediatos (Sem barras de HP ou Queridômetro)."
+   * Desativa o medidor de afinidade/LOM na interface.
+   */
+  hasAffinityMeter: false,
 
-  /** Nomenclatura do medidor de afinidade (no Lana Doce era "Love'o'Meter / LOM"). */
+  /** Personagem padrão caso necessário */
+  defaultMeterCharacterId: 'cipriano' as CharacterId,
+
+  /** Nomenclatura caso ativado */
   affinity: {
-    name: 'Afinidade',
-    shortLabel: 'AF',
+    name: 'Moral',
+    shortLabel: 'PM',
   },
 
   credits: {
-    aboutTitle: 'Sobre o Jogo',
+    aboutTitle: 'Sobre o Panda de Ferro',
     aboutText:
-      'Escreva aqui a descrição do seu jogo, da sua equipe ou da inspiração por trás da história.',
-    castTitle: 'Personagens',
-    castIntro: 'Elenco principal da história:',
-    footer: 'Feito com carinho',
+      'Uma história épica de mistério, rivalidade futebolística (Santa Cruz x Náutico), álcool isopropílico, cigarros mentolados, a Polícia Moral do Paço do Frevo e a luta incansável contra a Liga dos Banidos e Golpistas.',
+    castTitle: 'Elenco Principal & Comunidade',
+    castIntro: 'Personagens envolvidos no incidente do Engenho Jussaral:',
+    footer: 'A presidência do Panda de Ferro agradece a sua preferência.',
   },
 
   /**
-   * Avaliação exibida na tela de conclusão de episódio.
-   * Um personagem "avaliador" comenta o desempenho com base no saldo de afinidade.
-   * Defina `evaluator` como null para ocultar o card.
+   * Avaliação de fim de episódio (quando alcança o True Ending)
    */
   completion: {
-    subtitle: 'Balanço das interações e afinidades deste episódio',
+    subtitle: 'Relatório Final de Sobrevivência da Presidência do Panda de Ferro',
     evaluator: {
-      characterId: 'personagem_a' as CharacterId,
-      displayName: 'Personagem A',
-      role: 'Avaliador(a)',
+      characterId: 'cipriano' as CharacterId,
+      displayName: 'Gabriel Cipriano',
+      role: 'Presidente do Panda de Ferro',
     } as { characterId: CharacterId; displayName: string; role: string } | null,
-    /** Ordenadas do maior para o menor `minNetDelta`. A última funciona como "senão". */
     tiers: [
       {
-        minNetDelta: 15,
-        badge: 'Desempenho Excelente',
-        badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
-        quote: 'Texto de avaliação para um episódio excelente.',
-        expression: 'happy',
-      },
-      {
-        minNetDelta: 5,
-        badge: 'Desempenho Positivo',
-        badgeColor: 'bg-sky-500/20 text-sky-300 border-sky-500/40',
-        quote: 'Texto de avaliação para um episódio positivo.',
-        expression: 'happy',
-      },
-      {
-        minNetDelta: -5,
-        badge: 'Desempenho Regular',
-        badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
-        quote: 'Texto de avaliação para um episódio regular.',
-        expression: 'neutral',
-      },
-      {
         minNetDelta: -Infinity,
-        badge: 'Desempenho Crítico',
-        badgeColor: 'bg-rose-500/20 text-rose-300 border-rose-500/40',
-        quote: 'Texto de avaliação para um episódio com muitos atritos.',
-        expression: 'sad',
+        badge: 'Vitória Triunfal • Gestão Inabalável',
+        badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+        quote:
+          'A democracia do Panda de Ferro permanece intacta. Os golpistas foram expurgados, o álcool isopropílico foi honrado e o Santa Cruz segue gigante. Uma vitória limpa e asseada.',
+        expression: 'cipriano_epico_mentolado',
       },
-    ] as CompletionFeedbackTier[],
+    ],
   },
 
   /**
-   * Detecção automática de áudio pelo texto da fala (opcional).
-   * Se o texto do nó contiver alguma palavra-chave, o efeito/trilha é aplicado.
-   * Campos `sfx`/`bgm` explícitos no JSON do episódio sempre têm prioridade.
+   * Detecção automática de áudio pelo texto da fala
    */
   audioCues: {
     sfx: [
-      { sfx: 'footsteps', keywords: ['passos', 'andando'] },
-      { sfx: 'door', keywords: ['porta', 'tranca', 'chave'] },
+      { sfx: 'impact', keywords: ['estrondo', 'trancando', 'grade de ferro despenca', 'desaba', 'explosao'] },
+      { sfx: 'alert', keywords: ['apita', 'notificação', 'vibra', 'plantão', 'chamada de vídeo'] },
+      { sfx: 'footsteps', keywords: ['passos', 'caminhando', 'correm', 'salta'] },
+      { sfx: 'door', keywords: ['porta', 'tranca', 'trinco', 'guarita'] },
     ] as { sfx: SfxType; keywords: string[] }[],
     bgm: [
-      { bgm: 'romance', keywords: ['amor', 'apaixonad', 'carinho'] },
+      { bgm: 'tension', keywords: ['emboscada', 'robôs', 'perigo', 'pimenta', 'furgão', 'cerco'] },
+      { bgm: 'energetic', keywords: ['ataquem', 'contra-ofensiva', 'bluetooth', 'papaloc muncks'] },
+      { bgm: 'casual', keywords: ['bom dia', 'estrada', 'carne de sol', 'belem bar'] },
     ] as { bgm: BgmTrack; keywords: string[] }[],
-    /** Trilha usada quando nenhuma palavra-chave casar. */
     defaultBgm: 'casual' as BgmTrack,
   },
 };
-

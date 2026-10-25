@@ -117,107 +117,116 @@ export const EpisodeCompletionModal: React.FC<EpisodeCompletionModalProps> = ({
           </div>
           )}
 
-          {/* Balanço de Afinidades */}
-          <div className="rounded-2xl bg-slate-800/60 border border-slate-700/60 p-4 sm:p-5">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <Heart className="w-4 h-4 text-pink-400 fill-pink-400" />
-                <h3 className="font-bold text-sm sm:text-base text-white">
-                  Balanço de {affinity.name} do Episódio
-                </h3>
+          {/* Balanço de Afinidades ou Conclusão de Sobrevivência */}
+          {GAME_CONFIG.hasAffinityMeter ? (
+            <div className="rounded-2xl bg-slate-800/60 border border-slate-700/60 p-4 sm:p-5">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <Heart className="w-4 h-4 text-pink-400 fill-pink-400" />
+                  <h3 className="font-bold text-sm sm:text-base text-white">
+                    Balanço de {affinity.name} do Episódio
+                  </h3>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-900/80 border border-slate-700 text-slate-300">
+                  {netLomDelta >= 0 ? (
+                    <>
+                      <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>Saldo Líquido:</span>
+                      <span className="text-emerald-400 font-bold">+{netLomDelta} {affinity.shortLabel}</span>
+                    </>
+                  ) : (
+                    <>
+                      <TrendingDown className="w-3.5 h-3.5 text-rose-400" />
+                      <span>Saldo Líquido:</span>
+                      <span className="text-rose-400 font-bold">{netLomDelta} {affinity.shortLabel}</span>
+                    </>
+                  )}
+                </div>
               </div>
-              <div className="flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-lg bg-slate-900/80 border border-slate-700 text-slate-300">
-                {netLomDelta >= 0 ? (
-                  <>
-                    <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Saldo Líquido:</span>
-                    <span className="text-emerald-400 font-bold">+{netLomDelta} {affinity.shortLabel}</span>
-                  </>
-                ) : (
-                  <>
-                    <TrendingDown className="w-3.5 h-3.5 text-rose-400" />
-                    <span>Saldo Líquido:</span>
-                    <span className="text-rose-400 font-bold">{netLomDelta} {affinity.shortLabel}</span>
-                  </>
-                )}
-              </div>
-            </div>
 
-            {deltaEntries.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {deltaEntries.map(([charId, delta]) => {
-                  const meta = CHARACTERS_METADATA[charId];
-                  const displayName = meta?.nickname || meta?.name || charId;
-                  const role = meta?.title || '';
-                  const currentTotal = totalAffinities[charId] ?? 0;
-                  // Normaliza de [-100, 100] para [0%, 100%]
-                  const totalPct = Math.round(((currentTotal + 100) / 200) * 100);
-                  const isPositive = delta > 0;
+              {deltaEntries.length > 0 ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {deltaEntries.map(([charId, delta]) => {
+                    const meta = CHARACTERS_METADATA[charId];
+                    const displayName = meta?.nickname || meta?.name || charId;
+                    const role = meta?.title || '';
+                    const currentTotal = totalAffinities[charId] ?? 0;
+                    const totalPct = Math.round(((currentTotal + 100) / 200) * 100);
+                    const isPositive = delta > 0;
 
-                  return (
-                    <div
-                      key={charId}
-                      className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/70 border border-slate-700/60 hover:border-slate-600 transition-colors"
-                    >
-                      {/* Avatar do Pesquisador */}
-                      <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-950 border border-slate-700 flex-shrink-0">
-                        <img
-                          src={getSpritePath(charId, isPositive ? 'happy' : 'annoyed')}
-                          alt={displayName}
-                          className="w-full h-full object-cover object-top scale-125"
-                          onError={(e) => {
-                            const img = e.target as HTMLImageElement;
-                            if (img.dataset.fallback) {
-                              img.style.visibility = 'hidden';
-                              return;
-                            }
-                            img.dataset.fallback = '1';
-                            img.src = getSpritePath(charId, 'neutral');
-                          }}
-                        />
-                      </div>
-
-                      {/* Informações e Barra */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between gap-1 mb-1">
-                          <span className="font-bold text-xs text-white truncate">
-                            {displayName}
-                          </span>
-                          <span
-                            className={`px-1.5 py-0.5 rounded text-[11px] font-black ${
-                              isPositive
-                                ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/30'
-                                : 'bg-rose-950/80 text-rose-400 border border-rose-500/30'
-                            }`}
-                          >
-                            {isPositive ? `+${delta}` : delta} {affinity.shortLabel}
-                          </span>
-                        </div>
-
-                        <div className="text-[10px] text-slate-400 truncate mb-1.5">{role}</div>
-
-                        {/* Barra de afinidade acumulada */}
-                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                          <div
-                            className={`h-full rounded-full transition-all duration-500 ${
-                              isPositive
-                                ? 'bg-gradient-to-r from-pink-500 to-emerald-400'
-                                : 'bg-gradient-to-r from-pink-500 to-rose-400'
-                            }`}
-                            style={{ width: `${Math.max(5, Math.min(100, totalPct))}%` }}
+                    return (
+                      <div
+                        key={charId}
+                        className="flex items-center gap-3 p-2.5 rounded-xl bg-slate-900/70 border border-slate-700/60 hover:border-slate-600 transition-colors"
+                      >
+                        <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-950 border border-slate-700 flex-shrink-0">
+                          <img
+                            src={getSpritePath(charId, isPositive ? 'happy' : 'annoyed')}
+                            alt={displayName}
+                            className="w-full h-full object-cover object-top scale-125"
+                            onError={(e) => {
+                              const img = e.target as HTMLImageElement;
+                              if (img.dataset.fallback) {
+                                img.style.visibility = 'hidden';
+                                return;
+                              }
+                              img.dataset.fallback = '1';
+                              img.src = getSpritePath(charId, 'neutral');
+                            }}
                           />
                         </div>
+
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-1 mb-1">
+                            <span className="font-bold text-xs text-white truncate">
+                              {displayName}
+                            </span>
+                            <span
+                              className={`px-1.5 py-0.5 rounded text-[11px] font-black ${
+                                isPositive
+                                  ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/30'
+                                  : 'bg-rose-950/80 text-rose-400 border border-rose-500/30'
+                              }`}
+                            >
+                              {isPositive ? `+${delta}` : delta} {affinity.shortLabel}
+                            </span>
+                          </div>
+
+                          <div className="text-[10px] text-slate-400 truncate mb-1.5">{role}</div>
+
+                          <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                            <div
+                              className={`h-full rounded-full transition-all duration-500 ${
+                                isPositive
+                                  ? 'bg-gradient-to-r from-pink-500 to-emerald-400'
+                                  : 'bg-gradient-to-r from-pink-500 to-rose-400'
+                              }`}
+                              style={{ width: `${Math.max(5, Math.min(100, totalPct))}%` }}
+                            />
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="text-center py-4 text-xs text-slate-400 italic">
+                  Nenhuma alteração de afinidade foi computada neste percurso.
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900/80 to-red-950/40 border border-emerald-500/30 p-5 text-center shadow-inner">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-xs uppercase mb-2 border border-emerald-500/30">
+                <Sparkles className="w-4 h-4 text-emerald-400" />
+                <span>Vitória Canônica Alcançada</span>
               </div>
-            ) : (
-              <div className="text-center py-4 text-xs text-slate-400 italic">
-                Nenhuma alteração de afinidade foi computada neste percurso.
-              </div>
-            )}
-          </div>
+              <h3 className="text-xl font-black text-white mb-2">FIM — O Panda de Ferro Continua Inabalável!</h3>
+              <p className="text-xs text-slate-300 max-w-lg mx-auto leading-relaxed">
+                Você sobreviveu às armadilhas do Engenho Jussaral, derrotou os robôs golpistas e restaurou a paz na república do Panda de Ferro com a força combinada do jornalismo investigativo de Sandro Vagner e o sagrado bom dia de Conrado!
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Rodapé de Ações de Transição */}

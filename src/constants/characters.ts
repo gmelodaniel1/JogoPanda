@@ -2,45 +2,191 @@ import type { CharacterMeta } from '../types/character';
 
 /**
  * ============================================================================
- *  ELENCO DO JOGO
- * ============================================================================
- * Cada chave deste objeto é o `characterId` usado:
- *   - nos JSONs dos episódios (`characterId` e `lomChange`);
- *   - no nome da pasta de sprites: public/assets/sprites/<characterId>/<expressao>.png
- *
- * Para adicionar um personagem: copie um bloco, troque a chave e os dados,
- * e inclua o id em AFFINITY_ROSTER_IDS (se ele tiver medidor de afinidade).
- *
- * `protagonist` e `narrator` são obrigatórios — o motor depende deles.
+ *  ELENCO DE PERSONAGENS: PANDA DE FERRO
  * ============================================================================
  */
 const _RAW_CHARACTERS = {
-  personagem_a: {
-    id: 'personagem_a',
-    name: 'Personagem A',
-    title: 'Descrição curta / papel na história',
-    hasRomanceRoute: true,
-    themeColor: '#ec4899',
-    badgeColor: '#db2777',
-    defaultExpression: 'neutral',
-    knownExpressions: ['neutral', 'happy', 'sad', 'surprised'],
-  },
-  personagem_b: {
-    id: 'personagem_b',
-    name: 'Personagem B',
-    title: 'Descrição curta / papel na história',
+  cipriano: {
+    id: 'cipriano',
+    name: 'Gabriel Cipriano',
+    nickname: 'O Presidente',
+    title: 'Presidente do Panda de Ferro • Tricolor Fanático',
     hasRomanceRoute: false,
-    themeColor: '#0ea5e9',
-    badgeColor: '#0284c7',
-    defaultExpression: 'neutral',
-    knownExpressions: ['neutral', 'happy', 'angry'],
+    themeColor: '#ef4444', // Vermelho/Preto/Branco (Santa Cruz)
+    badgeColor: '#b91c1c',
+    defaultExpression: 'cipriano_neutro',
+    knownExpressions: [
+      'cipriano_neutro',
+      'cipriano_limpando_celular',
+      'cipriano_sorriso_mentolado',
+      'cipriano_irritado_alcool',
+      'cipriano_serio_mentolado',
+      'cipriano_calmo_mentolado',
+      'cipriano_chocado_ponto_final',
+      'cipriano_triste',
+      'cipriano_epico_mentolado',
+    ],
   },
-
-  // --- Obrigatórios -------------------------------------------------------
+  pedro_ivo: {
+    id: 'pedro_ivo',
+    name: 'Pedro Ivo',
+    nickname: 'O Climatologista',
+    title: 'Meteorologista Oficial • Alvirrubro Racional',
+    hasRomanceRoute: false,
+    themeColor: '#dc2626', // Vermelho e Branco (Náutico)
+    badgeColor: '#991b1b',
+    defaultExpression: 'pedro_ivo_neutro',
+    knownExpressions: [
+      'pedro_ivo_neutro',
+      'pedro_ivo_serio',
+      'pedro_ivo_analisando',
+      'pedro_ivo_surpreso',
+      'pedro_ivo_sorriso_discreto',
+    ],
+  },
+  luis: {
+    id: 'luis',
+    name: 'Luís',
+    nickname: 'Polícia Moral',
+    title: 'Agente da Polícia Moral • Servidor do Paço do Frevo',
+    hasRomanceRoute: false,
+    themeColor: '#ea580c', // Laranja vibrante do frevo
+    badgeColor: '#c2410c',
+    defaultExpression: 'luis_neutro',
+    knownExpressions: [
+      'luis_neutro',
+      'luis_julgando',
+      'luis_rindo',
+      'luis_emocionado',
+      'luis_desconfiado',
+      'luis_alerta',
+      'luis_assustado',
+      'luis_surpreso',
+      'luis_cerveja',
+      'luis_indignado',
+      'luis_vitorioso',
+    ],
+  },
+  malu_maciel: {
+    id: 'malu_maciel',
+    name: 'Malu Maciel',
+    nickname: 'A Investigadora',
+    title: 'Irmã de Luís • Inteligência Digital',
+    hasRomanceRoute: false,
+    themeColor: '#06b6d4', // Ciano digital
+    badgeColor: '#0891b2',
+    defaultExpression: 'malu_maciel_videochamada',
+    knownExpressions: ['malu_maciel_videochamada'],
+  },
+  sandro_vagner: {
+    id: 'sandro_vagner',
+    name: 'Sandro Vagner',
+    nickname: 'O Repórter',
+    title: 'Plantão Jornalístico de Urgência',
+    hasRomanceRoute: false,
+    themeColor: '#f59e0b', // Amarelo jornalismo
+    badgeColor: '#d97706',
+    defaultExpression: 'sandro_reporter',
+    knownExpressions: ['sandro_reporter'],
+  },
+  conrado: {
+    id: 'conrado',
+    name: 'Conrado',
+    nickname: 'O Guardião do Bom Dia',
+    title: 'Emissário da Paz Matinal e Estabilidade',
+    hasRomanceRoute: false,
+    themeColor: '#fbbf24', // Dourado solar
+    badgeColor: '#d97706',
+    defaultExpression: 'conrado_bom_dia',
+    knownExpressions: ['conrado_bom_dia'],
+  },
+  joel_das_pimentas: {
+    id: 'joel_das_pimentas',
+    name: 'Joel das Pimentas',
+    title: 'Comerciante de Pimentas Revoltado',
+    hasRomanceRoute: false,
+    themeColor: '#b91c1c', // Pimenta malagueta
+    badgeColor: '#7f1d1d',
+    defaultExpression: 'joel_das_pimentas_furioso',
+    knownExpressions: ['joel_das_pimentas_furioso', 'joel_desesperado'],
+  },
+  itaberaba_noticias: {
+    id: 'itaberaba_noticias',
+    name: 'Itaberaba Notícias',
+    title: 'Robô Policial Sensacionalista da Bahia',
+    hasRomanceRoute: false,
+    themeColor: '#475569', // Cinza escuro mórbido
+    badgeColor: '#334155',
+    defaultExpression: 'robo_itaberaba',
+    knownExpressions: ['robo_itaberaba', 'robo_itaberaba_curto'],
+  },
+  conecta_professores: {
+    id: 'conecta_professores',
+    name: 'Conecta Professores',
+    title: 'Robô Burocrático de Cursos e Editais MEC',
+    hasRomanceRoute: false,
+    themeColor: '#2563eb', // Azul institucional
+    badgeColor: '#1d4ed8',
+    defaultExpression: 'robo_conecta',
+    knownExpressions: ['robo_conecta', 'robo_conecta_curto'],
+  },
+  artcomercial: {
+    id: 'artcomercial',
+    name: 'ArtComercial',
+    title: 'Robô Impressora Industrial Assassina',
+    hasRomanceRoute: false,
+    themeColor: '#7c3aed', // Roxo industrial
+    badgeColor: '#6d28d9',
+    defaultExpression: 'robo_artcomercial',
+    knownExpressions: ['robo_artcomercial', 'robo_artcomercial_curto'],
+  },
+  and: {
+    id: 'and',
+    name: 'And',
+    nickname: 'O Louco da Moradia UFPE',
+    title: 'Moradia/UFPE ❤️🫁🧠 Papaloc Muncks',
+    hasRomanceRoute: false,
+    themeColor: '#ec4899', // Rosa psicodélico
+    badgeColor: '#db2777',
+    defaultExpression: 'and_louco_ufpe',
+    knownExpressions: ['and_louco_ufpe'],
+  },
+  bilu: {
+    id: 'bilu',
+    name: 'Bilu',
+    nickname: 'Gilherto Sim , Ok ❤️',
+    title: 'Membro Místico dos Banidos',
+    hasRomanceRoute: false,
+    themeColor: '#f43f5e', // Rosa coração
+    badgeColor: '#e11d48',
+    defaultExpression: 'bilu_coracao',
+    knownExpressions: ['bilu_coracao'],
+  },
+  gildro_iviano: {
+    id: 'gildro_iviano',
+    name: 'Gildro Iviano',
+    nickname: 'O Faria Limer Paulista',
+    title: 'A Mente Golpista • Sapatênis & Suéter nos Ombros',
+    hasRomanceRoute: false,
+    themeColor: '#10b981', // Verde Faria Lima
+    badgeColor: '#059669',
+    defaultExpression: 'gildro_iviano_vilao_paulista',
+    knownExpressions: ['gildro_iviano_vilao_paulista', 'gildro_derrotado'],
+  },
+  sistema: {
+    id: 'sistema',
+    name: 'Sistema',
+    title: 'Notificação do WhatsApp',
+    hasRomanceRoute: false,
+    themeColor: '#22c55e', // Verde WhatsApp
+    badgeColor: '#16a34a',
+    defaultExpression: 'neutral',
+    knownExpressions: ['neutral'],
+  },
   protagonist: {
     id: 'protagonist',
     name: 'Você',
-    title: 'Protagonista',
+    title: 'Membro do Panda de Ferro',
     hasRomanceRoute: false,
     themeColor: '#a855f7',
     badgeColor: '#9333ea',
@@ -59,28 +205,62 @@ const _RAW_CHARACTERS = {
   },
 } satisfies Record<string, CharacterMeta>;
 
-/** Identificador válido de personagem (derivado automaticamente das chaves acima). */
 export type CharacterId = keyof typeof _RAW_CHARACTERS;
 
-/** Metadados de todos os personagens indexados por CharacterId. */
 export const CHARACTERS_METADATA: Record<CharacterId, CharacterMeta> = _RAW_CHARACTERS;
 
-/**
- * Personagens com medidor de afinidade ativo na interface (HUD, créditos e balanço).
- */
-export const AFFINITY_ROSTER_IDS: CharacterId[] = ['personagem_a', 'personagem_b'];
+/** Elenco principal em destaque */
+export const AFFINITY_ROSTER_IDS: CharacterId[] = [
+  'cipriano',
+  'pedro_ivo',
+  'luis',
+  'gildro_iviano',
+  'joel_das_pimentas',
+  'malu_maciel',
+  'sandro_vagner',
+  'conrado',
+  'and',
+  'bilu',
+];
 
-/**
- * Personagens exibidos no Estúdio de Sprites (galeria de validação de assets).
- */
-export const GALLERY_CHARACTER_IDS: CharacterId[] = [...AFFINITY_ROSTER_IDS];
+export const GALLERY_CHARACTER_IDS: CharacterId[] = [
+  'cipriano',
+  'pedro_ivo',
+  'luis',
+  'gildro_iviano',
+  'joel_das_pimentas',
+  'itaberaba_noticias',
+  'conecta_professores',
+  'artcomercial',
+  'and',
+  'bilu',
+  'malu_maciel',
+  'sandro_vagner',
+  'conrado',
+];
 
-/**
- * Apelidos extras aceitos nos JSONs (além do id, nome e nickname, que já são
- * reconhecidos automaticamente). Ex.: { 'dr. panda': 'personagem_a' }
- */
 export const EXTRA_CHARACTER_ALIASES: Record<string, CharacterId> = {
   narrador: 'narrator',
   voce: 'protagonist',
   'você': 'protagonist',
+  'gabriel cipriano': 'cipriano',
+  'presidente': 'cipriano',
+  'pedro': 'pedro_ivo',
+  'pedro ivo': 'pedro_ivo',
+  'luís': 'luis',
+  'luis': 'luis',
+  'malu': 'malu_maciel',
+  'malu maciel': 'malu_maciel',
+  'sandro': 'sandro_vagner',
+  'sandro vagner': 'sandro_vagner',
+  'joel': 'joel_das_pimentas',
+  'joel das pimentas': 'joel_das_pimentas',
+  'gildro': 'gildro_iviano',
+  'gildro iviano': 'gildro_iviano',
+  'itaberaba': 'itaberaba_noticias',
+  'itaberaba notícias': 'itaberaba_noticias',
+  'conecta': 'conecta_professores',
+  'conecta professores': 'conecta_professores',
+  'art comercial': 'artcomercial',
+  'artcomercial': 'artcomercial',
 };

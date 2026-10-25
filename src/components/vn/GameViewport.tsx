@@ -12,6 +12,7 @@ import { EpisodeCompletionModal } from './EpisodeCompletionModal';
 import { SaveLoadModal, SaveLoadMode } from './SaveLoadModal';
 import { saveManager } from '../../utils/saveManager';
 import { GameSaveSlot, SaveSlotId } from '../../types/save';
+import { GAME_CONFIG } from '../../config/game.config';
 
 interface GameViewportProps {
   engine: GameEngineControls;
@@ -101,11 +102,18 @@ export const GameViewport: React.FC<GameViewportProps> = ({
 
         {/* Barra Superior de HUD */}
         <header className="relative z-30 flex items-center justify-between p-4 sm:p-6 pointer-events-auto">
-          {/* Medidor de Afinidade */}
-          <LoveOMeter
-            activeCharacterId={currentNode.sprite?.characterId || currentNode.speaker}
-            affinities={affinities}
-          />
+          {/* Medidor de Afinidade (Opcional, desativado no Panda de Ferro) */}
+          {GAME_CONFIG.hasAffinityMeter ? (
+            <LoveOMeter
+              activeCharacterId={currentNode.sprite?.characterId || currentNode.speaker}
+              affinities={affinities}
+            />
+          ) : (
+            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/85 backdrop-blur-md border border-slate-700/80 text-xs font-bold text-slate-200">
+              <span className="text-red-500 font-extrabold">🐼</span>
+              <span>{GAME_CONFIG.hudTitlePrefix}</span>
+            </div>
+          )}
 
           {/* Título da Cena / Localização */}
           {title && (

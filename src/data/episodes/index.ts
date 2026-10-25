@@ -33,10 +33,11 @@ interface EpisodeDefinition {
 const EPISODE_DEFINITIONS: EpisodeDefinition[] = [
   {
     raw: rawEpisode1 as unknown as RawEpisode,
-    description: 'Sinopse do episódio 1. Edite em src/data/episodes/index.ts.',
-    background: 'cenario_exemplo',
-    duration: '~5 min',
-    featuredCharacters: ['personagem_a', 'personagem_b'],
+    description:
+      'Cipriano, Pedro Ivo e Luís viajam até o Engenho Jussaral para um suposto retiro VIP, mas caem em uma emboscada mortal da Liga dos Banidos liderada por uma conspiração golpista da Faria Lima.',
+    background: 'portao_engenho_jussaral',
+    duration: '~15 min',
+    featuredCharacters: ['cipriano', 'pedro_ivo', 'luis', 'gildro_iviano'],
     unlocked: true,
   },
 ];

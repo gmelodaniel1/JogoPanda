@@ -1,6 +1,6 @@
-# Guia de Assets & Sprites - Visual Novel
+# Guia de Assets & Sprites — Panda de Ferro: O Mistério do Engenho Jussaral
 
-Este guia explica como preparar e organizar os arquivos visuais (sprites de personagens e cenários) e sonoros para o seu jogo.
+Este guia lista todos os arquivos visuais e sonoros necessários para o jogo, com base na Bíblia Oficial de Personagens e Cenários do **Panda de Ferro**.
 
 ---
 
@@ -11,75 +11,115 @@ Todos os arquivos devem ser colocados dentro da pasta `public/assets/`:
 ```
 public/assets/
 ├── sprites/
-│   ├── [characterId]/           <- Pasta com o mesmo ID cadastrado em characters.ts
-│   │   ├── neutral.png          <- Expressão padrão recomendada
-│   │   ├── happy.png
-│   │   ├── sad.png
-│   │   └── surprised.png
-│   └── protagonist/             <- Opcional (se você quiser exibir o avatar do protagonista)
-├── backgrounds/
-│   ├── [backgroundId].webp      <- Imagem de fundo no formato WebP (recomendado)
-│   └── [backgroundId].jpg       <- Fallback automático caso não utilize WebP
+│   ├── cipriano/                <- Gabriel Cipriano (O Presidente)
+│   ├── pedro_ivo/               <- Pedro Ivo (O Climatologista)
+│   ├── luis/                    <- Luís (A Polícia Moral)
+│   ├── malu_maciel/             <- Malu Maciel (A Irmã Investigadora)
+│   ├── sandro_vagner/           <- Sandro Vagner (O Repórter)
+│   ├── conrado/                 <- Conrado (O Guardião do Bom Dia)
+│   ├── joel_das_pimentas/       <- Joel das Pimentas
+│   ├── itaberaba_noticias/      <- Robô Itaberaba Notícias
+│   ├── conecta_professores/     <- Robô Conecta Professores
+│   ├── artcomercial/            <- Robô ArtComercial
+│   ├── and/                     <- And, o Louco da Moradia UFPE
+│   ├── bilu/                    <- Bilu (Gilherto Sim , Ok ❤️)
+│   └── gildro_iviano/           <- Gildro Iviano (O Faria Limer Paulista)
+├── backgrounds/                 <- Cenários do jogo (.webp ou .jpg)
 └── audio/
-    ├── sfx/                     <- Efeitos sonoros opcionais (.mp3)
+    ├── sfx/                     <- Efeitos sonoros opcionais (.mp3 / .wav)
     └── bgm/                     <- Músicas de fundo opcionais (.mp3)
 ```
 
 ---
 
-## 2. Especificações dos Sprites de Personagens
+## 2. Checklist Completa de Sprites
 
-| Parâmetro | Recomendação Ideal | Limite Mínimo |
+### 🕵️‍♂️ Os Protagonistas (A Comitiva Presidencial)
+* **`cipriano/` (Gabriel Cipriano)**
+  - `cipriano_neutro.png`: Postura séria e presidencial.
+  - `cipriano_limpando_celular.png`: Borrifando álcool isopropílico e lustrando com microfibra.
+  - `cipriano_sorriso_mentolado.png`: Sorriso confiante com cigarro mentolado aceso.
+  - `cipriano_irritado_alcool.png`: Irritado borrifando álcool seguidamente.
+  - `cipriano_serio_mentolado.png`: Expressão séria e compenetrada.
+  - `cipriano_calmo_mentolado.png`: Calmo e institucional.
+  - `cipriano_chocado_ponto_final.png`: Mente em curto (Bad End 03).
+  - `cipriano_triste.png`: Derrotado entregando a presidência (Bad End 04).
+  - `cipriano_epico_mentolado.png`: Contra-ofensiva épica com celular reluzente.
+
+* **`pedro_ivo/` (Pedro Ivo)**
+  - `pedro_ivo_neutro.png`: Olhar neutro de quem acabou de dizer *"Sim"*.
+  - `pedro_ivo_serio.png`: Postura de boletim meteorológico.
+  - `pedro_ivo_analisando.png`: Analisando a queda de temperatura da moenda.
+  - `pedro_ivo_surpreso.png`: Chocado com a conspiração da Faria Lima.
+  - `pedro_ivo_sorriso_discreto.png`: Sorriso sutil e discreto no final.
+
+* **`luis/` (Luís)**
+  - `luis_neutro.png`: Postura padrão de servidor do Paço do Frevo.
+  - `luis_julgando.png`: Notificando advertência da Polícia Moral.
+  - `luis_rindo.png`: Rindo da situação do Santa Cruz.
+  - `luis_emocionado.png`: Comovido pelo bom dia de Conrado.
+  - `luis_desconfiado.png`: Desconfiado da arapuca na Carne de Sol.
+  - `luis_alerta.png`: Em alerta com a recepção de pimenta ácida.
+  - `luis_assustado.png`: Em pânico com a grade caindo ou com And e Bilu.
+  - `luis_surpreso.png`: Surpreso ao receber a videochamada de Malu.
+  - `luis_cerveja.png`: Segurando uma cerveja no Belém Bar.
+  - `luis_indignado.png`: Indignado autuando Gildro Iviano por uso de sapatênis.
+  - `luis_vitorioso.png`: Triunfante aplicando a pena de serpentina em Gildro.
+
+### 📱 Apoio Externo
+* **`malu_maciel/`:**
+  - `malu_maciel_videochamada.png`: Emoldurada como interface de chamada de vídeo do WhatsApp.
+* **`sandro_vagner/`:**
+  - `sandro_reporter.png`: Ícone/avatar de plantão jornalístico de emergência.
+* **`conrado/`:**
+  - `conrado_bom_dia.png`: Xícara de café com purpurina e panda sorridente.
+
+### 🤖 Os Vilões (A Liga dos Banidos & Golpistas)
+* **`joel_das_pimentas/`:**
+  - `joel_das_pimentas_furioso.png`: Arremessando vidros de conserva de malagueta.
+  - `joel_desesperado.png`: Em pânico fugindo da Receita Federal pelo canavial.
+* **`itaberaba_noticias/`:**
+  - `robo_itaberaba.png`: Carcaça robótica sucateada com LED vermelho.
+  - `robo_itaberaba_curto.png`: Soltando faíscas e desabando com o bom dia de Conrado.
+* **`conecta_professores/`:**
+  - `robo_conecta.png`: Robô burocrático com teclado holográfico de editais MEC.
+  - `robo_conecta_curto.png`: Entrando em curto-circuito com fumaça.
+* **`artcomercial/`:**
+  - `robo_artcomercial.png`: Impressora industrial com guilhotina e rolos de plastificação.
+  - `robo_artcomercial_curto.png`: Explodindo em chuva de papel picado colorido.
+* **`and/`:**
+  - `and_louco_ufpe.png`: And cercado pelos emojis ❤️🫁🧠 gritando *Papaloc Muncks*.
+* **`bilu/`:**
+  - `bilu_coracao.png`: Bilu com balãozinho de ❤️ (*"Oi, Sim, Vem / Gilherto Sim , Ok ❤️"*).
+* **`gildro_iviano/`:**
+  - `gildro_iviano_vilao_paulista.png`: De bermuda cáqui, sapatênis de couro bege e suéter jogado nos ombros.
+  - `gildro_derrotado.png`: De joelhos, suéter desamarrado e chocado com a várzea.
+
+---
+
+## 3. Checklist de Cenários (`public/assets/backgrounds/`)
+
+| Arquivo Recomendado | Arquivo Fallback | Descrição da Cena |
 | :--- | :--- | :--- |
-| **Formato** | **PNG** ou **WebP** com transparência total (canal Alpha) | PNG 24-bit |
-| **Dimensões** | **800 x 1200 px** ou **1000 x 1500 px** | 600 x 900 px |
-| **Alinhamento** | Personagem ancorado pela base (pés tocando a linha inferior da imagem) | - |
-| **Enquadramento** | Plano Americano (da cintura/coxas para cima) ou Corpo Inteiro | Da cintura para cima |
-| **Fundo** | **100% Transparente** (sem halos brancos ou cinzas) | - |
-
-> [!TIP]
-> **Placeholders Automáticos:** Você não precisa esperar que todos os desenhos fiquem prontos! Se um arquivo `.png` ainda não existir, o motor exibe automaticamente um avatar vetorial (SVG) colorido com a silhueta, iniciais, cores temáticas do personagem e o nome da expressão requisitada.
-
----
-
-## 3. Nomenclatura das Expressões
-
-Os nomes dos arquivos `.png` devem ser exatamente iguais aos cadastrados em `knownExpressions` do arquivo `src/constants/characters.ts`.
-
-Exemplo:
-Se no cadastro do personagem você tiver:
-```typescript
-knownExpressions: ['neutral', 'happy', 'angry', 'surprised']
-```
-A pasta `public/assets/sprites/seu_personagem/` deverá conter:
-- `neutral.png`
-- `happy.png`
-- `angry.png`
-- `surprised.png`
-
-### Poses e Animações Disponíveis no Roteiro
-No JSON do episódio você pode configurar a reação do personagem:
-- `animation: "slide-up-fade"`: entrada suave pela base (padrão)
-- `animation: "sprite-shake"`: tremor lateral (choque, susto, raiva)
-- `animation: "sprite-bob"`: pulinho vertical leve (fala animada ou risada)
-- `position: "left" | "center" | "right"`: posicionamento na tela (padrão: `center`)
+| `estrada_canavial_pe.webp` | `.jpg` | Rodovia BR-101 Sul cercada por canaviais |
+| `carne_de_sol_paraibana_sepia.webp` | `.jpg` | Flashback 01: Carne de Sol Paraibana em tom sépia |
+| `portao_engenho_jussaral.webp` | `.jpg` | Guarita do Engenho com mesa da degustação de pimenta |
+| `tela_preta_vermelha.webp` | `.jpg` | Bad End 01: Combustão interna por Carolina Reaper |
+| `patio_engenho_abandonado.webp` | `.jpg` | Pátio interno com a grade de ferro despencada |
+| `oficina_grafica_escura.webp` | `.jpg` | Bad End 02: Oficina da ArtComercial com rolos térmicos |
+| `interior_moenda_labirinto.webp` | `.jpg` | Moenda velha com pichações de Moradia/UFPE |
+| `espiral_psicodelica_ufpe.webp` | `.jpg` | Bad End 03: Fenda dimensional da loucura |
+| `belem_bar_noite.webp` | `.jpg` | Flashback 02: Calçada noturna do Belém Bar |
+| `salao_principal_engenho.webp` | `.jpg` | Salão principal com passarela metálica alta |
+| `grupo_whatsapp_paulista.webp` | `.jpg` | Bad End 04: Grupo Faria Limer de Beach Tennis |
+| `tela_gameover_itaberaba.webp` | `.jpg` | Layout sensacionalista de jornal policial |
+| `salao_principal_engenho_epico.webp` | `.jpg` | True Ending: Salão iluminado na vitória |
 
 ---
 
-## 4. Especificações dos Cenários de Fundo (Backgrounds)
+## 4. Placeholders SVG Automáticos
 
-* **Resolução:** **1920 x 1080 px** (proporção 16:9 Full HD).
-* **Formato:** `.webp` (preferencial por peso reduzido e alta qualidade) ou `.jpg`.
-* **Nome do Arquivo:** Deve coincidir com o identificador cadastrado em `src/constants/backgrounds.ts`.
-  - Exemplo: cenário `cenario_exemplo` procura primeiro `public/assets/backgrounds/cenario_exemplo.webp` e depois `.jpg`.
-* **Transição:** A troca de cenários durante os diálogos conta com efeito suave de *cross-fade* automático.
-
----
-
-## 5. Áudio e Efeitos Sonoros
-
-O motor já possui um **Sintetizador Procedural Web Audio** integrado, permitindo tocar cliques, bipes de alerta, impactos graves, passos e acordes musicais mesmo sem arquivos de som externos!
-
-Caso queira utilizar trilhas e gravações sonoras personalizadas:
-- Coloque os arquivos `.mp3` nas pastas `public/assets/audio/sfx/` ou `bgm/`.
-- As palavras-chave para disparo automático de sons contextuais podem ser configuradas em `src/config/game.config.ts`.
+Enquanto você não inserir os arquivos PNG ou WebP:
+- O motor renderiza **avatares vetoriais dinâmicos** com a silhueta, as iniciais e as cores temáticas oficiais (o vermelho e preto do Santa Cruz para Cipriano, o vermelho e branco do Náutico para Pedro Ivo e Luís, etc.).
+- Os cenários ausentes exibem uma grade futurista com o nome do local e o caminho do arquivo esperado.
+- **O jogo já é 100% jogável do início ao fim agora mesmo!**
