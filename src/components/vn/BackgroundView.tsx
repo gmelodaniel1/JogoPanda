@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getBackgroundPath, getBackgroundFallbackPath } from '../../utils/assetHelper';
+import { getBackgroundCandidates, getBackgroundPath } from '../../utils/assetHelper';
 import { assetPreloader } from '../../utils/assetPreloader';
 import { BackgroundSvg } from '../placeholders/BackgroundSvg';
 
@@ -20,18 +20,16 @@ export const BackgroundView: React.FC<BackgroundViewProps> = ({ backgroundId }) 
   const [prevLayer, setPrevLayer] = useState<BackgroundLayer | null>(null);
   const [isCrossFading, setIsCrossFading] = useState<boolean>(false);
   const [imageError, setImageError] = useState<boolean>(() => {
-    const primary = getBackgroundPath(backgroundId);
-    const fallback = getBackgroundFallbackPath(backgroundId);
-    return assetPreloader.isFailed(primary) && (!fallback || assetPreloader.isFailed(fallback));
+    const candidates = getBackgroundCandidates(backgroundId);
+    return candidates.every((url) => assetPreloader.isFailed(url));
   });
 
   useEffect(() => {
     let cancelled = false;
-    const primaryUrl = getBackgroundPath(backgroundId);
-    const fallbackUrl = getBackgroundFallbackPath(backgroundId);
+    const candidates = getBackgroundCandidates(backgroundId);
 
-    // Se já sabemos que ambos falharam, ativa fallback SVG imediatamente
-    if (assetPreloader.isFailed(primaryUrl) && (!fallbackUrl || assetPreloader.isFailed(fallbackUrl))) {
+    // Se todos os formatos falharam, ativa fallback SVG imediatamente
+    if (candidates.every((url) => assetPreloader.isFailed(url))) {
       setImageError(true);
       return;
     }
@@ -54,34 +52,38 @@ export const BackgroundView: React.FC<BackgroundViewProps> = ({ backgroundId }) 
       }
     };
 
-    const tryLoad = (url: string, nextFallback: string | null) => {
+    // 1. Se algum formato já está carregado pelo preloader, aplica imediatamente
+    for (const url of candidates) {
       if (assetPreloader.isLoaded(url)) {
         applyLayerChange(url);
         return;
       }
+    }
 
-      if (assetPreloader.isFailed(url)) {
-        if (nextFallback) {
-          tryLoad(nextFallback, null);
-        } else {
-          setImageError(true);
-        }
+    // 2. Tenta em sequência: .webp -> .jpg -> .png
+    const tryCandidates = async (index: number) => {
+      if (index >= candidates.length) {
+        if (!cancelled) setImageError(true);
         return;
       }
 
-      assetPreloader.preloadImage(url).then((success) => {
-        if (cancelled) return;
-        if (success) {
-          applyLayerChange(url);
-        } else if (nextFallback) {
-          tryLoad(nextFallback, null);
-        } else {
-          setImageError(true);
-        }
-      });
+      const url = candidates[index];
+      if (assetPreloader.isFailed(url)) {
+        tryCandidates(index + 1);
+        return;
+      }
+
+      const success = await assetPreloader.preloadImage(url);
+      if (cancelled) return;
+
+      if (success) {
+        applyLayerChange(url);
+      } else {
+        tryCandidates(index + 1);
+      }
     };
 
-    tryLoad(primaryUrl, fallbackUrl);
+    tryCandidates(0);
 
     return () => {
       cancelled = true;

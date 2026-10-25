@@ -1,9 +1,7 @@
 import { DialogueNode, DialogueScript } from '../types/dialogue';
 import {
-  getBackgroundFallbackPath,
-  getBackgroundPath,
-  getFallbackSpritePath,
-  getSpritePath,
+  getBackgroundCandidates,
+  getSpriteCandidates,
 } from './assetHelper';
 
 /**
@@ -89,39 +87,38 @@ class AssetPreloader {
   }
 
   /**
+   * Tenta carregar os candidatos em sequência e interrompe assim que o primeiro tem sucesso.
+   * Economiza requisições de rede (se .webp existe, não baixa .png).
+   */
+  public async preloadCandidates(candidates: string[]): Promise<string | null> {
+    for (const url of candidates) {
+      if (this.isLoaded(url)) return url;
+      if (this.isFailed(url)) continue;
+      const ok = await this.preloadImage(url);
+      if (ok) return url;
+    }
+    return null;
+  }
+
+  /**
    * Pré-carrega todos os assets visuais associados a um nó específico
    */
   public preloadNodeAssets(node: DialogueNode | null | undefined): void {
     if (!node) return;
 
-    // Cenários
+    // Cenários (.webp -> .jpg -> .png)
     if (node.background) {
-      const bgUrl = getBackgroundPath(node.background);
-      this.preloadImage(bgUrl);
-      const bgFallback = getBackgroundFallbackPath(node.background);
-      if (bgFallback && bgFallback !== bgUrl) {
-        this.preloadImage(bgFallback);
-      }
+      this.preloadCandidates(getBackgroundCandidates(node.background));
     }
 
-    // Sprite Primário
+    // Sprite Primário (.webp -> .png -> fallbacks)
     if (node.sprite) {
-      const spriteUrl = getSpritePath(node.sprite.characterId, node.sprite.expression);
-      this.preloadImage(spriteUrl);
-      const spriteFallback = getFallbackSpritePath(node.sprite.characterId, node.sprite.expression);
-      if (spriteFallback && spriteFallback !== spriteUrl) {
-        this.preloadImage(spriteFallback);
-      }
+      this.preloadCandidates(getSpriteCandidates(node.sprite.characterId, node.sprite.expression));
     }
 
-    // Sprite Secundário
+    // Sprite Secundário (.webp -> .png -> fallbacks)
     if (node.secondarySprite) {
-      const secUrl = getSpritePath(node.secondarySprite.characterId, node.secondarySprite.expression);
-      this.preloadImage(secUrl);
-      const secFallback = getFallbackSpritePath(node.secondarySprite.characterId, node.secondarySprite.expression);
-      if (secFallback && secFallback !== secUrl) {
-        this.preloadImage(secFallback);
-      }
+      this.preloadCandidates(getSpriteCandidates(node.secondarySprite.characterId, node.secondarySprite.expression));
     }
   }
 
@@ -187,3 +184,4 @@ class AssetPreloader {
 }
 
 export const assetPreloader = new AssetPreloader();
+

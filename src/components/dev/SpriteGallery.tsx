@@ -16,7 +16,7 @@ import {
 import { CharacterId, CharacterPosition, SpriteAnimation } from '../../types/character';
 import { CHARACTERS_METADATA, GALLERY_CHARACTER_IDS } from '../../constants/characters';
 import { GAME_CONFIG } from '../../config/game.config';
-import { getSpritePath } from '../../utils/assetHelper';
+import { getSpriteWebpPath, getSpritePngPath } from '../../utils/assetHelper';
 import { CharacterSprite } from '../vn/CharacterSprite';
 import { BackgroundView } from '../vn/BackgroundView';
 import { CharacterAvatarSvg } from '../placeholders/CharacterAvatarSvg';
@@ -39,6 +39,8 @@ export const SpriteGallery: React.FC<SpriteGalleryProps> = ({ onClose }) => {
   const [flipHorizontal, setFlipHorizontal] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [failedSprites, setFailedSprites] = useState<Record<string, boolean>>({});
+  const [resolvedUrls, setResolvedUrls] = useState<Record<string, string>>({});
+  const [loadedFormats, setLoadedFormats] = useState<Record<string, 'webp' | 'png'>>({});
 
   const characterKeys = GALLERY_CHARACTER_IDS;
 
@@ -306,7 +308,10 @@ export const SpriteGallery: React.FC<SpriteGalleryProps> = ({ onClose }) => {
                   {expressions.map((expr) => {
                     const spriteKey = `${selectedCharId}/${expr}`;
                     const isFailed = Boolean(failedSprites[spriteKey]);
-                    const spritePath = getSpritePath(selectedCharId, expr);
+                    const webpPath = getSpriteWebpPath(selectedCharId, expr);
+                    const pngPath = getSpritePngPath(selectedCharId, expr);
+                    const currentSrc = resolvedUrls[spriteKey] || webpPath;
+                    const formatBadge = loadedFormats[spriteKey];
                     const isSelected = selectedExpression === expr;
 
                     return (
@@ -323,10 +328,20 @@ export const SpriteGallery: React.FC<SpriteGalleryProps> = ({ onClose }) => {
                         <div className="relative h-72 w-full flex items-end justify-center p-2 overflow-hidden bg-black/20">
                           {!isFailed ? (
                             <img
-                              src={spritePath}
+                              key={currentSrc}
+                              src={currentSrc}
                               alt={`${currentMeta.name} - ${expr}`}
+                              onLoad={() => {
+                                const fmt = currentSrc.includes('.webp') ? 'webp' : 'png';
+                                setLoadedFormats((prev) => ({ ...prev, [spriteKey]: fmt }));
+                              }}
                               onError={() => {
-                                setFailedSprites((prev) => ({ ...prev, [spriteKey]: true }));
+                                if (currentSrc === webpPath) {
+                                  // Tenta o formato fallback em PNG
+                                  setResolvedUrls((prev) => ({ ...prev, [spriteKey]: pngPath }));
+                                } else {
+                                  setFailedSprites((prev) => ({ ...prev, [spriteKey]: true }));
+                                }
                               }}
                               className="h-full w-auto object-contain object-bottom transition-transform duration-200 group-hover:scale-105"
                             />
@@ -341,19 +356,19 @@ export const SpriteGallery: React.FC<SpriteGalleryProps> = ({ onClose }) => {
                             <span className="font-bold text-xs text-slate-200 truncate capitalize">
                               {expr.replace('_', ' ')}
                             </span>
-                            {!isFailed ? (
-                              <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-mono">
+                            {!isFailed && formatBadge ? (
+                              <span className="flex items-center gap-1 text-[10px] text-emerald-400 font-mono font-bold uppercase">
                                 <CheckCircle2 className="w-3 h-3" />
-                                720px
+                                {formatBadge}
                               </span>
-                            ) : (
+                            ) : isFailed ? (
                               <span className="flex items-center gap-1 text-[10px] text-amber-400 font-mono">
                                 <AlertCircle className="w-3 h-3" />
                                 SVG
                               </span>
-                            )}
+                            ) : null}
                           </div>
-                          <span className="text-[10px] text-slate-500 font-mono truncate">{expr}.png</span>
+                          <span className="text-[10px] text-slate-500 font-mono truncate">{expr}.webp / .png</span>
                         </div>
                       </div>
                     );

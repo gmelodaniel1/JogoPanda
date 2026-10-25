@@ -34,6 +34,9 @@ public/assets/
 
 ## 2. Checklist Completa de Sprites
 
+> [!TIP]
+> **Formatos Híbridos Suportados:** Você pode salvar os sprites em **`.webp`** (recomendado para reduzir em até 75% o peso e carregar instantaneamente em redes móveis) ou em **`.png`** tradicional com fundo transparente. O motor testa automaticamente `.webp` -> `.png` -> fallback neutro -> avatar vetorial SVG.
+
 ### 🕵️‍♂️ Os Protagonistas (A Comitiva Presidencial)
 * **`cipriano/` (Gabriel Cipriano)**
   - `cipriano_neutro.png`: Postura séria e presidencial.

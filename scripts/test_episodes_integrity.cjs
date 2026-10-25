@@ -55,8 +55,9 @@ for (const epNum of EPISODE_NUMBERS) {
         console.error(`[ERRO DE PERSONAGEM] Personagem "${sp.characterId}" no nó "${nodeId}" não existe em CHARACTERS_METADATA.`);
         totalErrors++;
       } else {
-        const exprFile = path.join(SPRITES_DIR, sp.characterId, `${sp.expression}.png`);
-        if (fs.existsSync(exprFile)) {
+        const exprPng = path.join(SPRITES_DIR, sp.characterId, `${sp.expression}.png`);
+        const exprWebp = path.join(SPRITES_DIR, sp.characterId, `${sp.expression}.webp`);
+        if (fs.existsSync(exprWebp) || fs.existsSync(exprPng)) {
           customSpritesFound++;
         } else {
           placeholderSprites++;

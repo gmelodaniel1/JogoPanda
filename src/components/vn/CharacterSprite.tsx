@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CharacterSpriteConfig } from '../../types/character';
-import { getSpritePath, getFallbackSpritePath } from '../../utils/assetHelper';
+import { getSpriteCandidates } from '../../utils/assetHelper';
 import { assetPreloader } from '../../utils/assetPreloader';
 import { CharacterAvatarSvg } from '../placeholders/CharacterAvatarSvg';
 
@@ -11,17 +11,16 @@ interface CharacterSpriteProps {
 export const CharacterSprite: React.FC<CharacterSpriteProps> = ({ config }) => {
   const [imageError, setImageError] = useState(() => {
     if (!config) return false;
-    const primary = getSpritePath(config.characterId, config.expression);
-    const fallback = getFallbackSpritePath(config.characterId, config.expression);
-    return assetPreloader.isFailed(primary) && (!fallback || assetPreloader.isFailed(fallback));
+    const candidates = getSpriteCandidates(config.characterId, config.expression);
+    return candidates.every((url) => assetPreloader.isFailed(url));
   });
 
   const [loadedUrl, setLoadedUrl] = useState<string | null>(() => {
     if (!config) return null;
-    const primary = getSpritePath(config.characterId, config.expression);
-    if (assetPreloader.isLoaded(primary)) return primary;
-    const fallback = getFallbackSpritePath(config.characterId, config.expression);
-    if (fallback && assetPreloader.isLoaded(fallback)) return fallback;
+    const candidates = getSpriteCandidates(config.characterId, config.expression);
+    for (const url of candidates) {
+      if (assetPreloader.isLoaded(url)) return url;
+    }
     return null;
   });
 
@@ -29,23 +28,19 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({ config }) => {
     if (!config) return;
 
     let cancelled = false;
-    const spriteUrl = getSpritePath(config.characterId, config.expression);
-    const fallbackUrl = getFallbackSpritePath(config.characterId, config.expression);
+    const candidates = getSpriteCandidates(config.characterId, config.expression);
 
-    // Se já está carregado pelo assetPreloader, exibe imediatamente (0ms)
-    if (assetPreloader.isLoaded(spriteUrl)) {
-      setLoadedUrl(spriteUrl);
-      setImageError(false);
-      return;
-    }
-    if (fallbackUrl && assetPreloader.isLoaded(fallbackUrl)) {
-      setLoadedUrl(fallbackUrl);
-      setImageError(false);
-      return;
+    // 1. Se algum candidato já está decodificado em memória pelo preloader, exibe imediatamente (0ms)
+    for (const url of candidates) {
+      if (assetPreloader.isLoaded(url)) {
+        setLoadedUrl(url);
+        setImageError(false);
+        return;
+      }
     }
 
-    // Se já sabemos que ambos falharam, ativa fallback SVG imediatamente sem aguardar timeout
-    if (assetPreloader.isFailed(spriteUrl) && (!fallbackUrl || assetPreloader.isFailed(fallbackUrl))) {
+    // 2. Se todos os candidatos já falharam, ativa fallback SVG imediatamente sem aguardar timeout
+    if (candidates.every((url) => assetPreloader.isFailed(url))) {
       setImageError(true);
       setLoadedUrl(null);
       return;
@@ -53,32 +48,34 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({ config }) => {
 
     setImageError(false);
 
-    const tryLoad = (url: string, nextFallback: string | null) => {
-      if (assetPreloader.isFailed(url)) {
-        if (nextFallback) {
-          tryLoad(nextFallback, null);
-        } else {
+    // 3. Tenta carregar os candidatos em sequência: webp -> png -> fallbacks
+    const tryCandidates = async (index: number) => {
+      if (index >= candidates.length) {
+        if (!cancelled) {
           setImageError(true);
           setLoadedUrl(null);
         }
         return;
       }
 
-      assetPreloader.preloadImage(url).then((success) => {
-        if (cancelled) return;
-        if (success) {
-          setLoadedUrl(url);
-          setImageError(false);
-        } else if (nextFallback) {
-          tryLoad(nextFallback, null);
-        } else {
-          setImageError(true);
-          setLoadedUrl(null);
-        }
-      });
+      const url = candidates[index];
+      if (assetPreloader.isFailed(url)) {
+        tryCandidates(index + 1);
+        return;
+      }
+
+      const success = await assetPreloader.preloadImage(url);
+      if (cancelled) return;
+
+      if (success) {
+        setLoadedUrl(url);
+        setImageError(false);
+      } else {
+        tryCandidates(index + 1);
+      }
     };
 
-    tryLoad(spriteUrl, fallbackUrl);
+    tryCandidates(0);
 
     return () => {
       cancelled = true;

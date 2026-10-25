@@ -16,19 +16,65 @@ const EXPRESSION_FALLBACKS: Record<string, string> = {
 /** Incremente para forçar o navegador a recarregar sprites após substituí-los. */
 const ASSET_VERSION = 1;
 
-export function getSpritePath(characterId: string, expression: string): string {
+/**
+ * Retorna o caminho do sprite no formato WebP moderno (alta compressão com canal alfa).
+ */
+export function getSpriteWebpPath(characterId: string, expression: string): string {
+  return `./assets/sprites/${characterId}/${expression}.webp?v=${ASSET_VERSION}`;
+}
+
+/**
+ * Retorna o caminho do sprite no formato PNG tradicional.
+ */
+export function getSpritePngPath(characterId: string, expression: string): string {
   return `./assets/sprites/${characterId}/${expression}.png?v=${ASSET_VERSION}`;
 }
 
-export function getFallbackSpritePath(characterId: string, expression: string): string | null {
+/**
+ * Retorna o caminho primário do sprite (WebP preferencial por padrão).
+ */
+export function getSpritePath(characterId: string, expression: string): string {
+  return getSpriteWebpPath(characterId, expression);
+}
+
+/**
+ * Retorna todos os caminhos candidatos para um sprite em ordem de preferência:
+ * 1. Expressão solicitada em .webp (mais leve)
+ * 2. Expressão solicitada em .png (legado/fallback)
+ * 3. Expressão alternativa ou 'neutral' em .webp
+ * 4. Expressão alternativa ou 'neutral' em .png
+ */
+export function getSpriteCandidates(characterId: string, expression: string): string[] {
+  const candidates: string[] = [
+    getSpriteWebpPath(characterId, expression),
+    getSpritePngPath(characterId, expression),
+  ];
+
   const fallbackExpr = EXPRESSION_FALLBACKS[expression];
   if (fallbackExpr && fallbackExpr !== expression) {
-    return getSpritePath(characterId, fallbackExpr);
+    candidates.push(
+      getSpriteWebpPath(characterId, fallbackExpr),
+      getSpritePngPath(characterId, fallbackExpr)
+    );
+  } else if (expression !== 'neutral' && !expression.endsWith('_neutro')) {
+    const charNeutral = `${characterId}_neutro`;
+    candidates.push(
+      getSpriteWebpPath(characterId, charNeutral),
+      getSpritePngPath(characterId, charNeutral),
+      getSpriteWebpPath(characterId, 'neutral'),
+      getSpritePngPath(characterId, 'neutral')
+    );
   }
-  if (expression !== 'neutral') {
-    return getSpritePath(characterId, 'neutral');
-  }
-  return null;
+
+  // Remove duplicatas preservando a ordem
+  return Array.from(new Set(candidates));
+}
+
+/**
+ * Retorna o fallback secundário direto em PNG para compatibilidade com código existente.
+ */
+export function getFallbackSpritePath(characterId: string, expression: string): string | null {
+  return getSpritePngPath(characterId, expression);
 }
 
 /**
@@ -60,4 +106,16 @@ export function getBackgroundPath(backgroundId: string): string {
 export function getBackgroundFallbackPath(backgroundId: string): string {
   const resolved = normalizeBackgroundId(backgroundId);
   return `./assets/backgrounds/${resolved}.jpg`;
+}
+
+/**
+ * Retorna todos os caminhos candidatos para um cenário em ordem: .webp -> .jpg -> .png
+ */
+export function getBackgroundCandidates(backgroundId: string): string[] {
+  const resolved = normalizeBackgroundId(backgroundId);
+  return [
+    `./assets/backgrounds/${resolved}.webp`,
+    `./assets/backgrounds/${resolved}.jpg`,
+    `./assets/backgrounds/${resolved}.png`,
+  ];
 }
