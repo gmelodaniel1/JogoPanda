@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CharacterSpriteConfig } from '../../types/character';
 import { getSpriteCandidates } from '../../utils/assetHelper';
 import { assetPreloader } from '../../utils/assetPreloader';
@@ -30,18 +30,43 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
     return null;
   });
 
+  const [prevUrl, setPrevUrl] = useState<string | null>(null);
+  const prevCharIdRef = useRef<string | undefined>(config?.characterId);
+
+  useEffect(() => {
+    prevCharIdRef.current = config?.characterId;
+  }, [config?.characterId]);
+
   useEffect(() => {
     if (!config) return;
 
     let cancelled = false;
+    let fadeTimer: ReturnType<typeof setTimeout> | null = null;
     const candidates = getSpriteCandidates(config.characterId, config.expression);
+
+    const applyUrl = (nextUrl: string) => {
+      setImageError(false);
+      if (nextUrl !== loadedUrl) {
+        if (loadedUrl && config.characterId === prevCharIdRef.current) {
+          setPrevUrl(loadedUrl);
+          fadeTimer = setTimeout(() => {
+            if (!cancelled) setPrevUrl(null);
+          }, 350);
+        } else {
+          setPrevUrl(null);
+        }
+        setLoadedUrl(nextUrl);
+      }
+    };
 
     // 1. Se algum candidato já está decodificado em memória pelo preloader, exibe imediatamente (0ms)
     for (const url of candidates) {
       if (assetPreloader.isLoaded(url)) {
-        setLoadedUrl(url);
-        setImageError(false);
-        return;
+        applyUrl(url);
+        return () => {
+          cancelled = true;
+          if (fadeTimer) clearTimeout(fadeTimer);
+        };
       }
     }
 
@@ -49,6 +74,7 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
     if (candidates.every((url) => assetPreloader.isFailed(url))) {
       setImageError(true);
       setLoadedUrl(null);
+      setPrevUrl(null);
       return;
     }
 
@@ -60,6 +86,7 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
         if (!cancelled) {
           setImageError(true);
           setLoadedUrl(null);
+          setPrevUrl(null);
         }
         return;
       }
@@ -74,8 +101,7 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
       if (cancelled) return;
 
       if (success) {
-        setLoadedUrl(url);
-        setImageError(false);
+        applyUrl(url);
       } else {
         tryCandidates(index + 1);
       }
@@ -85,6 +111,7 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
 
     return () => {
       cancelled = true;
+      if (fadeTimer) clearTimeout(fadeTimer);
     };
   }, [config?.characterId, config?.expression]);
 
@@ -118,28 +145,42 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
   return (
     <div
       key={config.characterId}
-      className={`absolute bottom-0 pointer-events-none flex items-end h-[70%] sm:h-[80%] md:h-[82%] max-h-[780px] transition-all duration-300 ease-out ${focusClasses} ${positionClasses}`}
+      className={`absolute bottom-0 pointer-events-none flex items-end h-[70%] sm:h-[80%] md:h-[82%] max-h-[780px] transition-all duration-300 ease-out will-change-transform transform-gpu ${focusClasses} ${positionClasses}`}
     >
-      {/* Camada de animação de entrada ou reação (shake, bob) */}
+      {/* Camada de animação de entrada ou reação (shake, bob) com aceleração de GPU */}
       <div
         key={`${config.characterId}-${config.animation || 'slide-up-fade'}`}
-        className={`relative h-full flex items-end ${animationClass}`}
+        className={`relative h-full flex items-end will-change-transform transform-gpu ${animationClass}`}
       >
-        {/* Camada de escala e flip horizontal */}
+        {/* Camada de escala e flip horizontal com baseline rígida na base (bottom center) */}
         <div
-          className="relative h-full flex items-end"
+          className="relative h-full flex items-end justify-center"
           style={{
             transform: transformParts.length > 0 ? transformParts.join(' ') : undefined,
             transformOrigin: 'bottom center',
           }}
         >
-          {!imageError && loadedUrl ? (
-            <img
-              key={loadedUrl}
-              src={loadedUrl}
-              alt={`${config.characterId} - ${config.expression}`}
-              className="h-full w-auto object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] select-none pointer-events-none transition-opacity duration-300 animate-fade-in"
-            />
+          {!imageError && (loadedUrl || prevUrl) ? (
+            <div className="relative h-full flex items-end justify-center">
+              {/* Expressão anterior (mantida no fundo durante o fade para eliminar jitter de cabeça) */}
+              {prevUrl && (
+                <img
+                  src={prevUrl}
+                  alt={`${config.characterId} - anterior`}
+                  className="h-full w-auto object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] select-none pointer-events-none absolute inset-0 z-0 opacity-80"
+                />
+              )}
+
+              {/* Expressão atual (fade-in suave sobreposta sem frame em branco) */}
+              {loadedUrl && (
+                <img
+                  key={loadedUrl}
+                  src={loadedUrl}
+                  alt={`${config.characterId} - ${config.expression}`}
+                  className="h-full w-auto object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] select-none pointer-events-none relative z-10 transition-opacity duration-300 animate-fade-in"
+                />
+              )}
+            </div>
           ) : (
             <CharacterAvatarSvg
               characterId={config.characterId}

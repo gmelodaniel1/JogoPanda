@@ -37,6 +37,12 @@ public/assets/
 > [!TIP]
 > **Formatos Híbridos Suportados:** Você pode salvar os sprites em **`.webp`** (recomendado para reduzir em até 75% o peso e carregar instantaneamente em redes móveis) ou em **`.png`** tradicional com fundo transparente. O motor testa automaticamente `.webp` -> `.png` -> fallback neutro -> avatar vetorial SVG.
 
+> [!IMPORTANT]
+> **Padrão de Bounding Box (Anti-Jitter & Estabilidade):**
+> - **Dimensões recomendadas:** 1080×1440 px ou 1200×1600 px (proporção vertical ~3:4).
+> - **Ancoragem Vertical:** Todas as poses de um mesmo personagem devem ser exportadas sobre o **mesmo tamanho de canvas transparente**, com a base do corpo tocando o rodapé inferior (`bottom: 0px`).
+> - **Alinhamento de Olhos:** Mantenha a posição e altura da cabeça consistentes entre as expressões. O motor agora faz *cross-fade* automático de 300 ms entre expressões, resultando em uma troca de rosto 100% contínua e sem saltos.
+
 ### 🕵️‍♂️ Os Protagonistas (A Comitiva Presidencial)
 * **`cipriano/` (Gabriel Cipriano)**
   - `cipriano_neutro.png`: Postura séria e presidencial.
