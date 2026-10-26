@@ -16,7 +16,7 @@ import {
 import { CharacterId, CharacterPosition, SpriteAnimation } from '../../types/character';
 import { CHARACTERS_METADATA, GALLERY_CHARACTER_IDS } from '../../constants/characters';
 import { GAME_CONFIG } from '../../config/game.config';
-import { getSpriteWebpPath, getSpritePngPath } from '../../utils/assetHelper';
+import { getSpriteCandidates } from '../../utils/assetHelper';
 import { CharacterSprite } from '../vn/CharacterSprite';
 import { BackgroundView } from '../vn/BackgroundView';
 import { CharacterAvatarSvg } from '../placeholders/CharacterAvatarSvg';
@@ -39,8 +39,8 @@ export const SpriteGallery: React.FC<SpriteGalleryProps> = ({ onClose }) => {
   const [flipHorizontal, setFlipHorizontal] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [failedSprites, setFailedSprites] = useState<Record<string, boolean>>({});
-  const [resolvedUrls, setResolvedUrls] = useState<Record<string, string>>({});
-  const [loadedFormats, setLoadedFormats] = useState<Record<string, 'webp' | 'png'>>({});
+  const [candidateIndex, setCandidateIndex] = useState<Record<string, number>>({});
+  const [loadedFormats, setLoadedFormats] = useState<Record<string, string>>({});
 
   const characterKeys = GALLERY_CHARACTER_IDS;
 
@@ -308,9 +308,9 @@ export const SpriteGallery: React.FC<SpriteGalleryProps> = ({ onClose }) => {
                   {expressions.map((expr) => {
                     const spriteKey = `${selectedCharId}/${expr}`;
                     const isFailed = Boolean(failedSprites[spriteKey]);
-                    const webpPath = getSpriteWebpPath(selectedCharId, expr);
-                    const pngPath = getSpritePngPath(selectedCharId, expr);
-                    const currentSrc = resolvedUrls[spriteKey] || webpPath;
+                    const candidates = getSpriteCandidates(selectedCharId, expr);
+                    const currIdx = candidateIndex[spriteKey] || 0;
+                    const currentSrc = candidates[currIdx] || candidates[0];
                     const formatBadge = loadedFormats[spriteKey];
                     const isSelected = selectedExpression === expr;
 
@@ -332,13 +332,13 @@ export const SpriteGallery: React.FC<SpriteGalleryProps> = ({ onClose }) => {
                               src={currentSrc}
                               alt={`${currentMeta.name} - ${expr}`}
                               onLoad={() => {
-                                const fmt = currentSrc.includes('.webp') ? 'webp' : 'png';
+                                const extMatch = currentSrc.match(/\.(webp|png|jfif|jpg|jpeg)\b/i);
+                                const fmt = extMatch ? extMatch[1].toLowerCase() : 'ok';
                                 setLoadedFormats((prev) => ({ ...prev, [spriteKey]: fmt }));
                               }}
                               onError={() => {
-                                if (currentSrc === webpPath) {
-                                  // Tenta o formato fallback em PNG
-                                  setResolvedUrls((prev) => ({ ...prev, [spriteKey]: pngPath }));
+                                if (currIdx + 1 < candidates.length) {
+                                  setCandidateIndex((prev) => ({ ...prev, [spriteKey]: currIdx + 1 }));
                                 } else {
                                   setFailedSprites((prev) => ({ ...prev, [spriteKey]: true }));
                                 }

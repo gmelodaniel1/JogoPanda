@@ -27,12 +27,13 @@ for (const [charId, meta] of Object.entries(CHARACTERS_METADATA)) {
   let foundForChar = 0;
   const missingForChar = [];
 
+  const validExts = ['.webp', '.png', '.jfif', '.jpg', '.jpeg'];
+
   for (const expr of expressions) {
     totalDeclared++;
-    const pngPath = path.join(charDir, `${expr}.png`);
-    const webpPath = path.join(charDir, `${expr}.webp`);
+    const hasFile = validExts.some((ext) => fs.existsSync(path.join(charDir, `${expr}${ext}`)));
 
-    if (fs.existsSync(pngPath) || fs.existsSync(webpPath)) {
+    if (hasFile) {
       totalFound++;
       foundForChar++;
     } else {
