@@ -101,23 +101,39 @@ export function getBackgroundLabel(backgroundId: string): string {
 
 export function getBackgroundPath(backgroundId: string): string {
   const resolved = normalizeBackgroundId(backgroundId);
+  const def = BACKGROUNDS[resolved] as { file?: string } | undefined;
+  if (def?.file) {
+    return `./assets/backgrounds/${def.file}`;
+  }
   return `./assets/backgrounds/${resolved}.webp`;
 }
 
 export function getBackgroundFallbackPath(backgroundId: string): string {
   const resolved = normalizeBackgroundId(backgroundId);
+  const def = BACKGROUNDS[resolved] as { file?: string } | undefined;
+  if (def?.file) {
+    return `./assets/backgrounds/${def.file}`;
+  }
   return `./assets/backgrounds/${resolved}.jpg`;
 }
 
 /**
- * Retorna todos os caminhos candidatos para um cenário em ordem: .webp -> .jpg -> .jfif -> .png
+ * Retorna todos os caminhos candidatos para um cenário em ordem:
+ * 1. Arquivo mapeado explicitamente em BACKGROUNDS (se houver)
+ * 2. Formatos padrão (.webp, .jpg, .jfif, .png, .jpeg) usando o ID canônico
  */
 export function getBackgroundCandidates(backgroundId: string): string[] {
   const resolved = normalizeBackgroundId(backgroundId);
-  return [
-    `./assets/backgrounds/${resolved}.webp`,
-    `./assets/backgrounds/${resolved}.jpg`,
-    `./assets/backgrounds/${resolved}.jfif`,
-    `./assets/backgrounds/${resolved}.png`,
-  ];
+  const def = BACKGROUNDS[resolved] as { file?: string } | undefined;
+  const candidates: string[] = [];
+
+  if (def?.file) {
+    candidates.push(`./assets/backgrounds/${def.file}`);
+  }
+
+  for (const ext of SUPPORTED_IMAGE_EXTENSIONS) {
+    candidates.push(`./assets/backgrounds/${resolved}.${ext}`);
+  }
+
+  return Array.from(new Set(candidates));
 }

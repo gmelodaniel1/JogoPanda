@@ -17,7 +17,7 @@
       "speaker": "Gabriel Cipriano",
       "characterId": "cipriano",
       "expression": "cipriano_limpando_celular",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "Havia uma digital humana no canto superior direito da minha tela. A presidência do Panda de Ferro exige visibilidade cristalina e assepsia total.",
       "next": "ep1_03"
     },
@@ -26,7 +26,7 @@
       "speaker": "Luís",
       "characterId": "luis",
       "expression": "luis_julgando",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "Cipriano, como agente credenciado da Polícia Moral e funcionário do Paço do Frevo, sou obrigado a emitir uma advertência verbal. Esse cheiro de cigarro mentolado misturado com álcool isopropílico está criando uma atmosfera quimicamente duvidosa neste veículo.",
       "next": "ep1_04"
     },
@@ -35,7 +35,7 @@
       "speaker": "Gabriel Cipriano",
       "characterId": "cipriano",
       "expression": "cipriano_sorriso_mentolado",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "Isso é o aroma do progresso, Luís. Se você estivesse acostumado a frequentar o Arruda em vez dos Aflitos, seu pulmão teria mais fibra moral.",
       "next": "ep1_05"
     },
@@ -44,7 +44,7 @@
       "speaker": "Luís",
       "characterId": "luis",
       "expression": "luis_rindo",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "Fibra moral na Série D é fácil, presidente. Quero ver manter a pose quando o Náutico subir. Não é mesmo, Pedro?",
       "next": "ep1_06"
     },
@@ -53,7 +53,7 @@
       "speaker": "Pedro Ivo",
       "characterId": "pedro_ivo",
       "expression": "pedro_ivo_neutro",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "A massa de ar seco que paira sobre o bairro dos Aflitos indica 92% de superioridade alvirrubra para o próximo trimestre, com rajadas moderadas de desespero tricolor.",
       "next": "ep1_07"
     },
@@ -62,7 +62,7 @@
       "speaker": "Gabriel Cipriano",
       "characterId": "cipriano",
       "expression": "cipriano_neutro",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "A inveja de vocês dois só não é maior que a minha paciência institucional. Mas me digam uma coisa. Vocês conferiram o mapa da entrada do Engenho Jussaral. A gente deve entrar pelo acesso de terra batida à esquerda ou seguir pelo asfalto até a usina velha.",
       "next": "ep1_08"
     },
@@ -71,7 +71,7 @@
       "speaker": "Pedro Ivo",
       "characterId": "pedro_ivo",
       "expression": "pedro_ivo_serio",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "Sim.",
       "next": "ep1_09"
     },
@@ -80,7 +80,7 @@
       "speaker": "Narrador",
       "characterId": null,
       "expression": null,
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "Um silêncio pesado toma conta do carro. Cipriano para o pano de microfibra no meio da tela do celular e encara Pedro Ivo lentamente.",
       "next": "ep1_10"
     },
@@ -89,7 +89,7 @@
       "speaker": "Gabriel Cipriano",
       "characterId": "cipriano",
       "expression": "cipriano_irritado_alcool",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "Pedro. Eu perguntei se entramos na terra batida à esquerda ou se seguimos pelo asfalto. Você não pode responder sim para uma bifurcação geográfica.",
       "next": "ep1_11"
     },
@@ -98,7 +98,7 @@
       "speaker": "Pedro Ivo",
       "characterId": "pedro_ivo",
       "expression": "pedro_ivo_neutro",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "Sim. Ambas são vias terrestres sob uma pressão atmosférica de 1013 hectopascais e possibilidade de pancadas isoladas no fim da tarde.",
       "next": "ep1_12"
     },
@@ -107,7 +107,7 @@
       "speaker": "Gabriel Cipriano",
       "characterId": "cipriano",
       "expression": "cipriano_irritado_alcool",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "(Borrifa álcool isopropílico três vezes seguidas no celular) Eu ainda vou revogar os seus direitos políticos dentro do grupo, Pedro.",
       "next": "ep1_13"
     },
@@ -116,7 +116,7 @@
       "speaker": "Sistema (WhatsApp)",
       "characterId": "conrado",
       "expression": "conrado_bom_dia",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "sfx": "alert",
       "text": "☀️ Conrado: \"Bom dia, família Panda de Ferro! Que o caminho de vocês hoje seja iluminado pela amizade e pela paz!\" [Imagem: Xícara de café com purpurina e um panda sorrindo.jpg]",
       "next": "ep1_14"
@@ -126,7 +126,7 @@
       "speaker": "Luís",
       "characterId": "luis",
       "expression": "luis_emocionado",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "Parem de brigar imediatamente. Conrado acabou de mandar o bom dia no grupo. Sentiram essa brisa de paz interior?",
       "next": "ep1_15"
     },
@@ -135,7 +135,7 @@
       "speaker": "Gabriel Cipriano",
       "characterId": "cipriano",
       "expression": "cipriano_calmo_mentolado",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "O bom dia de Conrado é a única razão pela qual eu ainda não dissolvi o congresso do Panda de Ferro. Ele estabiliza a nossa democracia. Aliás, aquela placa enferrujada ali na frente diz Engenho Jussaral.",
       "next": "ep1_16"
     },
@@ -144,7 +144,7 @@
       "speaker": "Luís",
       "characterId": "luis",
       "expression": "luis_desconfiado",
-      "background": "estrada_canavial_pe",
+      "background": "interior_carro",
       "text": "Ainda acho essa história de retiro gratuito muito mal contada. Quando vocês fecharam esse acordo lá na Carne de Sol Paraibana, eu já tinha levantado suspeitas.",
       "next": "ep1_fb1_01"
     },

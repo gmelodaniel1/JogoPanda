@@ -11,11 +11,12 @@ const { ALL_EPISODES, EPISODE_NUMBERS } = require('../src/data/episodes');
 const { validateEpisodeScript } = require('../src/utils/episodeParser');
 const { CHARACTERS_METADATA } = require('../src/constants/characters');
 const { BACKGROUNDS } = require('../src/constants/backgrounds');
-const { getBackgroundPath, getBackgroundFallbackPath } = require('../src/utils/assetHelper');
+const { getBackgroundCandidates, getBackgroundPath } = require('../src/utils/assetHelper');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
 const SPRITES_DIR = path.join(PUBLIC_DIR, 'assets', 'sprites');
+const BACKGROUNDS_DIR = path.join(PUBLIC_DIR, 'assets', 'backgrounds');
 
 let totalErrors = 0;
 let totalWarnings = 0;
@@ -41,12 +42,30 @@ for (const epNum of EPISODE_NUMBERS) {
   let endingCount = 0;
   let customSpritesFound = 0;
   let placeholderSprites = 0;
+  let realBackgroundNodes = 0;
+  let placeholderBackgroundNodes = 0;
+  const verifiedBackgroundFiles = new Set();
 
   for (const [nodeId, node] of Object.entries(script.nodes)) {
     // 2. Verificar identificador de cenário
-    if (node.background && !BACKGROUNDS[node.background]) {
-      console.warn(`[AVISO CENÁRIO] Nó "${nodeId}": Cenário "${node.background}" não está explicitamente em BACKGROUNDS (usará alias ou fallback padrão).`);
-      totalWarnings++;
+    if (node.background) {
+      if (!BACKGROUNDS[node.background]) {
+        console.warn(`[AVISO CENÁRIO] Nó "${nodeId}": Cenário "${node.background}" não está explicitamente em BACKGROUNDS (usará alias ou fallback padrão).`);
+        totalWarnings++;
+      } else {
+        const bgDef = BACKGROUNDS[node.background];
+        const candidates = getBackgroundCandidates(node.background);
+        const hasRealBg = candidates.some((cand) => {
+          const cleanRel = cand.replace(/^\.\//, '').split('?')[0];
+          return fs.existsSync(path.join(PUBLIC_DIR, cleanRel));
+        });
+        if (hasRealBg) {
+          realBackgroundNodes++;
+          if (bgDef.file) verifiedBackgroundFiles.add(bgDef.file);
+        } else {
+          placeholderBackgroundNodes++;
+        }
+      }
     }
 
     // 3. Verificar personagens em cena
@@ -116,6 +135,7 @@ for (const epNum of EPISODE_NUMBERS) {
   }
 
   console.log(`Total de escolhas interativas: ${choiceCount} | Nós de desfecho: ${endingCount}`);
+  console.log(`Cenários: ${realBackgroundNodes} nós com fotos reais (${Array.from(verifiedBackgroundFiles).join(', ')}), ${placeholderBackgroundNodes} nós com SVG estilizado.`);
   console.log(`Assets visuais: ${customSpritesFound} sprites PNG reais, ${placeholderSprites} utilizando avatar SVG dinâmico.`);
 }
 
