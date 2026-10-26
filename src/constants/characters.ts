@@ -48,7 +48,7 @@ const _RAW_CHARACTERS = {
   },
   luis: {
     id: 'luis',
-    name: 'Luís',
+    name: 'Luiz',
     nickname: 'Polícia Moral',
     title: 'Agente da Polícia Moral • Servidor do Paço do Frevo',
     hasRomanceRoute: false,
@@ -74,7 +74,7 @@ const _RAW_CHARACTERS = {
     id: 'malu_maciel',
     name: 'Malu Maciel',
     nickname: 'A Investigadora',
-    title: 'Irmã de Luís • Inteligência Digital',
+    title: 'Irmã de Luiz • Inteligência Digital',
     hasRomanceRoute: false,
     themeColor: '#06b6d4', // Ciano digital
     badgeColor: '#0891b2',
@@ -258,6 +258,7 @@ export const EXTRA_CHARACTER_ALIASES: Record<string, CharacterId> = {
   'presidente': 'cipriano',
   'pedro': 'pedro_ivo',
   'pedro ivo': 'pedro_ivo',
+  'luiz': 'luis',
   'luís': 'luis',
   'luis': 'luis',
   'malu': 'malu_maciel',

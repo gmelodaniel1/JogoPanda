@@ -18,16 +18,16 @@
       "characterId": "cipriano",
       "expression": "cipriano_limpando_celular",
       "background": "interior_carro",
-      "text": "Havia uma digital humana no canto superior direito da minha tela. A presidência do Panda de Ferro exige visibilidade cristalina e assepsia total.",
+      "text": "Tinha uma marca de dedo bem no canto da tela. A presidência do Panda de Ferro exige tela limpa pra despachar no grupo.",
       "next": "ep1_03"
     },
     "ep1_03": {
       "id": "ep1_03",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_julgando",
       "background": "interior_carro",
-      "text": "Cipriano, como agente credenciado da Polícia Moral e funcionário do Paço do Frevo, sou obrigado a emitir uma advertência verbal. Esse cheiro de cigarro mentolado misturado com álcool isopropílico está criando uma atmosfera quimicamente duvidosa neste veículo.",
+      "text": "Cipriano, como agente da Polícia Moral e servidor do Paço do Frevo, já vou logo avisando: cuidado com essa cinza aí dentro do carro. A gente tá levando o tapetinho vermelho no banco de trás, e você sabe que aquele tapetinho vermelho é relíquia sagrada do Panda de Ferro.",
       "next": "ep1_04"
     },
     "ep1_04": {
@@ -36,12 +36,12 @@
       "characterId": "cipriano",
       "expression": "cipriano_sorriso_mentolado",
       "background": "interior_carro",
-      "text": "Isso é o aroma do progresso, Luís. Se você estivesse acostumado a frequentar o Arruda em vez dos Aflitos, seu pulmão teria mais fibra moral.",
+      "text": "Fique tranquilo, Luiz. O tapetinho vermelho está devidamente protegido. Se uma única fagulha caísse no maior patrimônio do nosso grupo, eu mesmo assinava o meu impeachment. Agora abra a janela que a brisa do Arruda faz bem pro pulmão.",
       "next": "ep1_05"
     },
     "ep1_05": {
       "id": "ep1_05",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_rindo",
       "background": "interior_carro",
@@ -54,7 +54,7 @@
       "characterId": "pedro_ivo",
       "expression": "pedro_ivo_analisando",
       "background": "interior_carro",
-      "text": "A massa de ar seco que paira sobre o bairro dos Aflitos indica 92% de superioridade alvirrubra para o próximo trimestre, com rajadas moderadas de desespero tricolor.",
+      "text": "O clima lá nos Aflitos aponta 92% de favoritismo pro Náutico esse ano, com fortes pancadas de desespero tricolor.",
       "next": "ep1_07"
     },
     "ep1_07": {
@@ -63,7 +63,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_neutro",
       "background": "interior_carro",
-      "text": "A inveja de vocês dois só não é maior que a minha paciência institucional. Mas me digam uma coisa. Vocês conferiram o mapa da entrada do Engenho Jussaral. A gente deve entrar pelo acesso de terra batida à esquerda ou seguir pelo asfalto até a usina velha.",
+      "text": "A inveja de vocês dois só não é maior que a minha paciência. Mas me digam uma coisa. Vocês olharam a entrada do Engenho Jussaral no mapa. A gente entra na estrada de barro à esquerda ou segue pelo asfalto até a usina velha.",
       "next": "ep1_08"
     },
     "ep1_08": {
@@ -81,7 +81,7 @@
       "characterId": null,
       "expression": null,
       "background": "interior_carro",
-      "text": "Um silêncio pesado toma conta do carro. Cipriano para o pano de microfibra no meio da tela do celular e encara Pedro Ivo lentamente.",
+      "text": "Um silêncio pesado toma conta do carro. Cipriano para o pano no meio da tela do celular e encara Pedro Ivo lentamente.",
       "next": "ep1_10"
     },
     "ep1_10": {
@@ -90,7 +90,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_irritado_alcool",
       "background": "interior_carro",
-      "text": "Pedro. Eu perguntei se entramos na terra batida à esquerda ou se seguimos pelo asfalto. Você não pode responder sim para uma bifurcação geográfica.",
+      "text": "Pedro. Eu perguntei se a gente entra no barro à esquerda ou se segue pelo asfalto. Você não pode responder 'sim' quando tem dois caminhos.",
       "next": "ep1_11"
     },
     "ep1_11": {
@@ -99,7 +99,7 @@
       "characterId": "pedro_ivo",
       "expression": "pedro_ivo_neutro",
       "background": "interior_carro",
-      "text": "Sim. Ambas são vias terrestres sob uma pressão atmosférica de 1013 hectopascais e possibilidade de pancadas isoladas no fim da tarde.",
+      "text": "Sim. Os dois caminhos dão lá, e digo mais: tem cara de chuva pro fim da tarde.",
       "next": "ep1_12"
     },
     "ep1_12": {
@@ -108,7 +108,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_irritado_alcool",
       "background": "interior_carro",
-      "text": "(Borrifa álcool isopropílico três vezes seguidas no celular) Eu ainda vou revogar os seus direitos políticos dentro do grupo, Pedro.",
+      "text": "(Dá uma tragada funda no mentolado buscando paciência) Eu ainda vou cassar o seu direito a voto dentro do grupo, Pedro.",
       "next": "ep1_13"
     },
     "ep1_13": {
@@ -123,7 +123,7 @@
     },
     "ep1_14": {
       "id": "ep1_14",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_emocionado",
       "background": "interior_carro",
@@ -136,16 +136,16 @@
       "characterId": "cipriano",
       "expression": "cipriano_calmo_mentolado",
       "background": "interior_carro",
-      "text": "O bom dia de Conrado é a única razão pela qual eu ainda não dissolvi o congresso do Panda de Ferro. Ele estabiliza a nossa democracia. Aliás, aquela placa enferrujada ali na frente diz Engenho Jussaral.",
+      "text": "O bom dia de Conrado é a única razão pela qual eu ainda não fechei o Panda de Ferro. Ele mantém a nossa sanidade. Aliás, aquela placa enferrujada ali na frente já é do Engenho Jussaral.",
       "next": "ep1_16"
     },
     "ep1_16": {
       "id": "ep1_16",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_desconfiado",
       "background": "interior_carro",
-      "text": "Ainda acho essa história de retiro gratuito muito mal contada. Quando vocês fecharam esse acordo lá na Carne de Sol Paraibana, eu já tinha levantado suspeitas.",
+      "text": "Ainda acho essa história de passeio de graça muito mal contada. Quando vocês fecharam esse acordo lá na Carne de Sol Paraibana, eu já tinha ficado com um pé atrás.",
       "next": "ep1_fb1_01"
     },
     "ep1_fb1_01": {
@@ -154,7 +154,7 @@
       "characterId": null,
       "expression": null,
       "background": "carne_de_sol_paraibana_sepia",
-      "text": "[FLASHBACK: Carne de Sol Paraibana] Quatro dias antes. Uma mesa farta com carne de sol na nata, macaxeira frita e cerveja gelada. Cipriano limpa a tela do celular longe dos respingos de manteiga de garrafa.",
+      "text": "[FLASHBACK: Carne de Sol Paraibana] Quatro dias antes. Uma mesa farta com carne de sol na nata, macaxeira frita e cerveja gelada. Cipriano afasta o celular para longe dos respingos de manteiga de garrafa.",
       "next": "ep1_fb1_02"
     },
     "ep1_fb1_02": {
@@ -163,16 +163,16 @@
       "characterId": "cipriano",
       "expression": "cipriano_neutro",
       "background": "carne_de_sol_paraibana_sepia",
-      "text": "Senhores, recebi um envelope anônimo na sede da presidência. Trata-se de uma cortesia VIP de fim de semana no histórico Engenho Jussaral para a cúpula do Panda de Ferro. Tudo pago.",
+      "text": "Senhores, chegou um envelope anônimo pra presidência. É uma cortesia VIP de fim de semana no histórico Engenho Jussaral pra diretoria do Panda de Ferro. Tudo pago.",
       "next": "ep1_fb1_03"
     },
     "ep1_fb1_03": {
       "id": "ep1_fb1_03",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_julgando",
       "background": "carne_de_sol_paraibana_sepia",
-      "text": "E você não achou estranho, Cipriano? Lá no Paço do Frevo, quando chega convite sem remetente, a gente aciona o setor de patrimônio antes de assinar qualquer coisa. A Polícia Moral vê indícios de arapuca.",
+      "text": "E você não achou estranho, Cipriano? Lá no Paço do Frevo, quando chega convite sem remetente, a gente desconfia na hora. A Polícia Moral vê forte cheiro de arapuca nisso aí.",
       "next": "ep1_fb1_04"
     },
     "ep1_fb1_04": {
@@ -181,7 +181,7 @@
       "characterId": "pedro_ivo",
       "expression": "pedro_ivo_neutro",
       "background": "carne_de_sol_paraibana_sepia",
-      "text": "O papel do convite tinha cheiro de tinta industrial barata e uma leve umidade residual de pimenta malagueta nas bordas.",
+      "text": "O papel do convite tinha cheiro de gráfica barata e a ponta tava até manchada de pimenta malagueta.",
       "next": "ep1_fb1_05"
     },
     "ep1_fb1_05": {
@@ -204,7 +204,7 @@
     },
     "ep1_c02_02": {
       "id": "ep1_c02_02",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_alerta",
       "background": "portao_engenho_jussaral",
@@ -224,7 +224,7 @@
           "next": "bad_end_01_a"
         },
         {
-          "text": "«Opção B» Higienizar a mesa com álcool isopropílico e entrar pela porta lateral ignorando a bebida.",
+          "text": "«Opção B» Recusar a bebida suspeita e entrar direto pela porta lateral.",
           "next": "ep1_c03_01"
         }
       ]
@@ -245,7 +245,7 @@
       "characterId": null,
       "expression": null,
       "background": "tela_preta_vermelha",
-      "text": "Cipriano vira o copinho. Era extrato puro concentrado de pimenta Carolina Reaper com Trinidad Scorpion fermentado no sol por seis meses por Joel das Pimentas. Nem dez litros de álcool isopropílico e vinte cigarros mentolados conseguem resfriar a traqueia presidencial.",
+      "text": "Cipriano vira o copinho. Era extrato puro concentrado de pimenta Carolina Reaper com Trinidad Scorpion curtido no sol por seis meses por Joel das Pimentas. Nem vinte cigarros mentolados e um galão de água gelada conseguem salvar a garganta presidencial.",
       "next": "bad_end_01_c"
     },
     "bad_end_01_c": {
@@ -270,12 +270,12 @@
       "expression": null,
       "background": "patio_engenho_abandonado",
       "sfx": "impact",
-      "text": "Cipriano recusa a bebida suspeita, dá uma borrifada preventiva de álcool isopropílico no trinco da porta lateral e o trio entra no pátio central do engenho. Assim que dão dez passos, a pesada grade de ferro despenca atrás deles com um estrondo ensurdecedor, trancando a saída.",
+      "text": "Cipriano recusa a bebida suspeita, ajeita a sacola onde trazem o tapetinho vermelho e o trio entra pela porta lateral no pátio do engenho. Assim que dão dez passos, a pesada grade de ferro despenca atrás deles com um estrondo ensurdecedor, trancando a saída.",
       "next": "ep1_c03_02"
     },
     "ep1_c03_02": {
       "id": "ep1_c03_02",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_assustado",
       "background": "patio_engenho_abandonado",
@@ -289,7 +289,7 @@
       "expression": "sandro_reporter",
       "background": "patio_engenho_abandonado",
       "sfx": "alert",
-      "text": "🎙️ Sandro Vagner: \"Urgente! Aqui é Sandro Vagner interrompendo a programação normal do domingo! Fontes ligadas à inteligência digital acabam de confirmar que o servidor de contenção dos Banidos do Panda de Ferro sofreu uma fuga em massa! O sinal de GPS de todos os excluídos aponta para o Engenho Jussaral! Repito: é uma vingança coordenada!\"",
+      "text": "🎙️ Sandro Vagner: \"Urgente! Aqui é Sandro Vagner interrompendo a programação normal do domingo! Fontes seguras acabam de confirmar que os Banidos do Panda de Ferro se reuniram escondidos! A localização de todos os excluídos aponta para o Engenho Jussaral! Repito: é uma vingança combinada!\"",
       "next": "ep1_c03_04"
     },
     "ep1_c03_04": {
@@ -321,7 +321,7 @@
     },
     "ep1_c03_07": {
       "id": "ep1_c03_07",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_julgando",
       "background": "patio_engenho_abandonado",
@@ -334,7 +334,7 @@
       "characterId": "joel_das_pimentas",
       "expression": "joel_das_pimentas_furioso",
       "background": "patio_engenho_abandonado",
-      "text": "Fui banido do coração e do bolso de vocês! Mas hoje eu tenho patrocinadores que valorizam o meu produto bélico! Podem entrar, meus camaradas de exclusão!",
+      "text": "Fui banido do coração e do bolso de vocês! Mas hoje eu tenho patrocinadores que dão valor ao meu molho! Podem entrar, meus camaradas de exclusão!",
       "next": "ep1_c03_09"
     },
     "ep1_c03_09": {
@@ -344,7 +344,7 @@
       "expression": null,
       "background": "patio_engenho_abandonado",
       "sfx": "impact",
-      "text": "Três portas de metal da fornalha se abrem com fumaça hidráulica. Três robôs sinistros avançam com olhos de LED vermelho piscando no escuro.",
+      "text": "Três portas de metal da fornalha se abrem no meio da fumaça. Três robôs sinistros avançam com olhos de LED vermelho piscando no escuro.",
       "next": "ep1_c03_10"
     },
     "ep1_c03_10": {
@@ -383,7 +383,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_limpando_celular",
       "background": "patio_engenho_abandonado",
-      "text": "Eles materializaram os três bots mais irritantes da história do Panda de Ferro em carcaças robóticas. Pedro, a gente corre para a moenda velha ou tenta dialogar com a impressora.",
+      "text": "Botaram os três bots mais chatos da história do Panda de Ferro dentro de latas velhas. Pedro, a gente corre pra moenda ou tenta conversar com a impressora.",
       "next": "ep1_c03_14"
     },
     "ep1_c03_14": {
@@ -410,21 +410,21 @@
       "characterId": null,
       "expression": null,
       "background": "patio_engenho_abandonado",
-      "text": "O robô Conecta Professores projeta um teclado holográfico bloqueando a passagem, enquanto o ArtComercial gira suas lâminas de corte gráfico.",
+      "text": "O robô Conecta Professores projeta um teclado holográfico bloqueando a passagem, enquanto o ArtComercial gira suas lâminas de corte.",
       "choices": [
         {
           "text": "«Opção A» Preencher o formulário do Conecta Professores e pedir um orçamento de banner para a ArtComercial para ganhar tempo.",
           "next": "bad_end_02_a"
         },
         {
-          "text": "«Opção B» Usar o álcool isopropílico de Cipriano para limpar os sensores ópticos dos robôs até cegá-los de tanta limpeza e correr para a moenda.",
+          "text": "«Opção B» Borrifar o álcool isopropílico de Cipriano direto nas câmeras dos robôs e correr para a moenda.",
           "next": "ep1_c04_01"
         }
       ]
     },
     "bad_end_02_a": {
       "id": "bad_end_02_a",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_neutro",
       "background": "oficina_grafica_escura",
@@ -438,7 +438,7 @@
       "expression": null,
       "background": "oficina_grafica_escura",
       "sfx": "impact",
-      "text": "Assim que Luís digita o CPF no painel do Conecta Professores, 400 janelas pop-up travam os movimentos do trio. O robô ArtComercial avança com dois rolos térmicos gigantes.",
+      "text": "Assim que Luiz digita o CPF no painel do Conecta Professores, 400 janelas pop-up travam os movimentos do trio. O robô ArtComercial avança com dois rolos térmicos gigantes.",
       "next": "bad_end_02_c"
     },
     "bad_end_02_c": {
@@ -472,7 +472,7 @@
       "expression": null,
       "background": "interior_moenda_labirinto",
       "sfx": "door",
-      "text": "O jato de álcool isopropílico de Cipriano deixa as lentes dos robôs tão excessivamente limpas que o reflexo da luz causa um erro de leitura óptica. O trio corre para dentro da antiga moenda e tranca a porta de madeira pesada.",
+      "text": "A borrifada certeira de Cipriano embaça as lentes dos robôs com o brilho da luz. Aproveitando a confusão, os três correm para dentro da antiga moenda e trancam a pesada porta de madeira.",
       "next": "ep1_c04_02"
     },
     "ep1_c04_02": {
@@ -481,7 +481,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_calmo_mentolado",
       "background": "interior_moenda_labirinto",
-      "text": "Gastei trinta mililitros do meu álcool isopropílico reserva naquelas latas velhas. Espero que o tesoureiro do grupo reembolse esse insumo presidencial.",
+      "text": "Gastei metade do meu frasco do bolso naquelas sucatas. Espero que a caixinha do grupo cubra esse prejuízo depois.",
       "next": "ep1_c04_03"
     },
     "ep1_c04_03": {
@@ -490,7 +490,7 @@
       "characterId": "pedro_ivo",
       "expression": "pedro_ivo_analisando",
       "background": "interior_moenda_labirinto",
-      "text": "A temperatura caiu quatro graus aqui dentro. E a julgar pelas pichações fluorescentes nas engrenagens da moenda, entramos na zona de quarentena psiquiátrica do grupo.",
+      "text": "Esfriou de vez aqui dentro. E olhando essas paredes todas rabiscadas, acho que achamos o esconderijo dos malucos do grupo.",
       "next": "ep1_c04_04"
     },
     "ep1_c04_04": {
@@ -522,11 +522,11 @@
     },
     "ep1_c04_07": {
       "id": "ep1_c04_07",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_assustado",
       "background": "interior_moenda_labirinto",
-      "text": "A Polícia Moral não tem treinamento para lidar com esse nível de abstração! O que é que o Bilu está tentando dizer?! Quem é Gilherto?!",
+      "text": "A Polícia Moral não tem preparo psicológico pra isso não! O que danado o Bilu tá falando?! Quem é Gilherto?!",
       "next": "ep1_c04_08"
     },
     "ep1_c04_08": {
@@ -535,7 +535,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_neutro",
       "background": "interior_moenda_labirinto",
-      "text": "Ninguém sabe quem é Gilherto, Luís. Esse é um dos mistérios fundadores do Panda de Ferro.",
+      "text": "Ninguém sabe quem é Gilherto, Luiz. Esse é um dos mistérios fundadores do Panda de Ferro.",
       "next": "ep1_c04_09"
     },
     "ep1_c04_09": {
@@ -565,7 +565,7 @@
       "text": "And e Bilu começam a avançar na direção do trio, bloqueando a escadaria que leva ao andar superior do engenho.",
       "choices": [
         {
-          "text": "«Opção A» Tentar debater seriamente com And sobre as políticas públicas da UFPE e perguntar a Bilu onde fica a saída.",
+          "text": "«Opção A» Tentar debater seriamente com And sobre a Moradia da UFPE e perguntar a Bilu onde fica a saída.",
           "next": "bad_end_03_a"
         },
         {
@@ -580,7 +580,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_neutro",
       "background": "espiral_psicodelica_ufpe",
-      "text": "Vamos manter a compostura acadêmica. Meu caro And, a respeito da Moradia da UFPE, qual é a sua pauta reivindicatória.",
+      "text": "Calma, vamos conversar feito gente grande. Ô And, qual é mesmo a bronca lá na Moradia da UFPE.",
       "next": "bad_end_03_b"
     },
     "bad_end_03_b": {
@@ -589,7 +589,7 @@
       "characterId": null,
       "expression": null,
       "background": "espiral_psicodelica_ufpe",
-      "text": "Tentar aplicar lógica formal na fala de And abre uma fenda dimensional de loucura. Em quinze minutos de conversa, a mente dos três protagonistas entra em colapso sináptico.",
+      "text": "Tentar achar algum sentido no que And fala abre um buraco negro na cabeça de qualquer um. Em quinze minutos de papo, o juízo dos três vai embora de vez.",
       "next": "bad_end_03_c"
     },
     "bad_end_03_c": {
@@ -603,7 +603,7 @@
     },
     "bad_end_03_d": {
       "id": "bad_end_03_d",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_emocionado",
       "background": "espiral_psicodelica_ufpe",
@@ -631,7 +631,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_neutro",
       "background": "interior_moenda_labirinto",
-      "text": "Pedro. Use a sua arma mais irritante contra eles. Vai.",
+      "text": "Pedro. Use a sua mania mais irritante contra eles. Vai.",
       "next": "ep1_c05_02"
     },
     "ep1_c05_02": {
@@ -667,7 +667,7 @@
       "characterId": "pedro_ivo",
       "expression": "pedro_ivo_serio",
       "background": "interior_moenda_labirinto",
-      "text": "Sim. Com frente fria estacionária no Recife, ventos de 18 nós e maré alta às 16h40.",
+      "text": "Sim. Com frente fria chegando no Recife e maré cheia às quatro e quarenta da tarde.",
       "next": "ep1_c05_06"
     },
     "ep1_c05_06": {
@@ -703,7 +703,7 @@
       "characterId": null,
       "expression": null,
       "background": "interior_moenda_labirinto",
-      "text": "Confusos demais pela resposta binária de Pedro Ivo, And e Bilu se sentam no chão tentando calcular a resposta nos dedos, deixando a escadaria livre.",
+      "text": "Bateu tela azul na cabeça dos dois com a resposta seca de Pedro Ivo. And e Bilu se sentam no chão tentando fazer a conta nos dedos, deixando a escada livre.",
       "next": "ep1_c05_10"
     },
     "ep1_c05_10": {
@@ -712,17 +712,17 @@
       "characterId": "cipriano",
       "expression": "cipriano_sorriso_mentolado",
       "background": "interior_moenda_labirinto",
-      "text": "Pela primeira vez na história desta república, a sua recusa em responder direito salvou vidas, Pedro.",
+      "text": "Pela primeira vez na história, a sua mania de nunca responder direito salvou a nossa pele, Pedro.",
       "next": "ep1_c05_11"
     },
     "ep1_c05_11": {
       "id": "ep1_c05_11",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_surpreso",
       "background": "interior_moenda_labirinto",
       "sfx": "alert",
-      "text": "É a minha irmã! Malu está me ligando por chamada de vídeo! Como ela conseguiu furar o bloqueio de sinal daqui?!",
+      "text": "É a minha irmã! Malu está me ligando por chamada de vídeo! Como ela conseguiu sinal aqui dentro?!",
       "next": "ep1_c05_12"
     },
     "ep1_c05_12": {
@@ -731,7 +731,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_limpando_celular",
       "background": "interior_moenda_labirinto",
-      "text": "Passe o meu álcool isopropílico na câmera frontal do seu aparelho imediatamente antes de atender, Luís. Não quero que a sua irmã veja a presidência em baixa resolução.",
+      "text": "Segure firme o celular antes de atender, Luiz. A presidência precisa sair num ângulo digno na chamada.",
       "next": "ep1_c05_13"
     },
     "ep1_c05_13": {
@@ -740,12 +740,12 @@
       "characterId": "malu_maciel",
       "expression": "malu_maciel_feliz",
       "background": "interior_moenda_labirinto",
-      "text": "Luís! Finalmente a chamada completou! Vocês ainda estão inteiros aí nesse engenho?!",
+      "text": "Luiz! Finalmente a chamada completou! Vocês ainda estão inteiros aí nesse engenho?!",
       "next": "ep1_c05_14"
     },
     "ep1_c05_14": {
       "id": "ep1_c05_14",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_alerta",
       "background": "interior_moenda_labirinto",
@@ -758,7 +758,7 @@
       "characterId": "malu_maciel",
       "expression": "malu_maciel_videochamada",
       "background": "interior_moenda_labirinto",
-      "text": "Presta muita atenção no que eu descobri, Luís! Eu achei estranho você sumir no domingo e fui rastrear de onde partiu o pagamento do aluguel do Engenho Jussaral e a compra das peças desses robôs!",
+      "text": "Presta muita atenção no que eu descobri, Luiz! Eu achei estranho você sumir no domingo e fui puxar a capivara de quem pagou o aluguel desse Engenho Jussaral e encomendou essas sucatas!",
       "next": "ep1_c05_16"
     },
     "ep1_c05_16": {
@@ -799,7 +799,7 @@
     },
     "ep1_c05_20": {
       "id": "ep1_c05_20",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_assustado",
       "background": "interior_moenda_labirinto",
@@ -826,7 +826,7 @@
     },
     "ep1_fb2_03": {
       "id": "ep1_fb2_03",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_cerveja",
       "background": "belem_bar_noite",
@@ -839,7 +839,7 @@
       "characterId": "pedro_ivo",
       "expression": "pedro_ivo_neutro",
       "background": "belem_bar_noite",
-      "text": "E ele perguntou três vezes qual era a senha de administrador de Cipriano e porque nós tínhamos banido o Itaberaba Notícias e o Conecta Professores.",
+      "text": "E ele perguntou três vezes qual era a senha de administrador de Cipriano e por que a gente tinha banido o Itaberaba Notícias e o Conecta Professores.",
       "next": "ep1_fb2_05"
     },
     "ep1_fb2_05": {
@@ -848,7 +848,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_neutro",
       "background": "belem_bar_noite",
-      "text": "Na ocasião achei que era apenas o sotaque paulista dele interferindo na oxigenação cerebral. Jamais imaginei que ele estivesse planejando uma insurreição armada.",
+      "text": "Verdade observado por tal prisma. Na hora achei que era só o jeito paulista dele de puxar assunto, jamais imaginei que o sujeito estava tramando um golpe contra a presidência.",
       "next": "ep1_c06_01"
     },
     "ep1_c06_01": {
@@ -858,7 +858,7 @@
       "expression": null,
       "background": "salao_principal_engenho",
       "sfx": "door",
-      "text": "[FIM DO FLASHBACK] Cipriano, Pedro Ivo e Luís sobem as escadas e chutam a porta do salão principal do Engenho Jussaral. No alto da passarela metálica, cercado pelos robôs Itaberaba Notícias, Conecta Professores, ArtComercial e por Joel das Pimentas, está ele: vestindo bermuda cáqui, sapatênis de couro bege e um suéter jogado nos ombros: Gildro Iviano.",
+      "text": "[FIM DO FLASHBACK] Cipriano, Pedro Ivo e Luiz sobem as escadas e chutam a porta do salão principal do Engenho Jussaral. No alto da passarela metálica, cercado pelos robôs Itaberaba Notícias, Conecta Professores, ArtComercial e por Joel das Pimentas, está ele: vestindo bermuda cáqui, sapatênis de couro bege e um suéter jogado nos ombros: Gildro Iviano.",
       "next": "ep1_c06_02"
     },
     "ep1_c06_02": {
@@ -867,7 +867,7 @@
       "characterId": "gildro_iviano",
       "expression": "gildro_iviano_vilao_paulista",
       "background": "salao_principal_engenho",
-      "text": "Ô loco, meo! Baita entrada triunfal, hein, rapaziada! Putz grila, tenho que admitir que a irmã do Luís mandou super bem no data analytics pra me descobrir, mano! Mó fita!",
+      "text": "Ô loco, meo! Baita entrada triunfal, hein, rapaziada! Putz grila, tenho que admitir que a irmã do Luiz mandou super bem pra me descobrir, mano! Mó fita!",
       "next": "ep1_c06_03"
     },
     "ep1_c06_03": {
@@ -881,11 +881,11 @@
     },
     "ep1_c06_04": {
       "id": "ep1_c06_04",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_indignado",
       "background": "salao_principal_engenho",
-      "text": "Em nome da Polícia Moral do Panda de Ferro e da jurisdição ética do Paço do Frevo, você está formalmente autuado por tentativa de golpe de Estado, formação de quadrilha com robôs banidos e uso indevido de sapatênis na Zona da Mata!",
+      "text": "Em nome da Polícia Moral do Panda de Ferro e do Paço do Frevo, você está autuado por tentativa de golpe, formação de quadrilha com robôs banidos e uso de sapatênis na Zona da Mata!",
       "next": "ep1_c06_05"
     },
     "ep1_c06_05": {
@@ -894,7 +894,7 @@
       "characterId": "gildro_iviano",
       "expression": "gildro_iviano_vilao_paulista",
       "background": "salao_principal_engenho",
-      "text": "Para, vai, Luís! Que viagem é essa, meo?! Vocês não têm visão de mercado, véi! O Gabriel Cipriano governa o Panda de Ferro na base do cigarro mentolado, do álcool isopropílico e do ponto final! O grupo tá estagnado, mano! Com a minha presidência, eu vou reintegrar o Conecta Professores pra vender curso de coaching, usar a ArtComercial pra rodar o branding e botar o Itaberaba Notícias no setor de PR! Vai ficar um grupo muito topzera!",
+      "text": "Para, vai, Luiz! Que viagem é essa, meo?! Vocês não têm visão de negócios, véi! O Gabriel Cipriano governa o Panda de Ferro na base do cigarro mentolado, daquele tapetinho vermelho que vocês tratam feito relíquia e do ponto final! O grupo tá parado no tempo, mano! Com a minha presidência, eu vou usar o Conecta Professores pra vender curso, a ArtComercial pra fazer crachá corporativo e o Itaberaba Notícias no marketing! Vai ficar muito topzera!",
       "next": "ep1_c06_06"
     },
     "ep1_c06_06": {
@@ -903,7 +903,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_serio_mentolado",
       "background": "salao_principal_engenho",
-      "text": "Você quer transformar o Panda de Ferro em um grupo de condomínio de Pinheiros. Eu prefiro ver o Santa Cruz perder de quatro para o Íbis do que entregar a faixa presidencial para alguém que fala meo.",
+      "text": "Tire o nome do nosso tapetinho vermelho da sua boca, Gildro. Você quer transformar o Panda de Ferro num grupo de condomínio de Pinheiros. Eu prefiro ver o Santa Cruz perder de quatro para o Íbis do que entregar a presidência para alguém que fala meo.",
       "next": "ep1_c06_07"
     },
     "ep1_c06_07": {
@@ -980,7 +980,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_triste",
       "background": "grupo_whatsapp_paulista",
-      "text": "Está bem, Gildro. Eu passo o administrador para você. A minha vida e o meu estoque de álcool isopropílico valem mais que isso.",
+      "text": "Está bem, Gildro. Eu passo o administrador para você. Só exijo que ninguém pise de sapatênis em cima do nosso tapetinho vermelho.",
       "next": "bad_end_04_b"
     },
     "bad_end_04_b": {
@@ -1004,7 +1004,7 @@
       "expression": null,
       "background": "tela_gameover_itaberaba",
       "sfx": "impact",
-      "text": "Tentar trocar socos com três carcaças de aço industrial enquanto se inala gás de pimenta caseiro de Joel revela-se um erro tático fatal.",
+      "text": "Tentar sair no braço com três carcaças de ferro enquanto Joel joga fumaça de pimenta na cara do trio não dá muito certo.",
       "next": "bad_end_05_b"
     },
     "bad_end_05_b": {
@@ -1038,7 +1038,7 @@
       "expression": null,
       "background": "salao_principal_engenho_epico",
       "bgm": "energetic",
-      "text": "Cipriano dá uma última tragada profunda em seu cigarro mentolado, guarda o frasco de álcool isopropílico no bolso da camisa e ergue o celular — cuja tela brilha como um diamante graças à limpeza constante.",
+      "text": "Cipriano dá uma última tragada profunda em seu cigarro mentolado, ajeita a gola do casaco do Santa Cruz e ergue o celular no alto.",
       "next": "true_ending_02"
     },
     "true_ending_02": {
@@ -1047,7 +1047,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_epico_mentolado",
       "background": "salao_principal_engenho_epico",
-      "text": "Você cometeu três erros fatais no seu planejamento estratégico, Gildro. Primeiro, subestimou a investigação da irmã de Luís. Segundo, esqueceu o poder do jornalismo pernambucano. Terceiro, ignorou a força espiritual do bom dia de Conrado.",
+      "text": "Você cometeu três erros graves na sua conta, Gildro. Primeiro, subestimou a investigação da irmã de Luiz. Segundo, esqueceu a força do plantão de Sandro Vagner. Terceiro, ignorou o poder espiritual do bom dia de Conrado.",
       "next": "true_ending_03"
     },
     "true_ending_03": {
@@ -1056,7 +1056,7 @@
       "characterId": null,
       "expression": null,
       "background": "salao_principal_engenho_epico",
-      "text": "Cipriano conecta o celular na caixa de som Bluetooth industrial do próprio engenho e aperta o play no áudio recém-chegado de Sandro Vagner no volume máximo:",
+      "text": "Cipriano conecta o celular na caixa de som Bluetooth do próprio engenho e solta o áudio recém-chegado de Sandro Vagner no último volume:",
       "next": "true_ending_04"
     },
     "true_ending_04": {
@@ -1066,7 +1066,7 @@
       "expression": "sandro_reporter",
       "background": "salao_principal_engenho_epico",
       "sfx": "alert",
-      "text": "🎙️ Sandro Vagner: \"PLANTÃO EXTRAORDINÁRIO DO SANDRO VAGNER! A partir das coordenadas enviadas por Malu Maciel, três viaturas da Vigilância Sanitária, a Receita Federal e a Polícia Civil acabam de cercar o Engenho Jussaral! Há mandados de apreensão contra fábrica clandestina de pimenta sem selo da Anvisa e uso de robôs piratas não declarados no Imposto de Renda!\"",
+      "text": "🎙️ Sandro Vagner: \"PLANTÃO EXTRAORDINÁRIO DO SANDRO VAGNER! A partir da localização enviada por Malu Maciel, três viaturas da Vigilância Sanitária, a Receita Federal e a Polícia Civil acabam de cercar o Engenho Jussaral! Há mandados de apreensão contra fábrica clandestina de pimenta sem selo e uso de robôs piratas!\"",
       "next": "true_ending_05"
     },
     "true_ending_05": {
@@ -1113,7 +1113,7 @@
       "expression": null,
       "background": "salao_principal_engenho_epico",
       "sfx": "alert",
-      "text": "Cipriano seleciona a pasta 'Acervo Sagrado de Bom Dia do Conrado (2019–2026)' e dispara um pacote comprimido de 350 vídeos de bom dia com mensagens de otimismo, pombas brancas e xícaras de café diretamente para o Bluetooth aberto dos três robôs!",
+      "text": "Cipriano abre a pasta 'Acervo Sagrado de Bom Dia do Conrado' e manda de uma vez 350 vídeos cheios de brilho, pombas brancas e xícaras de café direto pro Bluetooth dos três robôs!",
       "next": "true_ending_10"
     },
     "true_ending_10": {
@@ -1183,11 +1183,11 @@
     },
     "true_ending_17": {
       "id": "true_ending_17",
-      "speaker": "Luís",
+      "speaker": "Luiz",
       "characterId": "luis",
       "expression": "luis_vitorioso",
       "background": "salao_principal_engenho_epico",
-      "text": "Levanta daí, Gildro! A Polícia Moral do Panda de Ferro decreta o seu banimento perpétuo e inafiançável do grupo! E como pena alternativa, você vai trabalhar seis meses limpando serpentina de carnaval lá no Paço do Frevo!",
+      "text": "Levanta daí, Gildro! A Polícia Moral do Panda de Ferro decreta o seu banimento perpétuo do grupo! E como pena alternativa, você vai trabalhar seis meses limpando serpentina de carnaval lá no Paço do Frevo!",
       "next": "true_ending_18"
     },
     "true_ending_18": {
@@ -1196,7 +1196,7 @@
       "characterId": "cipriano",
       "expression": "cipriano_limpando_celular",
       "background": "salao_principal_engenho_epico",
-      "text": "(Borrifa álcool isopropílico na tela após remover Gildro Iviano do grupo no WhatsApp) Acabei de remover o elemento golpista e já desinfetei o píxel onde ficava o nome dele na lista de membros. A democracia do Panda de Ferro está salva.",
+      "text": "(Remove Gildro Iviano do grupo no WhatsApp com um toque solene) Pronto, elemento golpista devidamente banido. Luiz, já pode estender o nosso sagrado tapetinho vermelho no chão, porque a democracia do Panda de Ferro está salva.",
       "next": "true_ending_19"
     },
     "true_ending_19": {
