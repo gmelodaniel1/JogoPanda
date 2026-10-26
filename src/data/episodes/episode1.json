@@ -52,7 +52,7 @@
       "id": "ep1_06",
       "speaker": "Pedro Ivo",
       "characterId": "pedro_ivo",
-      "expression": "pedro_ivo_neutro",
+      "expression": "pedro_ivo_analisando",
       "background": "interior_carro",
       "text": "A massa de ar seco que paira sobre o bairro dos Aflitos indica 92% de superioridade alvirrubra para o próximo trimestre, com rajadas moderadas de desespero tricolor.",
       "next": "ep1_07"
@@ -454,7 +454,7 @@
       "id": "bad_end_02_d",
       "speaker": "Sandro Vagner (WhatsApp)",
       "characterId": "sandro_vagner",
-      "expression": "sandro_reporter",
+      "expression": "sandro_anotando",
       "background": "tela_gameover_itaberaba",
       "sfx": "alert",
       "text": "🎙️ [BAD END 02: Plastificados em Couchê Brilho]\n\nPLANTÃO DO SANDRO VAGNER:\n\"Triste notícia para a nação tricolor e alvirrubra! Os três membros do Panda de Ferro foram transformados em três banners de lona 120x80cm com ilhós reforçado e pendurados na fachada da Câmara Municipal de Itaberaba!\"",
@@ -656,7 +656,7 @@
       "id": "ep1_c05_04",
       "speaker": "Bilu",
       "characterId": "bilu",
-      "expression": "bilu_coracao",
+      "expression": "bilu_assustado",
       "background": "interior_moenda_labirinto",
       "text": "Oi, Sim, Vem / Gilherto Sim , Ok? ❤️",
       "next": "ep1_c05_05"
@@ -674,7 +674,7 @@
       "id": "ep1_c05_06",
       "speaker": "And",
       "characterId": "and",
-      "expression": "and_louco_ufpe",
+      "expression": "and_confuso",
       "background": "interior_moenda_labirinto",
       "text": "Sim... o quê? Moradia ou Negócios? ❤️🫁🧠?",
       "next": "ep1_c05_07"
@@ -692,7 +692,7 @@
       "id": "ep1_c05_08",
       "speaker": "Bilu",
       "characterId": "bilu",
-      "expression": "bilu_coracao",
+      "expression": "bilu_confuso",
       "background": "interior_moenda_labirinto",
       "text": "Gilherto... Não? Ok? 💔",
       "next": "ep1_c05_09"
@@ -738,7 +738,7 @@
       "id": "ep1_c05_13",
       "speaker": "Malu Maciel (Vídeo)",
       "characterId": "malu_maciel",
-      "expression": "malu_maciel_videochamada",
+      "expression": "malu_maciel_feliz",
       "background": "interior_moenda_labirinto",
       "text": "Luís! Finalmente a chamada completou! Vocês ainda estão inteiros aí nesse engenho?!",
       "next": "ep1_c05_14"
@@ -910,7 +910,7 @@
       "id": "ep1_c06_07",
       "speaker": "Gildro Iviano",
       "characterId": "gildro_iviano",
-      "expression": "gildro_iviano_vilao_paulista",
+      "expression": "gildro_ameacando",
       "background": "salao_principal_engenho",
       "text": "Já era, Cipriano! Passa o administrador do grupo agora ou a minha tropa de banidos finaliza vocês aqui mesmo em Jussaral, mano! Ataquem tudo, meo!",
       "next": "ep1_c06_08"
@@ -919,7 +919,7 @@
       "id": "ep1_c06_08",
       "speaker": "Joel das Pimentas",
       "characterId": "joel_das_pimentas",
-      "expression": "joel_das_pimentas_furioso",
+      "expression": "joel_atacando",
       "background": "salao_principal_engenho",
       "text": "Tomem bomba de Malagueta com Habanero pela honra do meu comércio!",
       "next": "ep1_c06_09"
@@ -1092,7 +1092,7 @@
       "id": "true_ending_07",
       "speaker": "Gildro Iviano",
       "characterId": "gildro_iviano",
-      "expression": "gildro_derrotado",
+      "expression": "gildro_ameacando",
       "background": "salao_principal_engenho_epico",
       "text": "Ô loco, Joel, não foge não, meo! Robôs, acabem com eles agora, mano!",
       "next": "true_ending_08"
@@ -1149,7 +1149,7 @@
       "id": "true_ending_13",
       "speaker": "And",
       "characterId": "and",
-      "expression": "and_louco_ufpe",
+      "expression": "and_paz",
       "background": "salao_principal_engenho_epico",
       "text": "Bom dia/Conrado! ❤️🫁🧠 Paz/Amor/Prosperidade! PAPALOC MUNCKS!",
       "next": "true_ending_14"

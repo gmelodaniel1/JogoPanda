@@ -15,7 +15,7 @@ const EXPRESSION_FALLBACKS: Record<string, string> = {
 };
 
 /** Incremente para forçar o navegador a recarregar sprites após substituí-los. */
-const ASSET_VERSION = 1;
+const ASSET_VERSION = 2;
 
 /** Extensões de imagem suportadas em ordem de prioridade técnica */
 export const SUPPORTED_IMAGE_EXTENSIONS = ['webp', 'png', 'jfif', 'jpg', 'jpeg'] as const;
@@ -49,13 +49,9 @@ export function getSpritePngPath(characterId: string, expression: string): strin
 }
 
 /**
- * Retorna o caminho primário do sprite (WebP preferencial ou foto base se cadastrada).
+ * Retorna o caminho primário do sprite (WebP preferencial por padrão).
  */
 export function getSpritePath(characterId: string, expression: string): string {
-  const baseSprite = CHARACTER_BASE_SPRITES[characterId];
-  if (baseSprite) {
-    return `./assets/sprites/${characterId}/${baseSprite}?v=${ASSET_VERSION}`;
-  }
   return getSpriteWebpPath(characterId, expression);
 }
 

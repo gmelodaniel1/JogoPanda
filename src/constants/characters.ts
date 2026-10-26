@@ -14,7 +14,7 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#ef4444', // Vermelho/Preto/Branco (Santa Cruz)
     badgeColor: '#b91c1c',
-    baseSprite: 'CipriPanda.jfif',
+    baseSprite: 'cipriano_neutro.webp',
     defaultExpression: 'cipriano_neutro',
     knownExpressions: [
       'cipriano_neutro',
@@ -36,7 +36,7 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#dc2626', // Vermelho e Branco (Náutico)
     badgeColor: '#991b1b',
-    baseSprite: 'PedroPanda.jfif',
+    baseSprite: 'pedro_ivo_neutro.webp',
     defaultExpression: 'pedro_ivo_neutro',
     knownExpressions: [
       'pedro_ivo_neutro',
@@ -54,7 +54,7 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#ea580c', // Laranja vibrante do frevo
     badgeColor: '#c2410c',
-    baseSprite: 'LuisPanda.jfif',
+    baseSprite: 'luis_neutro.webp',
     defaultExpression: 'luis_neutro',
     knownExpressions: [
       'luis_neutro',
@@ -78,9 +78,9 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#06b6d4', // Ciano digital
     badgeColor: '#0891b2',
-    baseSprite: 'MaluPanda.jfif',
+    baseSprite: 'malu_maciel_videochamada.webp',
     defaultExpression: 'malu_maciel_videochamada',
-    knownExpressions: ['malu_maciel_videochamada'],
+    knownExpressions: ['malu_maciel_videochamada', 'malu_maciel_feliz'],
   },
   sandro_vagner: {
     id: 'sandro_vagner',
@@ -90,9 +90,9 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#f59e0b', // Amarelo jornalismo
     badgeColor: '#d97706',
-    baseSprite: 'SandroPanda.jfif',
+    baseSprite: 'sandro_reporter.webp',
     defaultExpression: 'sandro_reporter',
-    knownExpressions: ['sandro_reporter'],
+    knownExpressions: ['sandro_reporter', 'sandro_anotando'],
   },
   conrado: {
     id: 'conrado',
@@ -112,9 +112,9 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#b91c1c', // Pimenta malagueta
     badgeColor: '#7f1d1d',
-    baseSprite: 'JoelPanda.jfif',
+    baseSprite: 'joel_das_pimentas_furioso.webp',
     defaultExpression: 'joel_das_pimentas_furioso',
-    knownExpressions: ['joel_das_pimentas_furioso', 'joel_desesperado'],
+    knownExpressions: ['joel_das_pimentas_furioso', 'joel_atacando', 'joel_desesperado'],
   },
   itaberaba_noticias: {
     id: 'itaberaba_noticias',
@@ -123,7 +123,7 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#475569', // Cinza escuro mórbido
     badgeColor: '#334155',
-    baseSprite: 'ItaberabaPanda.jfif',
+    baseSprite: 'robo_itaberaba.webp',
     defaultExpression: 'robo_itaberaba',
     knownExpressions: ['robo_itaberaba', 'robo_itaberaba_curto'],
   },
@@ -134,7 +134,7 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#2563eb', // Azul institucional
     badgeColor: '#1d4ed8',
-    baseSprite: 'ConectaPanda.jfif',
+    baseSprite: 'robo_conecta.webp',
     defaultExpression: 'robo_conecta',
     knownExpressions: ['robo_conecta', 'robo_conecta_curto'],
   },
@@ -156,9 +156,9 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#ec4899', // Rosa psicodélico
     badgeColor: '#db2777',
-    baseSprite: 'AndPanda.jfif',
+    baseSprite: 'and_louco_ufpe.webp',
     defaultExpression: 'and_louco_ufpe',
-    knownExpressions: ['and_louco_ufpe'],
+    knownExpressions: ['and_louco_ufpe', 'and_paz', 'and_confuso'],
   },
   bilu: {
     id: 'bilu',
@@ -168,9 +168,9 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#f43f5e', // Rosa coração
     badgeColor: '#e11d48',
-    baseSprite: 'BiluPanda.jfif',
+    baseSprite: 'bilu_coracao.webp',
     defaultExpression: 'bilu_coracao',
-    knownExpressions: ['bilu_coracao'],
+    knownExpressions: ['bilu_coracao', 'bilu_assustado', 'bilu_confuso'],
   },
   gildro_iviano: {
     id: 'gildro_iviano',
@@ -180,9 +180,9 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#10b981', // Verde Faria Lima
     badgeColor: '#059669',
-    baseSprite: 'GildroPanda.jfif',
+    baseSprite: 'gildro_iviano_vilao_paulista.webp',
     defaultExpression: 'gildro_iviano_vilao_paulista',
-    knownExpressions: ['gildro_iviano_vilao_paulista', 'gildro_derrotado'],
+    knownExpressions: ['gildro_iviano_vilao_paulista', 'gildro_ameacando', 'gildro_derrotado'],
   },
   sistema: {
     id: 'sistema',
