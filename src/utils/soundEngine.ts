@@ -93,7 +93,7 @@ class SoundEngine {
       this.stopBgmLoop();
     } else {
       if (this.targetBgm && this.targetBgm !== 'off') {
-        this.startBgmTrack(this.targetBgm);
+        this.playBgm(this.targetBgm);
       }
     }
   }
@@ -270,11 +270,14 @@ class SoundEngine {
   }
 
   // =========================================================================
-  // BGM: Sintetizador Procedural de Música Ambiente de Fundo
+  // BGM: Áudio Nativo / Sintetizador Procedural de Frevo & Baião de Estrada
   // =========================================================================
 
+  private audioElement: HTMLAudioElement | null = null;
+  private isAudioFilePlaying: boolean = false;
+
   public playBgm(track: BgmTrack) {
-    if (this.currentBgm === track) return;
+    if (this.currentBgm === track && (this.isAudioFilePlaying || this.bgmTimer !== null)) return;
     this.targetBgm = track;
 
     if (this.isMuted || track === 'off') {
@@ -283,7 +286,93 @@ class SoundEngine {
       return;
     }
 
-    this.startBgmTrack(track);
+    this.currentBgm = track;
+
+    // 1. Tenta carregar um arquivo .mp3 correspondente da pasta public/assets/audio/bgm/
+    if (typeof window !== 'undefined') {
+      const candidates = this.getBgmFileCandidates(track);
+      this.tryPlayAudioFiles(candidates, () => {
+        // Fallback: se nenhum arquivo de áudio estiver na pasta, ativa o sintetizador procedural de estúdio
+        this.startProceduralBgmTrack(track);
+      });
+    } else {
+      this.startProceduralBgmTrack(track);
+    }
+  }
+
+  private getBgmFileCandidates(track: BgmTrack): string[] {
+    const list: string[] = [];
+    if (track === 'casual') {
+      list.push('./assets/audio/bgm/frevo_lo_fi_estrada.mp3', './assets/audio/bgm/casual.mp3');
+    } else if (track === 'tension') {
+      list.push('./assets/audio/bgm/tensao_investigativa.mp3', './assets/audio/bgm/tension.mp3');
+    } else if (track === 'energetic') {
+      list.push('./assets/audio/bgm/frevo_heroico_vitoria.mp3', './assets/audio/bgm/energetic.mp3');
+    } else if (track === 'romance') {
+      list.push('./assets/audio/bgm/romance.mp3');
+    }
+    return list;
+  }
+
+  private tryPlayAudioFiles(candidates: string[], onFallback: () => void) {
+    if (candidates.length === 0) {
+      onFallback();
+      return;
+    }
+
+    this.stopAudioElement();
+
+    const tryNext = (index: number) => {
+      if (index >= candidates.length) {
+        onFallback();
+        return;
+      }
+
+      const url = candidates[index];
+      const audio = new Audio(url);
+      audio.loop = true;
+      audio.volume = 0.35;
+
+      const onError = () => {
+        audio.removeEventListener('error', onError);
+        audio.removeEventListener('canplay', onCanPlay);
+        tryNext(index + 1);
+      };
+
+      const onCanPlay = () => {
+        audio.removeEventListener('error', onError);
+        audio.removeEventListener('canplay', onCanPlay);
+        if (this.currentBgm === 'off' || this.isMuted) return;
+
+        this.stopBgmLoop();
+        this.audioElement = audio;
+        this.isAudioFilePlaying = true;
+        audio.play().catch(() => {
+          // Bloqueio de autoplay do navegador: usa o gerador Web Audio sintetizado
+          this.stopAudioElement();
+          onFallback();
+        });
+      };
+
+      audio.addEventListener('error', onError);
+      audio.addEventListener('canplay', onCanPlay);
+      audio.load();
+    };
+
+    tryNext(0);
+  }
+
+  private stopAudioElement() {
+    if (this.audioElement) {
+      try {
+        this.audioElement.pause();
+        this.audioElement.src = '';
+      } catch {
+        // Ignora
+      }
+      this.audioElement = null;
+    }
+    this.isAudioFilePlaying = false;
   }
 
   public stopBgm() {
@@ -295,6 +384,7 @@ class SoundEngine {
   }
 
   private stopBgmLoop() {
+    this.stopAudioElement();
     if (this.bgmTimer !== null) {
       clearInterval(this.bgmTimer);
       this.bgmTimer = null;
@@ -302,16 +392,19 @@ class SoundEngine {
     this.currentBgm = 'off';
   }
 
-  private startBgmTrack(track: BgmTrack) {
-    this.stopBgmLoop();
+  private startProceduralBgmTrack(track: BgmTrack) {
+    if (this.bgmTimer !== null) {
+      clearInterval(this.bgmTimer);
+      this.bgmTimer = null;
+    }
     this.currentBgm = track;
     this.bgmStep = 0;
 
-    // Dispara o primeiro ciclo imediatamente
+    // Dispara o primeiro compasso imediatamente
     this.tickBgmCycle(track);
 
-    // Intervalo de ciclo para cada clima sonoro
-    const intervalMs = track === 'energetic' ? 1600 : track === 'tension' ? 2600 : 2200;
+    // Andamento rítmico do compasso (Baião de estrada em ~116 BPM: 520ms por tempo / 1040ms por compasso duplo)
+    const intervalMs = track === 'energetic' ? 820 : track === 'tension' ? 2400 : 1080;
 
     this.bgmTimer = window.setInterval(() => {
       if (this.isMuted || this.currentBgm === 'off') {
@@ -326,94 +419,203 @@ class SoundEngine {
     if (this.isMuted) return;
 
     if (track === 'casual') {
-      // Clima aconchegante / cotidiano (Progressão Cmaj9 -> Am9 -> Fmaj7 -> G6)
-      const chordProgressions = [
-        [261.63, 329.63, 392.0, 493.88], // C4, E4, G4, B4
-        [220.0, 261.63, 329.63, 392.0],  // A3, C4, E4, G4
-        [174.61, 220.0, 261.63, 329.63], // F3, A3, C4, E4
-        [196.0, 246.94, 293.66, 349.23], // G3, B3, D4, F4
-      ];
+      // =====================================================================
+      // TEMA PRINCIPAL: BAIÃO & FREVO LO-FI DE ESTRADA (PANDA NA BR-101)
+      // Clima aventureiro, cômico e descontraído pernambucano (Sol Mixolídio)
+      // =====================================================================
+      const step = this.bgmStep % 16;
 
-      const chord = chordProgressions[this.bgmStep % chordProgressions.length];
-      chord.forEach((freq, idx) => {
+      // 1. Zabumba Sincopada (Pulso grave de forró/baião de estrada)
+      // Tempo forte no 1, repique característico no contratempo
+      const isZabumbaStep = step % 4 === 0 || step % 4 === 3;
+      if (isZabumbaStep) {
+        const bassFreq = (step < 8) ? 98.0 : 110.0; // G2 -> A2
+        this.playTone({
+          type: 'triangle',
+          startFreq: bassFreq,
+          endFreq: bassFreq * 0.92,
+          volume: 0.055,
+          duration: 0.22,
+        });
         this.playTone({
           type: 'sine',
-          startFreq: freq,
-          volume: 0.02,
-          duration: 1.8,
-          delay: idx * 0.12,
+          startFreq: bassFreq * 0.5,
+          endFreq: 38,
+          volume: 0.04,
+          duration: 0.18,
+        });
+      }
+
+      // 2. Triângulo Metálico de Estrada (Chimbau no contratempo)
+      [0.12, 0.38, 0.65].forEach((offset) => {
+        this.playTone({
+          type: 'triangle',
+          startFreq: 2850,
+          endFreq: 1950,
+          volume: 0.008,
+          duration: 0.03,
+          delay: offset,
         });
       });
+
+      // 3. Melodia Saltitante Nordestina (Pífano / Melódica Lo-Fi cômica em Sol Mixolídio)
+      // Fraseado vivo de comédia investigativa
+      const melodyPhases: Record<number, { freq: number; duration: number; delay: number }[]> = {
+        0: [
+          { freq: 392.0, duration: 0.22, delay: 0.0 },   // G4
+          { freq: 493.88, duration: 0.18, delay: 0.26 }, // B4
+        ],
+        1: [
+          { freq: 587.33, duration: 0.24, delay: 0.0 },  // D5
+          { freq: 698.46, duration: 0.22, delay: 0.26 }, // F5 (sabor mixolídio nordestino)
+        ],
+        2: [
+          { freq: 659.25, duration: 0.22, delay: 0.0 },  // E5
+          { freq: 587.33, duration: 0.26, delay: 0.24 }, // D5
+        ],
+        3: [
+          { freq: 493.88, duration: 0.32, delay: 0.0 },  // B4 (pausa/swing)
+        ],
+        4: [
+          { freq: 523.25, duration: 0.20, delay: 0.0 },  // C5
+          { freq: 659.25, duration: 0.20, delay: 0.24 }, // E5
+        ],
+        5: [
+          { freq: 783.99, duration: 0.24, delay: 0.0 },  // G5
+          { freq: 698.46, duration: 0.20, delay: 0.26 }, // F5
+        ],
+        6: [
+          { freq: 587.33, duration: 0.22, delay: 0.0 },  // D5
+          { freq: 493.88, duration: 0.22, delay: 0.24 }, // B4
+        ],
+        7: [
+          { freq: 392.0, duration: 0.38, delay: 0.0 },   // G4
+        ],
+        8: [
+          { freq: 440.0, duration: 0.20, delay: 0.0 },   // A4
+          { freq: 523.25, duration: 0.20, delay: 0.24 }, // C5
+        ],
+        9: [
+          { freq: 587.33, duration: 0.22, delay: 0.0 },  // D5
+          { freq: 523.25, duration: 0.18, delay: 0.24 }, // C5
+        ],
+        10: [
+          { freq: 493.88, duration: 0.22, delay: 0.0 },  // B4
+          { freq: 440.0, duration: 0.22, delay: 0.24 },  // A4
+        ],
+        11: [
+          { freq: 392.0, duration: 0.32, delay: 0.0 },   // G4
+        ],
+        12: [
+          { freq: 587.33, duration: 0.20, delay: 0.0 },  // D5
+          { freq: 698.46, duration: 0.24, delay: 0.22 }, // F5
+        ],
+        13: [
+          { freq: 783.99, duration: 0.26, delay: 0.0 },  // G5
+          { freq: 880.0, duration: 0.28, delay: 0.24 },  // A5
+        ],
+        14: [
+          { freq: 783.99, duration: 0.24, delay: 0.0 },  // G5
+          { freq: 659.25, duration: 0.22, delay: 0.24 }, // E5
+        ],
+        15: [
+          { freq: 392.0, duration: 0.45, delay: 0.0 },   // G4 (final triunfante)
+        ],
+      };
+
+      const notes = melodyPhases[step] || [];
+      notes.forEach((n) => {
+        this.playTone({
+          type: 'triangle',
+          startFreq: n.freq,
+          endFreq: n.freq * 0.99,
+          volume: 0.024,
+          duration: n.duration,
+          delay: n.delay,
+        });
+      });
+
       this.bgmStep++;
     } else if (track === 'tension') {
-      // Tensão / suspense (D2 sub-bass drone + acordes menores lentos)
-      const root = this.bgmStep % 2 === 0 ? 73.42 : 58.27; // D2 ou Bb1
-      const highTones = this.bgmStep % 2 === 0 ? [349.23, 440.0] : [329.63, 415.3]; // F4/A4 ou E4/Ab4
+      // =====================================================================
+      // TENSÃO & SUSPENSE INVESTIGATIVO NO CANAVIAL
+      // Dissonâncias menores, drone sombrio em Ré e pulso cardíaco distante
+      // =====================================================================
+      const isEven = this.bgmStep % 2 === 0;
+      const root = isEven ? 65.41 : 61.74; // C2 ou B1 (tensão cromática)
+      const dissonantChord = isEven
+        ? [293.66, 349.23, 415.3]  // D4, F4, G#4 (trítono investigativo)
+        : [277.18, 329.63, 440.0];  // C#4, E4, A4
 
-      // Sub-pulso
+      // Sub-pulso cardíaco
       this.playTone({
         type: 'triangle',
         startFreq: root,
-        endFreq: root * 0.98,
-        volume: 0.035,
-        duration: 2.2,
+        endFreq: root * 0.94,
+        volume: 0.05,
+        duration: 1.8,
       });
 
-      // Notas agudas sutis
-      highTones.forEach((freq, idx) => {
+      // Eco misterioso nas altas
+      dissonantChord.forEach((freq, idx) => {
         this.playTone({
           type: 'sine',
           startFreq: freq,
-          volume: 0.015,
-          duration: 1.9,
-          delay: 0.2 + idx * 0.25,
+          volume: 0.016,
+          duration: 1.6,
+          delay: 0.15 + idx * 0.28,
         });
       });
+
       this.bgmStep++;
     } else if (track === 'energetic') {
-      // Clima animado / agitado (arpejo rápido)
+      // =====================================================================
+      // AÇÃO / PERSEGUIÇÃO / FREVO DE COMBATE
+      // Ritmo rápido de galope, staccato enérgico e metais sintetizados
+      // =====================================================================
       const sequence = [
-        [440.0, 523.25], // A4, C5
-        [587.33, 659.25], // D5, E5
-        [783.99, 659.25], // G5, E5
-        [523.25, 440.0],  // C5, A4
+        [587.33, 783.99], // D5, G5
+        [880.0, 1046.5],  // A5, C6
+        [987.77, 880.0],  // B5, A5
+        [783.99, 587.33], // G5, D5
       ];
 
       const notes = sequence[this.bgmStep % sequence.length];
       notes.forEach((freq, idx) => {
         this.playTone({
-          type: 'sine',
+          type: 'sawtooth',
           startFreq: freq,
-          endFreq: freq * 0.96,
-          volume: 0.025,
-          duration: 0.2,
-          delay: idx * 0.25,
+          endFreq: freq * 0.97,
+          volume: 0.022,
+          duration: 0.14,
+          delay: idx * 0.18,
         });
       });
 
-      // Pulso rítmico de fundo
+      // Baixo percussivo acelerado
       this.playTone({
-        type: 'triangle',
-        startFreq: 110.0,
-        volume: 0.02,
-        duration: 0.3,
+        type: 'square',
+        startFreq: 146.83, // D3
+        endFreq: 73.42,
+        volume: 0.035,
+        duration: 0.16,
       });
 
       this.bgmStep++;
     } else if (track === 'romance') {
-      // Clima caloroso e carinhoso (E major / C# minor)
-      const romanticNotes = [
-        [329.63, 415.3, 493.88, 659.25], // E4, G#4, B4, E5
-        [277.18, 329.63, 415.3, 554.37], // C#4, E4, G#4, C#5
+      // Clima nostálgico / ameno (sem exagero romântico, voltado para memórias da viagem)
+      const memoriesNotes = [
+        [392.0, 493.88, 587.33], // Sol Maior sereno
+        [329.63, 392.0, 493.88], // Mi menor
       ];
-      const chord = romanticNotes[this.bgmStep % romanticNotes.length];
+      const chord = memoriesNotes[this.bgmStep % memoriesNotes.length];
       chord.forEach((freq, idx) => {
         this.playTone({
           type: 'sine',
           startFreq: freq,
-          volume: 0.022,
-          duration: 2.0,
-          delay: idx * 0.15,
+          volume: 0.018,
+          duration: 1.7,
+          delay: idx * 0.2,
         });
       });
       this.bgmStep++;
