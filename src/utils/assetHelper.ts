@@ -1,4 +1,5 @@
 import { BackgroundId, BACKGROUNDS, DEFAULT_BACKGROUND } from '../constants/backgrounds';
+import { CHARACTERS_METADATA } from '../constants/characters';
 
 /**
  * Auxiliar para resolução de caminhos de assets (sprites e cenários).
@@ -20,6 +21,20 @@ const ASSET_VERSION = 1;
 export const SUPPORTED_IMAGE_EXTENSIONS = ['webp', 'png', 'jfif', 'jpg', 'jpeg'] as const;
 
 /**
+ * Mapeamento de sprite base/único por personagem, extraído de CHARACTERS_METADATA.
+ * Permite que cada panda com foto real seja exibido como fallback universal para qualquer pose.
+ */
+export const CHARACTER_BASE_SPRITES: Record<string, string> = Object.entries(CHARACTERS_METADATA).reduce(
+  (acc, [id, meta]) => {
+    if (meta.baseSprite) {
+      acc[id] = meta.baseSprite;
+    }
+    return acc;
+  },
+  {} as Record<string, string>
+);
+
+/**
  * Retorna o caminho do sprite no formato WebP moderno (alta compressão com canal alfa).
  */
 export function getSpriteWebpPath(characterId: string, expression: string): string {
@@ -34,9 +49,13 @@ export function getSpritePngPath(characterId: string, expression: string): strin
 }
 
 /**
- * Retorna o caminho primário do sprite (WebP preferencial por padrão).
+ * Retorna o caminho primário do sprite (WebP preferencial ou foto base se cadastrada).
  */
 export function getSpritePath(characterId: string, expression: string): string {
+  const baseSprite = CHARACTER_BASE_SPRITES[characterId];
+  if (baseSprite) {
+    return `./assets/sprites/${characterId}/${baseSprite}?v=${ASSET_VERSION}`;
+  }
   return getSpriteWebpPath(characterId, expression);
 }
 
@@ -44,13 +63,19 @@ export function getSpritePath(characterId: string, expression: string): string {
  * Retorna todos os caminhos candidatos para um sprite em ordem de preferência:
  * 1. Expressão solicitada em .webp, .png, .jfif, .jpg, .jpeg
  * 2. Expressão alternativa ou 'neutral' nas mesmas extensões
+ * 3. Foto base universal do personagem (ex.: CipriPanda.jfif)
  */
 export function getSpriteCandidates(characterId: string, expression: string): string[] {
   const candidates: string[] = [];
 
   const addExprCandidates = (expr: string) => {
-    for (const ext of SUPPORTED_IMAGE_EXTENSIONS) {
-      candidates.push(`./assets/sprites/${characterId}/${expr}.${ext}?v=${ASSET_VERSION}`);
+    if (!expr) return;
+    if (expr.includes('.')) {
+      candidates.push(`./assets/sprites/${characterId}/${expr}?v=${ASSET_VERSION}`);
+    } else {
+      for (const ext of SUPPORTED_IMAGE_EXTENSIONS) {
+        candidates.push(`./assets/sprites/${characterId}/${expr}.${ext}?v=${ASSET_VERSION}`);
+      }
     }
   };
 
@@ -67,14 +92,28 @@ export function getSpriteCandidates(characterId: string, expression: string): st
     addExprCandidates('neutral');
   }
 
+  // 3. Fallback universal para o sprite base do personagem (ex: CipriPanda.jfif)
+  const baseSprite = CHARACTER_BASE_SPRITES[characterId];
+  if (baseSprite) {
+    addExprCandidates(baseSprite);
+    const stem = baseSprite.replace(/\.[^.]+$/, '');
+    if (stem !== baseSprite) {
+      addExprCandidates(stem);
+    }
+  }
+
   // Remove duplicatas preservando a ordem
   return Array.from(new Set(candidates));
 }
 
 /**
- * Retorna o fallback secundário direto em PNG para compatibilidade com código existente.
+ * Retorna o fallback secundário direto para compatibilidade com código existente.
  */
 export function getFallbackSpritePath(characterId: string, expression: string): string | null {
+  const baseSprite = CHARACTER_BASE_SPRITES[characterId];
+  if (baseSprite) {
+    return `./assets/sprites/${characterId}/${baseSprite}?v=${ASSET_VERSION}`;
+  }
   return getSpritePngPath(characterId, expression);
 }
 

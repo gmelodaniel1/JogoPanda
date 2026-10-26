@@ -11,7 +11,7 @@ const { ALL_EPISODES, EPISODE_NUMBERS } = require('../src/data/episodes');
 const { validateEpisodeScript } = require('../src/utils/episodeParser');
 const { CHARACTERS_METADATA } = require('../src/constants/characters');
 const { BACKGROUNDS } = require('../src/constants/backgrounds');
-const { getBackgroundCandidates, getBackgroundPath } = require('../src/utils/assetHelper');
+const { getBackgroundCandidates, getBackgroundPath, getSpriteCandidates } = require('../src/utils/assetHelper');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
@@ -74,8 +74,11 @@ for (const epNum of EPISODE_NUMBERS) {
         console.error(`[ERRO DE PERSONAGEM] Personagem "${sp.characterId}" no nó "${nodeId}" não existe em CHARACTERS_METADATA.`);
         totalErrors++;
       } else {
-        const exts = ['.webp', '.png', '.jfif', '.jpg', '.jpeg'];
-        const exists = exts.some((ext) => fs.existsSync(path.join(SPRITES_DIR, sp.characterId, `${sp.expression}${ext}`)));
+        const candidates = getSpriteCandidates(sp.characterId, sp.expression);
+        const exists = candidates.some((cand) => {
+          const cleanRel = cand.replace(/^\.\//, '').split('?')[0];
+          return fs.existsSync(path.join(PUBLIC_DIR, cleanRel));
+        });
         if (exists) {
           customSpritesFound++;
         } else {
@@ -136,7 +139,7 @@ for (const epNum of EPISODE_NUMBERS) {
 
   console.log(`Total de escolhas interativas: ${choiceCount} | Nós de desfecho: ${endingCount}`);
   console.log(`Cenários: ${realBackgroundNodes} nós com fotos reais (${Array.from(verifiedBackgroundFiles).join(', ')}), ${placeholderBackgroundNodes} nós com SVG estilizado.`);
-  console.log(`Assets visuais: ${customSpritesFound} sprites PNG reais, ${placeholderSprites} utilizando avatar SVG dinâmico.`);
+  console.log(`Assets visuais: ${customSpritesFound} falas com sprites reais com fotos mapeadas, ${placeholderSprites} utilizando avatar SVG dinâmico.`);
 }
 
 console.log(`\n========================================`);

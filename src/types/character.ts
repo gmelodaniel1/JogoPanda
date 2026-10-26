@@ -34,4 +34,5 @@ export interface CharacterMeta {
   badgeColor: string;       // Cor do badge/cargo
   defaultExpression: string;
   knownExpressions: string[];
+  baseSprite?: string;      // Arquivo representativo do personagem (ex: CipriPanda.jfif)
 }
