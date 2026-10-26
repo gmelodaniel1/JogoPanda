@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CharacterSpriteConfig } from '../../types/character';
+import { CHARACTERS_METADATA } from '../../constants/characters';
 import { getSpriteCandidates } from '../../utils/assetHelper';
 import { assetPreloader } from '../../utils/assetPreloader';
 import { CharacterAvatarSvg } from '../placeholders/CharacterAvatarSvg';
@@ -131,6 +132,9 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
     'none': '',
   }[config.animation || 'slide-up-fade'];
 
+  const charMeta = config ? CHARACTERS_METADATA[config.characterId] : undefined;
+  const themeColor = charMeta?.themeColor || '#ec4899';
+
   const transformParts = [
     config.flipHorizontal ? 'scaleX(-1)' : '',
     config.scale ? `scale(${config.scale})` : '',
@@ -139,8 +143,20 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
   const focusClasses = isDimmed
     ? 'brightness-[0.70] contrast-[0.92] scale-[0.96] opacity-90 z-10'
     : isActiveSpeaker
-    ? 'brightness-100 contrast-100 scale-100 opacity-100 z-20 drop-shadow-[0_10px_25px_rgba(236,72,153,0.2)]'
+    ? 'brightness-105 contrast-105 scale-100 opacity-100 z-20'
     : 'brightness-100 contrast-100 scale-100 opacity-100 z-10';
+
+  const activeShadowStyle: React.CSSProperties = {
+    filter: isActiveSpeaker
+      ? `drop-shadow(0 0 22px ${themeColor}66) drop-shadow(0 15px 30px rgba(0,0,0,0.7))`
+      : 'drop-shadow(0 15px 30px rgba(0,0,0,0.6))',
+    transition: 'filter 300ms ease-out',
+  };
+
+  const portraitMaskStyle: React.CSSProperties = {
+    WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 72%, transparent 98%)',
+    maskImage: 'linear-gradient(to bottom, black 0%, black 72%, transparent 98%)',
+  };
 
   return (
     <div
@@ -161,13 +177,16 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
           }}
         >
           {!imageError && (loadedUrl || prevUrl) ? (
-            <div className="relative h-full flex items-end justify-center">
+            <div
+              className="relative h-full flex items-end justify-center rounded-2xl sm:rounded-3xl"
+              style={{ ...activeShadowStyle, ...portraitMaskStyle }}
+            >
               {/* Expressão anterior (mantida no fundo durante o fade para eliminar jitter de cabeça) */}
               {prevUrl && (
                 <img
                   src={prevUrl}
                   alt={`${config.characterId} - anterior`}
-                  className="h-full w-auto object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] select-none pointer-events-none absolute inset-0 z-0 opacity-80"
+                  className="h-full w-auto object-contain object-bottom select-none pointer-events-none absolute inset-0 z-0 opacity-80 rounded-2xl sm:rounded-3xl"
                 />
               )}
 
@@ -177,15 +196,17 @@ export const CharacterSprite: React.FC<CharacterSpriteProps> = ({
                   key={loadedUrl}
                   src={loadedUrl}
                   alt={`${config.characterId} - ${config.expression}`}
-                  className="h-full w-auto object-contain object-bottom drop-shadow-[0_20px_35px_rgba(0,0,0,0.6)] select-none pointer-events-none relative z-10 transition-opacity duration-300 animate-fade-in"
+                  className="h-full w-auto object-contain object-bottom select-none pointer-events-none relative z-10 transition-opacity duration-300 animate-fade-in rounded-2xl sm:rounded-3xl"
                 />
               )}
             </div>
           ) : (
-            <CharacterAvatarSvg
-              characterId={config.characterId}
-              expression={config.expression}
-            />
+            <div style={activeShadowStyle}>
+              <CharacterAvatarSvg
+                characterId={config.characterId}
+                expression={config.expression}
+              />
+            </div>
           )}
         </div>
       </div>

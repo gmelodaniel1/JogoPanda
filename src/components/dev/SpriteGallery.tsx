@@ -343,7 +343,7 @@ export const SpriteGallery: React.FC<SpriteGalleryProps> = ({ onClose }) => {
                                   setFailedSprites((prev) => ({ ...prev, [spriteKey]: true }));
                                 }
                               }}
-                              className="h-full w-auto object-contain object-bottom transition-transform duration-200 group-hover:scale-105"
+                              className="h-full w-auto object-contain object-bottom rounded-xl drop-shadow-md transition-transform duration-200 group-hover:scale-105"
                             />
                           ) : (
                             <CharacterAvatarSvg characterId={selectedCharId} expression={expr} />

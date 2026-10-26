@@ -56,11 +56,15 @@ export const MainMenu: React.FC<MainMenuProps> = ({
 
       {/* Sprites laterais de apresentação (apenas telas grandes) */}
       {leftSprite && (
-        <div className="fixed -bottom-6 left-2 lg:left-12 hidden lg:block w-72 lg:w-96 pointer-events-none opacity-85 transition-opacity duration-500">
+        <div className="fixed -bottom-6 left-2 lg:left-12 hidden lg:block w-72 lg:w-96 pointer-events-none opacity-90 transition-opacity duration-500">
           <img
             src={getSpritePath(leftSprite.characterId, leftSprite.expression)}
             alt={CHARACTERS_METADATA[leftSprite.characterId].name}
-            className="w-full h-auto drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)] filter contrast-105"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 98%)',
+              maskImage: 'linear-gradient(to bottom, black 65%, transparent 98%)',
+            }}
+            className="w-full h-auto rounded-3xl drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)] filter contrast-105"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
@@ -69,11 +73,15 @@ export const MainMenu: React.FC<MainMenuProps> = ({
       )}
 
       {rightSprite && (
-        <div className="fixed -bottom-6 right-2 lg:right-12 hidden lg:block w-72 lg:w-96 pointer-events-none opacity-85 transition-opacity duration-500">
+        <div className="fixed -bottom-6 right-2 lg:right-12 hidden lg:block w-72 lg:w-96 pointer-events-none opacity-90 transition-opacity duration-500">
           <img
             src={getSpritePath(rightSprite.characterId, rightSprite.expression)}
             alt={CHARACTERS_METADATA[rightSprite.characterId].name}
-            className="w-full h-auto drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)] filter contrast-105"
+            style={{
+              WebkitMaskImage: 'linear-gradient(to bottom, black 65%, transparent 98%)',
+              maskImage: 'linear-gradient(to bottom, black 65%, transparent 98%)',
+            }}
+            className="w-full h-auto rounded-3xl drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)] filter contrast-105"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
             }}
