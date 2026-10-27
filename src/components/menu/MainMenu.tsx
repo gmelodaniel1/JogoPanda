@@ -91,18 +91,31 @@ export const MainMenu: React.FC<MainMenuProps> = ({
 
       {/* Painel Central do Menu */}
       <div className="relative z-20 flex flex-col items-center justify-center max-w-xl mx-auto my-auto px-2 sm:px-6 text-center animate-fade-in w-full">
+        {/* Mascote Oficial Panda de Ferro (Tela Inicial) */}
+        <div className="relative mb-2 sm:mb-3 flex items-center justify-center">
+          <div className="absolute inset-0 rounded-full bg-red-500/20 blur-2xl pointer-events-none" />
+          <img
+            src="./assets/sprites/panda_tela_inicial.webp?v=3"
+            alt="Mascote Panda de Ferro"
+            className="relative w-28 sm:w-36 md:w-44 h-auto object-contain drop-shadow-[0_12px_25px_rgba(0,0,0,0.85)] animate-sprite-bob select-none pointer-events-none"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = './assets/sprites/panda_tela_inicial.png?v=3';
+            }}
+          />
+        </div>
+
         {/* Selo do Jogo */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-slate-900/90 border border-red-500/40 shadow-lg text-[10px] sm:text-xs font-bold text-red-300 uppercase tracking-widest mb-3 sm:mb-4 backdrop-blur-md">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-slate-900/90 border border-red-500/40 shadow-lg text-[10px] sm:text-xs font-bold text-red-300 uppercase tracking-widest mb-2 sm:mb-3 backdrop-blur-md">
           <Heart className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-red-500 text-red-500 animate-pulse" />
           <span>{GAME_CONFIG.badge}</span>
         </div>
 
         {/* Logotipo do Jogo */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-rose-300 to-amber-300 drop-shadow-[0_4px_20px_rgba(239,68,68,0.4)] mb-2 leading-tight">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-rose-300 to-amber-300 drop-shadow-[0_4px_20px_rgba(239,68,68,0.4)] mb-1.5 leading-tight">
           {GAME_CONFIG.title}
         </h1>
 
-        <p className="text-xs sm:text-sm md:text-base font-medium text-slate-300 max-w-md mx-auto mb-5 sm:mb-8 leading-relaxed drop-shadow">
+        <p className="text-xs sm:text-sm md:text-base font-medium text-slate-300 max-w-md mx-auto mb-4 sm:mb-6 leading-relaxed drop-shadow">
           {GAME_CONFIG.tagline}
         </p>
 

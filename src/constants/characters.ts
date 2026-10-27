@@ -102,6 +102,7 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#fbbf24', // Dourado solar
     badgeColor: '#d97706',
+    baseSprite: 'conrado_bom_dia.webp',
     defaultExpression: 'conrado_bom_dia',
     knownExpressions: ['conrado_bom_dia'],
   },
@@ -145,6 +146,7 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#7c3aed', // Roxo industrial
     badgeColor: '#6d28d9',
+    baseSprite: 'robo_artcomercial.webp',
     defaultExpression: 'robo_artcomercial',
     knownExpressions: ['robo_artcomercial', 'robo_artcomercial_curto'],
   },
@@ -201,6 +203,7 @@ const _RAW_CHARACTERS = {
     hasRomanceRoute: false,
     themeColor: '#a855f7',
     badgeColor: '#9333ea',
+    baseSprite: 'neutral.webp',
     defaultExpression: 'neutral',
     knownExpressions: ['neutral'],
   },

@@ -15,7 +15,7 @@ const EXPRESSION_FALLBACKS: Record<string, string> = {
 };
 
 /** Incremente para forçar o navegador a recarregar sprites após substituí-los. */
-const ASSET_VERSION = 2;
+const ASSET_VERSION = 3;
 
 /** Extensões de imagem suportadas em ordem de prioridade técnica */
 export const SUPPORTED_IMAGE_EXTENSIONS = ['webp', 'png', 'jfif', 'jpg', 'jpeg'] as const;

@@ -408,6 +408,65 @@ def process_itaberaba_noticias():
     save_pose_expressions(pose_img, "itaberaba_noticias", ["robo_itaberaba", "robo_itaberaba_curto"])
 
 
+def process_artcomercial():
+    print("\n--- Processando ArtComercial ---")
+    path = os.path.join(SPRITES_DIR, "artcomercial", "ArtPanda.jfif")
+    raw = np.array(Image.open(path).convert("RGB"))
+    bg = get_bg_color(raw)
+    rgba = chroma_key_rgba(raw, bg, strict_despill=True)
+    # Garante opacidade e cores originais estritamente dentro da tela do monitor CRT da ArtComercial
+    rgba[145:375, 215:560, :3] = raw[145:375, 215:560, :3]
+    rgba[145:375, 215:560, 3] = 255
+    pose_img = trim_and_pad_pose(rgba, pad_x=6, trim_bottom=True)
+    save_pose_expressions(pose_img, "artcomercial", ["robo_artcomercial", "robo_artcomercial_curto"])
+
+
+def process_conrado():
+    print("\n--- Processando Conrado ---")
+    path = os.path.join(SPRITES_DIR, "conrado", "ConradoPanda.jfif")
+    raw = np.array(Image.open(path).convert("RGB"))
+    bg = get_bg_color(raw)
+    rgba = chroma_key_rgba(raw, bg, strict_despill=True)
+
+    # Restaura o brilho dourado semitransparente da auréola e estrelas ao redor de Conrado (sem tom verde)
+    r = raw[:, :, 0].astype(np.float32)
+    g = raw[:, :, 1].astype(np.float32)
+    b = raw[:, :, 2].astype(np.float32)
+    halo_zone = np.zeros(r.shape, dtype=bool)
+    halo_zone[90:470, 120:650] = True
+    is_golden_glow = halo_zone & (rgba[:, :, 3] < 220) & (r > 52.0) & (g > 150.0)
+
+    glow_alpha = np.clip((r - 42.0) / 145.0, 0.0, 1.0)
+    new_alpha = np.maximum(rgba[:, :, 3].astype(np.float32) / 255.0, glow_alpha)
+
+    rgba[:, :, 0] = np.where(is_golden_glow, np.clip(r * 1.25 + 35.0, 0, 255), rgba[:, :, 0]).astype(np.uint8)
+    rgba[:, :, 1] = np.where(is_golden_glow, np.clip(r * 1.12 + 20.0, 0, 255), rgba[:, :, 1]).astype(np.uint8)
+    rgba[:, :, 2] = np.where(is_golden_glow, np.clip(b * 1.05, 0, 255), rgba[:, :, 2]).astype(np.uint8)
+    rgba[:, :, 3] = np.where(is_golden_glow, np.clip(new_alpha * 255.0, 0, 255), rgba[:, :, 3]).astype(np.uint8)
+
+    pose_img = trim_and_pad_pose(rgba, pad_x=0)
+    save_pose_expressions(pose_img, "conrado", ["conrado_bom_dia"])
+
+
+def process_panda_tela_inicial():
+    print("\n--- Processando Panda Tela Inicial & Protagonista ---")
+    path = os.path.join(SPRITES_DIR, "PandaTelaInicial.jfif")
+    raw = np.array(Image.open(path).convert("RGB"))
+    bg = get_bg_color(raw)
+    rgba = chroma_key_rgba(raw, bg, strict_despill=True)
+    pose_img = trim_and_pad_pose(rgba, pad_x=8, trim_bottom=True)
+
+    # Salva para a Tela Inicial (Main Menu)
+    webp_main = os.path.join(SPRITES_DIR, "panda_tela_inicial.webp")
+    png_main = os.path.join(SPRITES_DIR, "panda_tela_inicial.png")
+    pose_img.save(webp_main, format="WEBP", quality=95, method=6)
+    pose_img.save(png_main, format="PNG", optimize=True)
+    print(f"  [OK] panda_tela_inicial (.webp & .png) -> {pose_img.size[0]}x{pose_img.size[1]}")
+
+    # Salva também para o protagonista (100% cobertura na auditoria)
+    save_pose_expressions(pose_img, "protagonist", ["neutral"])
+
+
 if __name__ == "__main__":
     process_cipriano()
     process_pedro_ivo()
@@ -420,5 +479,8 @@ if __name__ == "__main__":
     process_sandro_vagner()
     process_conecta_professores()
     process_itaberaba_noticias()
+    process_artcomercial()
+    process_conrado()
+    process_panda_tela_inicial()
     print("\n[SUCESSO v2] Todos os sprites foram recortados sem halo verde e com nitidez máxima!")
 
